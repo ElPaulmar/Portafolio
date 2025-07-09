@@ -1,62 +1,67 @@
 (function($) {
-
-    var $window = $(window),
-        $body = $('body'),
-        $header = $('#header'),
-        $banner = $('#banner');
-
-    // Breakpoints
-    breakpoints({
-        xlarge: '(max-width: 1680px)',
-        large: '(max-width: 1280px)',
-        medium: '(max-width: 980px)',
-        small: '(max-width: 736px)',
-        xsmall: '(max-width: 480px)'
-    });
-
-    // Remove preload class on page load
-    $window.on('load', function() {
-        setTimeout(function() {
-            $body.removeClass('is-preload');
-        }, 100);
-    });
-
+    // Preload
+    setTimeout(function() {
+        $('body').removeClass('is-preload');
+    }, 100);
+    
     // Header scroll effect
-    $window.on('scroll', function() {
-        if ($window.scrollTop() > 50) {
-            $header.css({
-                'background-color': 'rgba(55, 42, 42, 0.98)',
-                'box-shadow': '0 2px 10px rgba(0,0,0,0.1)'
-            });
-        } else {
-            $header.css({
-                'background-color': 'rgba(55, 42, 42, 0.95)',
-                'box-shadow': 'none'
-            });
-        }
+    $(window).on('scroll', function() {
+        var scrollTop = $(this).scrollTop();
+        
+        // Header effect
+        $('#header').css({
+            'background-color': scrollTop > 50 
+                ? 'rgba(58, 50, 38, 0.98)' 
+                : 'rgba(58, 50, 38, 0.95)',
+            'box-shadow': scrollTop > 50 
+                ? '0 2px 10px rgba(0,0,0,0.1)' 
+                : 'none'
+        });
+        
+        // Scroll progress
+        var scrollPercent = (scrollTop / ($(document).height() - $(this).height())) * 100;
+        $('body').css('--scroll-progress', scrollPercent + '%');
     });
-
+    
     // Smooth scrolling for anchor links
-    $('a[href^="#"]').on('click', function(e) {
-        if ($(this).attr('href') === '#') return;
-        
-        e.preventDefault();
-        var target = $(this.getAttribute('href'));
-        if (target.length) {
-            $('html, body').stop().animate({
-                scrollTop: target.offset().top - 70
-            }, 800, 'easeInOutExpo');
+    $('body').on('click', 'a[href^="#"]', function(e) {
+        if ($(this).attr('href') !== '#') {
+            e.preventDefault();
+            var target = $(this.getAttribute('href'));
+            if (target.length) {
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top - 70
+                }, 800, 'easeInOutExpo');
+            }
         }
     });
-
+    
     // Toggle development process
-    $('.toggle-process').on('click', function(e) {
+    $('body').on('click', '.toggle-process', function(e) {
         e.preventDefault();
-        var $this = $(this),
-            $process = $this.closest('.project-content').find('.development-process');
-        
-        $process.toggleClass('active');
-        $this.find('i').toggleClass('fa-chevron-down fa-chevron-up');
+        var $this = $(this);
+        $this.find('i').toggleClass('fa-chevron-down fa-chevron-up')
+            .closest('.project-content').find('.development-process').toggleClass('active');
     });
-
+    
+    // Form handling
+    $('#contact-form').on('submit', function(e) {
+        e.preventDefault();
+        var $feedback = $('#form-feedback');
+        $feedback.removeClass('error success').text('Enviando mensaje...').fadeIn();
+        
+        setTimeout(function() {
+            $feedback.addClass('success').text('¡Mensaje enviado con éxito!');
+            $(this).trigger('reset');
+        }.bind(this), 1500);
+    });
+    
+    // Form field focus effects
+    $('.contact-form input, .contact-form textarea')
+        .on('focus', function() {
+            $(this).parent().find('label').css('color', 'var(--secondary)');
+        })
+        .on('blur', function() {
+            $(this).parent().find('label').css('color', '');
+        });
 })(jQuery);
