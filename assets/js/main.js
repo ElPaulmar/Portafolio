@@ -25,12 +25,12 @@
     $window.on('scroll', function() {
         if ($window.scrollTop() > 50) {
             $header.css({
-                'background-color': 'rgba(68, 56, 80, 0.98)',
+                'background-color': 'rgba(55, 42, 42, 0.98)',
                 'box-shadow': '0 2px 10px rgba(0,0,0,0.1)'
             });
         } else {
             $header.css({
-                'background-color': 'rgba(68, 56, 80, 0.95)',
+                'background-color': 'rgba(55, 42, 42, 0.95)',
                 'box-shadow': 'none'
             });
         }
@@ -47,6 +47,16 @@
                 scrollTop: target.offset().top - 70
             }, 800, 'easeInOutExpo');
         }
+    });
+
+    // Toggle development process
+    $('.toggle-process').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            $process = $this.closest('.project-content').find('.development-process');
+        
+        $process.toggleClass('active');
+        $this.find('i').toggleClass('fa-chevron-down fa-chevron-up');
     });
 
 })(jQuery);
