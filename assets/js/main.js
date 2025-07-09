@@ -46,6 +46,11 @@
         setTimeout(function() {
             $feedback.addClass('success').text('¡Mensaje enviado con éxito!');
             $(this).trigger('reset');
+            
+            // Ocultar feedback después de 5 segundos
+            setTimeout(function() {
+                $feedback.fadeOut();
+            }, 5000);
         }.bind(this), 1500);
     });
     
@@ -57,4 +62,61 @@
         .on('blur', function() {
             $(this).parent().find('label').css('color', '');
         });
+    
+    // Animaciones de scroll
+    function scrollAnimation() {
+        const elements = $('[data-scroll]');
+        const windowHeight = $(window).height() * 0.8;
+        
+        elements.each(function() {
+            const elementPosition = $(this).offset().top;
+            const scrollPosition = $(window).scrollTop() + windowHeight;
+            
+            if (scrollPosition > elementPosition) {
+                $(this).attr('data-scroll', 'in');
+            }
+        });
+    }
+    
+    // Inicializar animaciones
+    $(window).on('load', scrollAnimation);
+    $(window).on('scroll', scrollAnimation);
+    
+    // Detección de touch
+    function isTouchDevice() {
+        return 'ontouchstart' in window || navigator.maxTouchPoints;
+    }
+    
+    // Ajustar comportamientos para touch
+    if(isTouchDevice()) {
+        $('html').addClass('touch-device');
+        
+        // Deshabilitar hover en elementos importantes
+        $('.skill-category, .improved-project').css('transform', 'none');
+        
+        // Mejorar el formulario para móviles
+        $('input, textarea, select').attr({
+            'autocorrect': 'off',
+            'autocapitalize': 'off',
+            'spellcheck': 'false'
+        });
+    }
+    
+    // Precarga de imágenes críticas
+    function preloadImages() {
+        const images = [
+            'images/tu-foto.jpg',
+            'images/título-overhaul.jpg',
+            'images/título-espíritus.jpg',
+            'images/título-napi.jpg',
+            'images/proyecto-universitario.jpg'
+        ];
+        
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }
+    
+    $(document).ready(preloadImages);
 })(jQuery);

@@ -1,14 +1,18 @@
 /* ===== VARIABLES Y ESTILOS BASE ===== */
 :root {
-    --primary: #184033;
-    --secondary: #68B576;
-    --dark: #33271C;
-    --accent: #6A242B;
-    --text: #33271C;
-    --text-light: #FFFFFF;
-    --card-bg: rgba(104, 181, 118, 0.1);
-    --section-light: rgba(104, 181, 118, 0.05);
-    --section-dark: rgba(24, 64, 51, 0.1);
+    /* Colores base inspirados en naturaleza */
+    --primary: #2A5C54; /* Verde oscuro profundo */
+    --secondary: #7EB09B; /* Verde menta suave */
+    --dark: #1E3A34; /* Casi negro verdoso */
+    --accent: #D4A373; /* Terracota cálido */
+    --text: #333333; /* Gris oscuro para legibilidad */
+    --text-light: #F8F9FA; /* Blanco ligeramente cálido */
+    
+    /* Texturas */
+    --bg-texture: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231E3A34" opacity="0.9"/><path d="M0 0 L100 100 M100 0 L0 100" stroke="%232A5C54" stroke-width="0.5" opacity="0.2"/><circle cx="20" cy="20" r="3" fill="%237EB09B" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%237EB09B" opacity="0.1"/></svg>');
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --section-light: rgba(126, 176, 155, 0.08);
+    --section-dark: rgba(42, 92, 84, 0.1);
 }
 
 /* Reset y Tipografía */
@@ -20,7 +24,9 @@ body {
     font-family: 'Open Sans', sans-serif;
     line-height: 1.6;
     color: var(--text);
-    background: var(--section-light);
+    background-color: var(--dark);
+    background-image: var(--bg-texture);
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
 }
@@ -28,8 +34,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
-    color: var(--text);
+    color: var(--dark);
     margin: 0 0 1em 0;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
 }
 
 h2 {
@@ -37,6 +45,13 @@ h2 {
     border-bottom: 2px solid var(--secondary);
     padding-bottom: 0.3em;
     display: inline-block;
+}
+
+.section-subtitle {
+    color: var(--primary);
+    font-size: 1.1em;
+    margin-bottom: 2em;
+    display: block;
 }
 
 a {
@@ -94,7 +109,9 @@ a:hover {
 
 /* ===== HEADER ===== */
 #header {
-    background-color: var(--dark);
+    background-color: rgba(30, 58, 52, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     height: 4em;
     line-height: 4em;
     position: fixed;
@@ -106,7 +123,7 @@ a:hover {
 }
 
 #header.scrolled {
-    background-color: rgba(51, 39, 28, 0.95);
+    background-color: rgba(30, 58, 52, 0.95);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
@@ -201,6 +218,7 @@ a:hover {
     font-size: 1.1em;
     line-height: 1.6;
     margin-bottom: 1.5em;
+    color: rgba(255,255,255,0.9);
 }
 
 .hero-actions {
@@ -217,11 +235,13 @@ a:hover {
 }
 
 .skill-category {
-    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 2em;
     border-radius: 8px;
     border-left: 4px solid var(--secondary);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease;
 }
 
@@ -255,10 +275,12 @@ a:hover {
 
 /* ===== PROYECTOS DESTACADOS ===== */
 .project-card {
-    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     margin-bottom: 3em;
 }
@@ -322,6 +344,7 @@ a:hover {
     font-size: 0.8em;
     font-weight: 600;
     border: 1px solid var(--secondary);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .project-content {
@@ -361,6 +384,7 @@ a:hover {
     font-size: 0.8em;
     font-weight: 600;
     border: 1px solid var(--primary);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .project-actions {
@@ -446,10 +470,12 @@ a:hover {
 }
 
 .improved-project {
-    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -531,7 +557,10 @@ a:hover {
 }
 
 .contact-form {
-    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 2em;
     border-radius: 8px;
 }
@@ -579,7 +608,10 @@ a:hover {
 }
 
 .contact-info {
-    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 2em;
     border-radius: 8px;
 }
@@ -630,6 +662,7 @@ a:hover {
     background: rgba(104, 181, 118, 0.1);
     color: var(--primary);
     transition: all 0.3s ease;
+    will-change: transform;
 }
 
 .social-icon:hover {
@@ -656,8 +689,9 @@ a:hover {
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     gap: 0.5em;
+    min-height: 44px;
 }
 
 .button:hover {
@@ -730,6 +764,29 @@ a:hover {
     border: 1px solid #d33;
 }
 
+/* ===== ANIMACIONES DE SCROLL ===== */
+[data-scroll] {
+    opacity: 0;
+    transition: opacity 0.6s, transform 0.6s;
+}
+
+[data-scroll="in"] {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-scroll="up"] {
+    transform: translateY(30px);
+}
+
+[data-scroll="left"] {
+    transform: translateX(-30px);
+}
+
+[data-scroll="right"] {
+    transform: translateX(30px);
+}
+
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 980px) {
     .hero-content, .project-header, .contact-container {
@@ -785,6 +842,51 @@ a:hover {
     }
 }
 
+@media screen and (max-width: 600px) {
+    /* Ajustes específicos para móviles pequeños */
+    #banner {
+        padding: 5em 0 2em 0;
+    }
+    
+    .hero-content {
+        text-align: center;
+    }
+    
+    .profile-container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 1.5em;
+    }
+    
+    .hero-actions {
+        gap: 1em;
+    }
+    
+    .project-header {
+        flex-direction: column;
+    }
+    
+    .project-basic-info {
+        min-width: auto;
+        margin-top: 1.5em;
+    }
+    
+    /* Mejora de legibilidad */
+    body {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    h2 {
+        font-size: 1.8em;
+    }
+    
+    /* Oculta elementos menos críticos en móviles */
+    .project-meta {
+        flex-direction: column;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .project-meta {
         flex-direction: column;
@@ -806,4 +908,10 @@ a:hover {
     .project-image-container {
         height: 200px;
     }
+}
+
+/* Estilos para dispositivos táctiles */
+.touch-device .skill-category,
+.touch-device .improved-project {
+    transform: none !important;
 }
