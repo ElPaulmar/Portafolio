@@ -14,11 +14,9 @@
             
             if (target.length) {
                 e.preventDefault();
-                $('html, body').animate({
+                $('html, body').stop().animate({
                     scrollTop: target.offset().top - 70
-                }, 800, 'easeInOutExpo', function() {
-                    window.location.hash = target.selector;
-                });
+                }, 800, 'easeInOutExpo');
             }
         }
     });

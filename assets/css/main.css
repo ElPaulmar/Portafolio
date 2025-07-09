@@ -6,7 +6,9 @@
     --accent: #6A242B;
     --text: #33271C;
     --text-light: #FFFFFF;
-    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: rgba(104, 181, 118, 0.1);
+    --section-light: rgba(104, 181, 118, 0.05);
+    --section-dark: rgba(24, 64, 51, 0.1);
 }
 
 /* Reset y Tipografía */
@@ -18,7 +20,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     line-height: 1.6;
     color: var(--text);
-    background: #FFFFFF;
+    background: var(--section-light);
     margin: 0;
     padding: 0;
 }
@@ -59,21 +61,29 @@ a:hover {
     padding: 0 2em;
 }
 
+/* Secciones con colores de la paleta */
 .wrapper.style1 { 
-    background: #FFFFFF;
+    background: var(--section-light);
+    border-top: 1px solid var(--section-dark);
+    border-bottom: 1px solid var(--section-dark);
 }
 
 .wrapper.style2 {
     background: var(--card-bg);
+    border-top: 1px solid rgba(104, 181, 118, 0.2);
+    border-bottom: 1px solid rgba(104, 181, 118, 0.2);
 }
 
 .wrapper.style3 {
-    background: #FFFFFF;
+    background: var(--section-light);
+    border-top: 1px solid var(--section-dark);
+    border-bottom: 1px solid var(--section-dark);
 }
 
 .wrapper.style4 {
     background: var(--dark);
     color: var(--text-light);
+    border-top: 1px solid rgba(106, 36, 43, 0.5);
 }
 
 .wrapper.style4 h2,
