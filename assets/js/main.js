@@ -4,19 +4,51 @@
         $('body').removeClass('is-preload');
     }, 100);
     
+    // Efecto Parallax
+    function setupParallax() {
+        const banner = document.getElementById('banner');
+        const parallaxBg = document.querySelector('.parallax-background');
+        
+        if (banner && parallaxBg) {
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.pageYOffset;
+                parallaxBg.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+            });
+        }
+    }
+    
+    // Intersection Observer para animaciones
+    function setupAnimations() {
+        const animateElements = document.querySelectorAll('[data-animate]');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('animated');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        animateElements.forEach(el => observer.observe(el));
+    }
+    
     // Header scroll effect
     $(window).on('scroll', function() {
         var scrollTop = $(this).scrollTop();
         
         // Header effect
-        $('#header').css({
-            'background-color': scrollTop > 50 
-                ? 'rgba(58, 50, 38, 0.98)' 
-                : 'rgba(58, 50, 38, 0.95)',
-            'box-shadow': scrollTop > 50 
-                ? '0 2px 10px rgba(0,0,0,0.1)' 
-                : 'none'
-        });
+        if (scrollTop > 50) {
+            $('#header').addClass('scrolled');
+        } else {
+            $('#header').removeClass('scrolled');
+        }
         
         // Scroll progress
         var scrollPercent = (scrollTop / ($(document).height() - $(this).height())) * 100;
@@ -64,4 +96,15 @@
         .on('blur', function() {
             $(this).parent().find('label').css('color', '');
         });
+    
+    // Inicialización cuando el DOM está listo
+    $(document).ready(function() {
+        setupParallax();
+        setupAnimations();
+    });
+    
+    // Volver a ejecutar animaciones al cambiar de tamaño de pantalla
+    $(window).on('resize', function() {
+        setupAnimations();
+    });
 })(jQuery);

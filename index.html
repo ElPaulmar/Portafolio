@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Paulo Marques | Diseñador de Juegos & Narrativas</title>
     <meta name="description" content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas y mecánicas innovadoras">
+    <!-- Meta Tags SEO -->
+    <meta name="keywords" content="game designer, diseñador de juegos, Unity, Unreal Engine, portfolio, portafolio, Chile, desarrollo de videojuegos, narrativa interactiva">
+    <meta name="author" content="Paulo Marques">
+    <meta property="og:title" content="Paulo Marques | Diseñador de Juegos & Narrativas">
+    <meta property="og:description" content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tu-portafolio.com">
+    <meta property="og:image" content="https://tu-portafolio.com/images/tu-foto.jpg">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/main.css">
     <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -22,12 +33,13 @@
             </nav>
         </header>
 
-        <!-- Hero Banner -->
-        <section id="banner">
+        <!-- Hero Banner con Parallax -->
+        <section id="banner" class="parallax">
+            <div class="parallax-background"></div>
             <div class="inner">
                 <div class="hero-content">
                     <div class="profile-container">
-                        <img src="images/tu-foto.jpg" class="profile-pic" alt="Foto de Paulo Marques">
+                        <img src="images/tu-foto.jpg" class="profile-pic" alt="Foto de Paulo Marques" loading="lazy">
                     </div>
                     <div class="hero-text">
                         <h2>Diseñador de Juegos Digitales</h2>
@@ -43,11 +55,11 @@
         </section>
 
         <!-- Habilidades -->
-        <section id="habilidades" class="wrapper style1">
+        <section id="habilidades" class="wrapper style1 transition-section">
             <div class="inner">
                 <h2 class="major">Habilidades Técnicas</h2>
                 <div class="skills-grid">
-                    <div class="skill-category">
+                    <div class="skill-category" data-animate="fade-up">
                         <h3><i class="fas fa-gamepad"></i> Diseño de Juegos</h3>
                         <ul class="skill-list">
                             <li><strong>Unity</strong>: 3 años de experiencia</li>
@@ -57,7 +69,7 @@
                             <li>Prototipado rápido</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
+                    <div class="skill-category" data-animate="fade-up" data-delay="100">
                         <h3><i class="fas fa-book"></i> Narrativa</h3>
                         <ul class="skill-list">
                             <li><strong>Twine</strong>: Historias interactivas</li>
@@ -66,7 +78,7 @@
                             <li>Estructuras narrativas no lineales</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
+                    <div class="skill-category" data-animate="fade-up" data-delay="200">
                         <h3><i class="fas fa-tools"></i> Herramientas</h3>
                         <ul class="skill-list">
                             <li><strong>Adobe CC</strong>: Suite creativa</li>
@@ -80,15 +92,15 @@
         </section>
 
         <!-- Proyectos Destacados -->
-        <section id="proyectos" class="wrapper style2">
+        <section id="proyectos" class="wrapper style2 transition-section">
             <div class="inner">
                 <h2 class="major">Proyectos Destacados</h2>
                 
                 <!-- Overhaul -->
-                <article class="project-card">
+                <article class="project-card" data-animate="fade-up">
                     <div class="project-header">
                         <div class="project-media">
-                            <img src="images/título-overhaul.jpg" alt="Overhaul" class="project-thumb">
+                            <img src="images/título-overhaul.jpg" alt="Overhaul" class="project-thumb" loading="lazy">
                         </div>
                         <div class="project-basic-info">
                             <div class="project-meta">
@@ -162,11 +174,11 @@
                             
                             <div class="project-gallery">
                                 <div class="gif-container">
-                                    <img src="images/overhaul-combat.gif" alt="Sistema de combate" class="project-gif">
+                                    <img src="images/overhaul-combat.gif" alt="Sistema de combate" class="project-gif" loading="lazy">
                                     <p>Transición fluida entre estilos</p>
                                 </div>
                                 <div class="gif-container">
-                                    <img src="images/overhaul-progression.gif" alt="Progresión de habilidades" class="project-gif">
+                                    <img src="images/overhaul-progression.gif" alt="Progresión de habilidades" class="project-gif" loading="lazy">
                                     <p>Menú de personalización</p>
                                 </div>
                             </div>
@@ -176,15 +188,20 @@
             </div>
         </section>
 
-        <!-- Otros Proyectos -->
-        <section id="otros-proyectos" class="wrapper style3">
+        <!-- Otros Proyectos - Versión Mejorada -->
+        <section id="otros-proyectos" class="wrapper style3 transition-section">
             <div class="inner">
                 <h2 class="major">Otros Proyectos</h2>
-                <div class="project-grid-compact">
+                <div class="improved-project-grid">
                     <!-- Espíritus de Hartshorn -->
-                    <article class="project-compact">
-                        <img src="images/título-espíritus.jpg" alt="Espíritus de Hartshorn">
-                        <div class="project-compact-content">
+                    <article class="improved-project" data-animate="fade-up">
+                        <div class="project-image-container">
+                            <img src="images/título-espíritus.jpg" alt="Espíritus de Hartshorn" loading="lazy">
+                            <div class="project-overlay">
+                                <a href="#" class="button small">Ver Detalles</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
                             <h3>Espíritus de Hartshorn</h3>
                             <div class="project-meta">
                                 <span>Ago-Dic 2023</span>
@@ -195,14 +212,18 @@
                                 <span class="role-tag">Diseñador</span>
                                 <span class="role-tag">Escritor</span>
                             </div>
-                            <a href="#" class="button small">Ver Detalles</a>
                         </div>
                     </article>
                     
                     <!-- Las Huellas de Napi -->
-                    <article class="project-compact">
-                        <img src="images/título-napi.jpg" alt="Las Huellas de Napi">
-                        <div class="project-compact-content">
+                    <article class="improved-project" data-animate="fade-up" data-delay="100">
+                        <div class="project-image-container">
+                            <img src="images/título-napi.jpg" alt="Las Huellas de Napi" loading="lazy">
+                            <div class="project-overlay">
+                                <a href="#" class="button small">Ver Demo</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
                             <h3>Las Huellas de Napi</h3>
                             <div class="project-meta">
                                 <span>Feb-Jun 2023</span>
@@ -213,14 +234,18 @@
                                 <span class="role-tag">Diseñador</span>
                                 <span class="role-tag">Programador</span>
                             </div>
-                            <a href="#" class="button small">Ver Demo</a>
                         </div>
                     </article>
                     
                     <!-- Sponji -->
-                    <article class="project-compact">
-                        <img src="images/proyecto-universitario.jpg" alt="Sponji y la Calamidad Cibernética">
-                        <div class="project-compact-content">
+                    <article class="improved-project" data-animate="fade-up" data-delay="200">
+                        <div class="project-image-container">
+                            <img src="images/proyecto-universitario.jpg" alt="Sponji y la Calamidad Cibernética" loading="lazy">
+                            <div class="project-overlay">
+                                <a href="#" class="button small">Ver Demo</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
                             <h3>Sponji y la Calamidad Cibernética</h3>
                             <div class="project-meta">
                                 <span>Feb-Jun 2022</span>
@@ -231,7 +256,6 @@
                                 <span class="role-tag">Diseñador</span>
                                 <span class="role-tag">Programador</span>
                             </div>
-                            <a href="#" class="button small">Ver Demo</a>
                         </div>
                     </article>
                 </div>
@@ -239,11 +263,11 @@
         </section>
 
         <!-- Footer / Contacto -->
-        <section id="contacto" class="wrapper style4">
+        <section id="contacto" class="wrapper style4 transition-section">
             <div class="inner">
                 <h2 class="major">Contacto</h2>
                 <div class="contact-container">
-                    <div class="contact-form">
+                    <div class="contact-form" data-animate="fade-right">
                         <form method="post" action="#" id="contact-form">
                             <div class="fields">
                                 <div class="field half">
@@ -265,7 +289,7 @@
                         </form>
                         <div id="form-feedback"></div>
                     </div>
-                    <div class="contact-info">
+                    <div class="contact-info" data-animate="fade-left">
                         <h3>Información de Contacto</h3>
                         <ul class="contact-links">
                             <li>
@@ -289,6 +313,9 @@
                             </a>
                             <a href="https://paulo.itch.io" class="social-icon" target="_blank" aria-label="itch.io">
                                 <i class="fab fa-itch-io"></i>
+                            </a>
+                            <a href="https://github.com/tu-usuario" class="social-icon" target="_blank" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>

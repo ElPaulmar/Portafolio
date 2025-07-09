@@ -3,11 +3,11 @@
     --primary: #2E4E3A;
     --secondary: #A5C4A2;
     --dark: #3A3226;
-    --accent: #A33CEF;
-    --light: #D4C9A8;
+    --accent: #8F3B28;
+    --light: #F8F5F0;
     --text: #3A3226;
-    --text-light: #D4C9A8;
-    --card-bg: rgba(212, 201, 168, 0.5);
+    --text-light: #F8F5F0;
+    --card-bg: rgba(248, 245, 240, 0.8);
 }
 
 /* Reset y Tipografía */
@@ -32,7 +32,7 @@ body::after {
     left: 0;
     height: 4px;
     width: var(--scroll-progress);
-    background: var(--secondary);
+    background: var(--accent);
     z-index: 10001;
     transition: width 0.1s linear;
 }
@@ -54,7 +54,7 @@ h2 {
 a {
     text-decoration: none;
     color: var(--primary);
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 a:hover {
@@ -63,41 +63,33 @@ a:hover {
 
 /* ===== ESTRUCTURA GENERAL ===== */
 .wrapper {
-    padding: 4em 0;
-    opacity: 0;
-    animation: fadeInUp 0.6s ease forwards;
+    padding: 6em 0;
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.transition-section {
+    background: linear-gradient(to bottom, 
+        var(--light) 0%, 
+        var(--card-bg) 50%, 
+        var(--light) 100%);
 }
 
 .wrapper.style1 { 
     background: var(--light);
-    animation-delay: 0.1s;
 }
 
 .wrapper.style2 {
     background: var(--card-bg);
-    animation-delay: 0.2s;
 }
 
 .wrapper.style3 {
     background: var(--light);
-    animation-delay: 0.3s;
 }
 
 .wrapper.style4 {
     background: var(--dark);
     color: var(--text-light);
-    animation-delay: 0.4s;
 }
 
 .wrapper.style4 h2,
@@ -110,11 +102,36 @@ a:hover {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2em;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== ANIMACIONES ===== */
+[data-animate] {
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-animate="fade-up"] {
+    transform: translateY(30px);
+}
+
+[data-animate="fade-right"] {
+    transform: translateX(-30px);
+}
+
+[data-animate="fade-left"] {
+    transform: translateX(30px);
+}
+
+[data-animate].animated {
+    opacity: 1;
+    transform: translate(0);
 }
 
 /* ===== HEADER ===== */
 #header {
-    background-color: var(--dark);
+    background-color: rgba(58, 50, 38, 0.95);
     height: 4em;
     line-height: 4em;
     position: fixed;
@@ -123,6 +140,12 @@ a:hover {
     width: 100%;
     z-index: 10000;
     transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#header.scrolled {
+    background-color: rgba(58, 50, 38, 0.98);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 #header h1 {
@@ -156,17 +179,35 @@ a:hover {
     color: var(--secondary);
 }
 
-/* ===== BANNER ===== */
+/* ===== BANNER CON PARALLAX ===== */
 #banner {
     padding: 8em 0 4em 0;
-    background: linear-gradient(135deg, var(--dark) 0%, var(--accent) 100%);
     color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.parallax-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--accent) 100%);
+    z-index: -1;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .hero-content {
     display: flex;
     align-items: center;
     gap: 3em;
+    position: relative;
+    z-index: 2;
 }
 
 .profile-container {
@@ -187,8 +228,9 @@ a:hover {
     transition: transform 0.3s ease;
 }
 
-.profile-container:hover .profile-pic {
+.profile-container:hover {
     transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
 .hero-text {
@@ -269,17 +311,17 @@ a:hover {
     color: var(--secondary);
 }
 
-/* ===== PROYECTOS ===== */
-.project-card, .project-compact {
+/* ===== PROYECTOS DESTACADOS ===== */
+.project-card {
     background: var(--card-bg);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 2em;
+    margin-bottom: 3em;
 }
 
-.project-card:hover, .project-compact:hover {
+.project-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
@@ -287,7 +329,7 @@ a:hover {
 .project-header {
     display: flex;
     gap: 2em;
-    padding: 1.5em;
+    padding: 2em;
     align-items: center;
 }
 
@@ -342,7 +384,7 @@ a:hover {
 }
 
 .project-content {
-    padding: 0 1.5em 1.5em;
+    padding: 0 2em 2em;
 }
 
 .project-description {
@@ -454,23 +496,77 @@ a:hover {
     margin: 0;
 }
 
-/* ===== OTROS PROYECTOS ===== */
-.project-grid-compact {
+/* ===== OTROS PROYECTOS - VERSIÓN MEJORADA ===== */
+.improved-project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2em;
+    margin-top: 3em;
 }
 
-.project-compact-content {
+.improved-project {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.improved-project:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.project-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.project-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(46, 78, 58, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.improved-project:hover .project-overlay {
+    opacity: 1;
+}
+
+.improved-project:hover .project-image-container img {
+    transform: scale(1.05);
+}
+
+.project-info {
     padding: 1.5em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.project-compact h3 {
-    font-size: 1.2em;
+.project-info h3 {
+    font-size: 1.3em;
     margin-bottom: 0.5em;
 }
 
-.project-compact .project-meta {
+.project-info .project-meta {
     display: flex;
     justify-content: space-between;
     font-size: 0.8em;
@@ -478,10 +574,11 @@ a:hover {
     margin-bottom: 0.8em;
 }
 
-.project-compact p {
+.project-info p {
     font-size: 0.9em;
     margin-bottom: 1.5em;
     color: var(--text);
+    flex: 1;
 }
 
 /* ===== CONTACTO ===== */
@@ -713,6 +810,10 @@ a:hover {
     .contact-form .fields {
         grid-template-columns: 1fr;
     }
+    
+    .improved-project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
 }
 
 @media screen and (max-width: 736px) {
@@ -722,6 +823,7 @@ a:hover {
     
     #banner {
         padding: 6em 0 3em 0;
+        min-height: auto;
     }
     
     .profile-container {
@@ -739,6 +841,10 @@ a:hover {
     
     .project-actions {
         flex-direction: column;
+    }
+    
+    .improved-project-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -759,5 +865,14 @@ a:hover {
     .contact-form,
     .contact-info {
         padding: 1.5em;
+    }
+    
+    .project-header {
+        padding: 1.5em;
+        flex-direction: column;
+    }
+    
+    .project-basic-info {
+        min-width: auto;
     }
 }
