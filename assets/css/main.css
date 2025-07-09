@@ -7,6 +7,7 @@
     --light: #FFFCE8;
     --text: #3E363F;
     --text-light: #FFFCE8;
+    --card-bg: #F5F2E0;
 }
 
 /* Reset y Tipografía */
@@ -35,6 +36,16 @@ h2 {
     border-bottom: 2px solid var(--secondary);
     padding-bottom: 0.3em;
     display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent);
 }
 
 /* ===== ESTRUCTURA GENERAL ===== */
@@ -129,22 +140,31 @@ h2 {
     padding: 12em 0 6em 0;
     background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
     color: var(--text-light);
-    text-align: center;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: left;
 }
 
 .profile-container {
-    width: 180px;
-    height: 180px;
-    margin: 0 auto 2rem;
+    width: 220px;
+    height: 220px;
     border: 4px solid var(--light);
     border-radius: 50%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
 
 .profile-pic {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
     object-fit: cover;
 }
 
@@ -166,15 +186,13 @@ h2 {
 }
 
 .description {
-    max-width: 800px;
-    margin: 0 auto 2em;
     font-size: 1.1em;
     line-height: 1.8;
+    margin-bottom: 2em;
 }
 
 .hero-actions {
     display: flex;
-    justify-content: center;
     gap: 1.5em;
     margin-top: 3em;
 }
@@ -184,7 +202,7 @@ h2 {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 3em;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .about-text {
@@ -211,6 +229,25 @@ h2 {
     left: 0;
     font-size: 1.5em;
     line-height: 0;
+}
+
+.languages {
+    margin-top: 2em;
+}
+
+.language-tags {
+    display: flex;
+    gap: 0.8em;
+    margin-top: 0.5em;
+}
+
+.language-tag {
+    background: rgba(15, 139, 141, 0.1);
+    color: var(--primary);
+    padding: 0.3em 0.8em;
+    border-radius: 20px;
+    font-size: 0.9em;
+    border: 1px solid var(--primary);
 }
 
 .about-links {
@@ -261,9 +298,13 @@ h2 {
     line-height: 1.6;
 }
 
+.skill-list strong {
+    color: var(--secondary);
+}
+
 /* ===== PROYECTOS ===== */
 .project-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 3em;
@@ -312,6 +353,23 @@ h2 {
     margin: 0.5em 0 1em;
 }
 
+.project-roles {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+.role-tag {
+    background: rgba(15, 139, 141, 0.1);
+    color: var(--primary);
+    padding: 0.3em 0.8em;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    border: 1px solid var(--primary);
+}
+
 .project-content {
     padding: 0 2em 2em;
 }
@@ -358,15 +416,25 @@ h2 {
 
 /* Proceso de Desarrollo */
 .development-process {
-    background: rgba(15, 139, 141, 0.05);
-    border-radius: 8px;
-    padding: 2em;
-    margin-top: 2em;
-    border-left: 4px solid var(--secondary);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    margin-top: 1em;
+}
+
+.development-process.active {
+    max-height: 2000px;
+    padding-top: 1em;
 }
 
 .process-step {
     margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px dashed rgba(15, 139, 141, 0.2);
+}
+
+.process-step:last-child {
+    border-bottom: none;
 }
 
 .process-step h4 {
@@ -412,6 +480,55 @@ h2 {
     margin: 0;
 }
 
+/* ===== OTROS PROYECTOS ===== */
+.project-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2em;
+}
+
+.project-compact {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-compact:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.project-compact img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.project-compact-content {
+    padding: 1.5em;
+}
+
+.project-compact h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.project-compact .project-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    color: var(--primary);
+    margin-bottom: 0.8em;
+}
+
+.project-compact p {
+    font-size: 0.9em;
+    margin-bottom: 1.5em;
+    color: var(--text);
+}
+
 /* ===== CONTACTO ===== */
 .contact-container {
     display: grid;
@@ -433,17 +550,17 @@ h2 {
     display: block;
     margin-bottom: 0.5em;
     font-weight: 600;
-    color: var(--text-light);
+    color: var(--text);
 }
 
 .contact-form input,
 .contact-form textarea {
     width: 100%;
     padding: 0.8em 1em;
-    background: rgba(255,255,255,0.1);
-    border: 2px solid rgba(255,255,255,0.2);
+    background: white;
+    border: 2px solid rgba(15, 139, 141, 0.2);
     border-radius: 5px;
-    color: var(--text-light);
+    color: var(--text);
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
     transition: border-color 0.3s ease;
@@ -462,7 +579,7 @@ h2 {
 
 .contact-info h3 {
     margin-bottom: 1em;
-    color: var(--text-light);
+    color: var(--text);
     border: none;
 }
 
@@ -480,13 +597,13 @@ h2 {
 }
 
 .contact-links a {
-    color: var(--text-light);
-    border-bottom: 1px dotted rgba(255,255,255,0.3);
+    color: var(--text);
+    border-bottom: 1px dotted rgba(15, 139, 141, 0.3);
     transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .contact-links a:hover {
-    color: var(--secondary);
+    color: var(--primary);
     border-bottom-color: transparent;
 }
 
@@ -503,8 +620,8 @@ h2 {
     width: 3em;
     height: 3em;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    color: var(--text-light);
+    background: rgba(15, 139, 141, 0.1);
+    color: var(--primary);
     transition: all 0.3s ease;
 }
 
@@ -559,22 +676,61 @@ h2 {
     font-size: 0.9em;
 }
 
+.button.small {
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+}
+
+.toggle-process {
+    background: transparent;
+    border-color: var(--primary);
+}
+
+.toggle-process:hover {
+    background: rgba(15, 139, 141, 0.1);
+}
+
 /* ===== FOOTER ===== */
 .copyright {
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(15, 139, 141, 0.1);
     padding-top: 2em;
     margin-top: 3em;
     text-align: center;
     font-size: 0.9em;
-    color: rgba(255,255,255,0.6);
+    color: var(--text);
 }
 
 .copyright p {
     margin: 0.3em 0;
 }
 
+/* ===== ANIMACIONES ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-card, .project-compact {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 980px) {
+    .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    
+    .hero-text {
+        text-align: center;
+    }
+    
     .about-content {
         grid-template-columns: 1fr;
     }
@@ -613,8 +769,8 @@ h2 {
     }
     
     .profile-container {
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
     }
     
     .hero-actions {
@@ -642,5 +798,9 @@ h2 {
     
     #header nav {
         display: none;
+    }
+    
+    .project-compact-content {
+        padding: 1em;
     }
 }

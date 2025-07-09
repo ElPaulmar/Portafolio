@@ -38,8 +38,9 @@
 
     // Smooth scrolling for anchor links
     $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
+        if ($(this).attr('href') === '#') return;
         
+        e.preventDefault();
         var target = $(this.getAttribute('href'));
         if (target.length) {
             $('html, body').stop().animate({
@@ -48,15 +49,14 @@
         }
     });
 
-    // Project details toggling
-    $('.toggle-details').on('click', function(e) {
+    // Toggle development process
+    $('.toggle-process').on('click', function(e) {
         e.preventDefault();
         var $this = $(this),
-            $process = $($this.attr('href'));
+            $process = $this.closest('.project-content').find('.development-process');
         
-        $process.slideToggle(400, function() {
-            $this.find('i').toggleClass('fa-chevron-down fa-chevron-up');
-        });
+        $process.toggleClass('active');
+        $this.find('i').toggleClass('fa-chevron-down fa-chevron-up');
     });
 
 })(jQuery);
