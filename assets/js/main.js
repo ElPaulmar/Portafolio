@@ -1,35 +1,62 @@
 (function($) {
 
-  var $window = $(window),
-      $body = $('body'),
-      $header = $('#header'),
-      $banner = $('#banner');
+    var $window = $(window),
+        $body = $('body'),
+        $header = $('#header'),
+        $banner = $('#banner');
 
-  // Breakpoints
-  breakpoints({
-    xlarge: '(max-width: 1680px)',
-    large: '(max-width: 1280px)',
-    medium: '(max-width: 980px)',
-    small: '(max-width: 736px)',
-    xsmall: '(max-width: 480px)'
-  });
+    // Breakpoints
+    breakpoints({
+        xlarge: '(max-width: 1680px)',
+        large: '(max-width: 1280px)',
+        medium: '(max-width: 980px)',
+        small: '(max-width: 736px)',
+        xsmall: '(max-width: 480px)'
+    });
 
-  // Activar animaciones iniciales
-  $window.on('load', function() {
-    window.setTimeout(function() {
-      $body.removeClass('is-preload');
-    }, 100);
-  });
+    // Remove preload class on page load
+    $window.on('load', function() {
+        setTimeout(function() {
+            $body.removeClass('is-preload');
+        }, 100);
+    });
 
-  // Scroll suave para anclas
-  $('a[href^="#"]').on('click', function(event) {
-    var target = $($(this).attr('href'));
-    if (target.length) {
-      event.preventDefault();
-      $('html, body').animate({
-        scrollTop: target.offset().top - 50
-      }, 600);
-    }
-  });
+    // Header scroll effect
+    $window.on('scroll', function() {
+        if ($window.scrollTop() > 50) {
+            $header.css({
+                'background-color': 'rgba(62, 54, 63, 0.98)',
+                'box-shadow': '0 2px 10px rgba(0,0,0,0.1)'
+            });
+        } else {
+            $header.css({
+                'background-color': 'rgba(62, 54, 63, 0.95)',
+                'box-shadow': 'none'
+            });
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+            $('html, body').stop().animate({
+                scrollTop: target.offset().top - 70
+            }, 800, 'easeInOutExpo');
+        }
+    });
+
+    // Project details toggling
+    $('.toggle-details').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            $process = $($this.attr('href'));
+        
+        $process.slideToggle(400, function() {
+            $this.find('i').toggleClass('fa-chevron-down fa-chevron-up');
+        });
+    });
 
 })(jQuery);
