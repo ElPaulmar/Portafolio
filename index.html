@@ -1,337 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paulo Marques | Diseñador de Juegos & Narrativas</title>
-    <meta name="description" content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas y mecánicas innovadoras">
-    <meta name="keywords" content="game designer, diseñador de juegos, Unity, Unreal Engine, portfolio, portafolio, Chile, desarrollo de videojuegos, narrativa interactiva">
-    <meta name="author" content="Paulo Marques">
-    <meta property="og:title" content="Paulo Marques | Diseñador de Juegos & Narrativas">
-    <meta property="og:description" content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tu-portafolio.com">
-    <meta property="og:image" content="https://tu-portafolio.com/images/tu-foto.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preload" href="assets/css/main.css" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
-    <link rel="preload" href="images/tu-foto.jpg" as="image">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paulo Marques - Portafolio</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery.easing/jquery.easing.min.js"></script>
 </head>
 <body class="is-preload">
-    <div id="page-wrapper">
-        <!-- Header -->
-        <header id="header" class="alt">
-            <h1><a href="#banner">PAULO MARQUES</a></h1>
-            <nav>
-                <a href="#habilidades">Habilidades</a>
-                <a href="#proyectos">Proyectos</a>
-                <a href="#contacto">Contacto</a>
-            </nav>
-        </header>
+  <!-- Partículas -->
+  <div id="particles-js"></div>
 
-        <!-- Hero Banner -->
-        <section id="banner">
-            <div class="inner">
-                <div class="hero-content">
-                    <div class="profile-container">
-                        <img src="images/tu-foto.jpg" class="profile-pic" alt="Foto de Paulo Marques" loading="lazy">
-                    </div>
-                    <div class="hero-text">
-                        <h2>Diseñador de Juegos Digitales</h2>
-                        <p class="subtitle">Narrativas interactivas & Gameplay innovador</p>
-                        <p class="description">Estudiante de Diseño de Juegos en UNAB, especializándome en integrar mecánicas jugables con historias memorables. Actualmente explorando sistemas narrativos no lineales.</p>
-                        <div class="hero-actions">
-                            <a href="#proyectos" class="button primary">Mis Proyectos</a>
-                            <a href="#contacto" class="button with-icon"><i class="fas fa-paper-plane"></i> Colaboremos</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Habilidades -->
-        <section id="habilidades" class="wrapper style1">
-            <div class="inner">
-                <h2 class="major">Habilidades Técnicas</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-gamepad"></i> Diseño de Juegos</h3>
-                        <ul class="skill-list">
-                            <li><strong>Unity</strong>: 3 años de experiencia</li>
-                            <li><strong>Unreal Engine</strong>: Blueprints básicos</li>
-                            <li>Diseño de mecánicas y sistemas</li>
-                            <li>Balanceo de gameplay</li>
-                            <li>Prototipado rápido</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-book"></i> Narrativa</h3>
-                        <ul class="skill-list">
-                            <li><strong>Twine</strong>: Historias interactivas</li>
-                            <li>Escritura de diálogos</li>
-                            <li>Arcos de personajes</li>
-                            <li>Estructuras narrativas no lineales</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-tools"></i> Herramientas</h3>
-                        <ul class="skill-list">
-                            <li><strong>Adobe CC</strong>: Suite creativa</li>
-                            <li><strong>Google Suite</strong>: Documentación</li>
-                            <li><strong>Git</strong>: Control de versiones</li>
-                            <li>Figma (wireframes UI/UX)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Proyectos Destacados -->
-        <section id="proyectos" class="wrapper style2">
-            <div class="inner">
-                <h2 class="major">Proyectos Académicos</h2>
-                <p class="section-subtitle">Trabajos realizados durante mi formación universitaria</p>
-                
-                <!-- Overhaul -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <div class="project-media">
-                            <img src="images/título-overhaul.jpg" alt="Overhaul" class="project-thumb" loading="lazy">
-                        </div>
-                        <div class="project-basic-info">
-                            <div class="project-meta">
-                                <span class="project-date">Feb-Jun 2024</span>
-                                <span class="project-genre">Hack & Slash | PC</span>
-                            </div>
-                            <h3>Overhaul</h3>
-                            <div class="project-roles">
-                                <span class="role-tag">Diseñador de Juego</span>
-                                <span class="role-tag">Escritor</span>
-                            </div>
-                            <p class="project-tagline">Sistema de combate modular con 3 estilos únicos</p>
-                        </div>
-                    </div>
-
-                    <div class="project-content">
-                        <div class="project-description">
-                            <h4>Contribuciones Clave</h4>
-                            <ul>
-                                <li>Diseño de narrativas: historia principal y arcos de personajes</li>
-                                <li>Creación de diálogos y sistema de exposición narrativa</li>
-                                <li>Integración de mecánicas con narrativa</li>
-                                <li>Documentación de diseño (GDD)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="project-tools">
-                            <h4>Herramientas Utilizadas</h4>
-                            <div class="tool-tags">
-                                <span class="tool-tag">Unity</span>
-                                <span class="tool-tag">C#</span>
-                                <span class="tool-tag">Twine</span>
-                                <span class="tool-tag">Google Docs</span>
-                            </div>
-                        </div>
-
-                        <div class="project-actions">
-                            <button class="button with-icon toggle-process">
-                                <i class="fas fa-chevron-down"></i> Proceso de Desarrollo
-                            </button>
-                            <a href="#" class="button primary with-icon">
-                                <i class="fas fa-play"></i> Ver Demo
-                            </a>
-                        </div>
-
-                        <div class="development-process">
-                            <div class="process-step">
-                                <h4><i class="fas fa-bullseye"></i> Objetivo</h4>
-                                <p>Crear un sistema de combate que permitiera personalización profunda sin abrumar al jugador, donde cada estilo de arma modificara sustancialmente la experiencia.</p>
-                            </div>
-                            
-                            <div class="process-step">
-                                <h4><i class="fas fa-lightbulb"></i> Concepto Inicial</h4>
-                                <p>Inspirado en juegos clásicos de acción como Devil May Cry, pero con énfasis en combos fluidos entre estilos. El prototipo inicial usaba placeholders en Unity para probar la viabilidad técnica.</p>
-                            </div>
-                            
-                            <div class="process-step">
-                                <h4><i class="fas fa-project-diagram"></i> Diseño de Sistemas</h4>
-                                <p>Documenté las mecánicas clave en un GDD modular, incluyendo:</p>
-                                <ul>
-                                    <li>Tablas de daño y escalado</li>
-                                    <li>Requisitos de recursos para habilidades</li>
-                                    <li>Interacción entre sistemas de combate</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="process-step">
-                                <h4><i class="fas fa-book"></i> Integración Narrativa</h4>
-                                <p>Las armas modulares se vincularon a la historia como fragmentos de una reliquia ancestral, justificando mecánicamente su poder y personalización.</p>
-                            </div>
-                            
-                            <div class="project-gallery">
-                                <div class="gif-container">
-                                    <img src="images/overhaul-combat.gif" alt="Sistema de combate" class="project-gif" loading="lazy">
-                                    <p>Transición fluida entre estilos</p>
-                                </div>
-                                <div class="gif-container">
-                                    <img src="images/overhaul-progression.gif" alt="Progresión de habilidades" class="project-gif" loading="lazy">
-                                    <p>Menú de personalización</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Otros Proyectos -->
-        <section id="otros-proyectos" class="wrapper style3">
-            <div class="inner">
-                <h2 class="major">Otros Proyectos</h2>
-                <div class="improved-project-grid">
-                    <!-- Espíritus de Hartshorn -->
-                    <article class="improved-project">
-                        <div class="project-image-container">
-                            <img src="images/título-espíritus.jpg" alt="Espíritus de Hartshorn" loading="lazy">
-                            <div class="project-overlay">
-                                <a href="#" class="button small">Ver Detalles</a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Espíritus de Hartshorn</h3>
-                            <div class="project-meta">
-                                <span>Ago-Dic 2023</span>
-                                <span>Horror Psicológico</span>
-                            </div>
-                            <p>Implementé mecánicas de interacción con NPCs que afectaban al jefe final del juego.</p>
-                            <div class="project-roles">
-                                <span class="role-tag">Diseñador</span>
-                                <span class="role-tag">Escritor</span>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Las Huellas de Napi -->
-                    <article class="improved-project">
-                        <div class="project-image-container">
-                            <img src="images/título-napi.jpg" alt="Las Huellas de Napi" loading="lazy">
-                            <div class="project-overlay">
-                                <a href="#" class="button small">Ver Demo</a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Las Huellas de Napi</h3>
-                            <div class="project-meta">
-                                <span>Feb-Jun 2023</span>
-                                <span>Plataformero 3D</span>
-                            </div>
-                            <p>Diseño de mecánicas principales y bases narrativas basadas en mitología indígena.</p>
-                            <div class="project-roles">
-                                <span class="role-tag">Diseñador</span>
-                                <span class="role-tag">Programador</span>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Sponji -->
-                    <article class="improved-project">
-                        <div class="project-image-container">
-                            <img src="images/proyecto-universitario.jpg" alt="Sponji y la Calamidad Cibernética" loading="lazy">
-                            <div class="project-overlay">
-                                <a href="#" class="button small">Ver Demo</a>
-                            </div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Sponji y la Calamidad Cibernética</h3>
-                            <div class="project-meta">
-                                <span>Feb-Jun 2022</span>
-                                <span>Acción/Aventura</span>
-                            </div>
-                            <p>Diseño de mecánicas de jugador y enemigos, implementación en Unity.</p>
-                            <div class="project-roles">
-                                <span class="role-tag">Diseñador</span>
-                                <span class="role-tag">Programador</span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer / Contacto -->
-        <section id="contacto" class="wrapper style4">
-            <div class="inner">
-                <h2 class="major">Contacto</h2>
-                <div class="contact-container">
-                    <div class="contact-form">
-                        <form method="post" action="#" id="contact-form">
-                            <div class="fields">
-                                <div class="field half">
-                                    <label for="name">Nombre</label>
-                                    <input type="text" name="name" id="name" required>
-                                </div>
-                                <div class="field half">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" id="email" required>
-                                </div>
-                                <div class="field">
-                                    <label for="message">Mensaje</label>
-                                    <textarea name="message" id="message" rows="4" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="button primary with-icon">
-                                <i class="fas fa-paper-plane"></i> Enviar Mensaje
-                            </button>
-                        </form>
-                        <div id="form-feedback"></div>
-                    </div>
-                    <div class="contact-info">
-                        <h3>Información de Contacto</h3>
-                        <ul class="contact-links">
-                            <li>
-                                <i class="fas fa-phone"></i>
-                                <a href="tel:+56944323879">(+56) 9 4432 3879</a>
-                            </li>
-                            <li>
-                                <i class="fas fa-envelope"></i>
-                                <a href="mailto:alonso.p.marques@gmail.com">alonso.p.marques@gmail.com</a>
-                            </li>
-                            <li>
-                                <i class="fas fa-map-marker-alt"></i>
-                                Santiago, Chile
-                            </li>
-                        </ul>
-                        
-                        <h3>Redes Profesionales</h3>
-                        <div class="social-links">
-                            <a href="https://linkedin.com/in/paulo-marques-594a63347/" class="social-icon" target="_blank" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="https://paulo.itch.io" class="social-icon" target="_blank" aria-label="itch.io">
-                                <i class="fab fa-itch-io"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="copyright">
-                    <p>© 2024 Paulo Marques. Todos los derechos reservados.</p>
-                </div>
-            </div>
-        </section>
+  <!-- Header -->
+  <header id="header">
+    <nav>
+      <ul class="nav">
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#sobremi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="hero">
+      <h1 class="hero-title"><span class="underline">Paulo Marques</span></h1>
+      <p class="hero-subtitle">Diseñador de Juegos Digitales</p>
     </div>
+  </header>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+  <!-- Proyectos Destacados -->
+  <section id="proyectos" class="section">
+    <h2 class="section-title" data-underline>Proyectos Destacados</h2>
+    <div class="project-grid">
+      <!-- Proyecto 1 -->
+      <div class="project-card" data-scroll>
+        <div class="project-image"></div>
+        <div class="project-info">
+          <h3>Overhaul</h3>
+          <button class="ripple-btn toggle-process">Ver proceso <i class="fa fa-chevron-down"></i></button>
+          <div class="development-process">
+            <p>Detalles del proceso de desarrollo...</p>
+          </div>
+        </div>
+      </div>
+      <!-- Más proyectos -->
+    </div>
+  </section>
+
+  <!-- Experiencia -->
+  <section id="experiencia" class="section" data-scroll>
+    <h2 class="section-title" data-underline>Experiencia</h2>
+    <div class="experience-list">
+      <!-- Aquí irían items de experiencia -->
+    </div>
+  </section>
+
+  <!-- Sobre mí -->
+  <section id="sobremi" class="section" data-scroll>
+    <h2 class="section-title" data-underline>Sobre Mí</h2>
+    <p>Soy diseñador de juegos digitales y...</p>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="section" data-scroll>
+    <h2 class="section-title" data-underline>Contacto</h2>
+    <form id="contact-form" class="contact-form">
+      <label>Nombre</label>
+      <input type="text" name="nombre">
+
+      <label>Email</label>
+      <input type="email" name="email">
+
+      <label>Mensaje</label>
+      <textarea name="mensaje"></textarea>
+
+      <button type="submit" class="ripple-btn">Enviar</button>
+      <div id="form-feedback"></div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" data-scroll>
+    <p>&copy; 2025 Paulo Marques. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>
