@@ -1,88 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paulo Marques - Portafolio</title>
-  <link rel="stylesheet" href="assets/css/main.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery.easing/jquery.easing.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paulo Marques – Diseñador de Juegos</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-links@2/tsparticles.preset.links.bundle.min.js"></script>
 </head>
 <body class="is-preload">
+
   <!-- Partículas -->
   <div id="particles-js"></div>
 
   <!-- Header -->
   <header id="header">
     <nav>
-      <ul class="nav">
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#experiencia">Experiencia</a></li>
-        <li><a href="#sobremi">Sobre mí</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+      <ul>
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
+        <li><a href="#sobre-mi" class="nav-link">Sobre mí</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
       </ul>
     </nav>
-    <div class="hero">
-      <h1 class="hero-title"><span class="underline">Paulo Marques</span></h1>
-      <p class="hero-subtitle">Diseñador de Juegos Digitales</p>
-    </div>
+    <h1 class="titulo-principal"><span data-underline>Paulo Marques</span></h1>
+    <p class="subtitulo">Diseñador de Juegos Digitales</p>
   </header>
 
-  <!-- Proyectos Destacados -->
-  <section id="proyectos" class="section">
-    <h2 class="section-title" data-underline>Proyectos Destacados</h2>
-    <div class="project-grid">
-      <!-- Proyecto 1 -->
-      <div class="project-card" data-scroll>
-        <div class="project-image"></div>
-        <div class="project-info">
-          <h3>Overhaul</h3>
-          <button class="ripple-btn toggle-process">Ver proceso <i class="fa fa-chevron-down"></i></button>
-          <div class="development-process">
-            <p>Detalles del proceso de desarrollo...</p>
-          </div>
-        </div>
+  <!-- Proyectos -->
+  <section id="proyectos" class="wipe-section">
+    <h2 class="section-title"><span data-underline>Proyectos Destacados</span></h2>
+    <div class="proyectos-grid">
+      <div class="tarjeta-proyecto" data-scroll>
+        <img src="images/proyecto1.jpg" alt="Proyecto 1" />
+        <h3 class="nombre-proyecto"><span data-underline>Overhaul</span></h3>
       </div>
-      <!-- Más proyectos -->
-    </div>
-  </section>
-
-  <!-- Experiencia -->
-  <section id="experiencia" class="section" data-scroll>
-    <h2 class="section-title" data-underline>Experiencia</h2>
-    <div class="experience-list">
-      <!-- Aquí irían items de experiencia -->
+      <div class="tarjeta-proyecto" data-scroll>
+        <img src="images/proyecto2.jpg" alt="Proyecto 2" />
+        <h3 class="nombre-proyecto"><span data-underline>Espíritus</span></h3>
+      </div>
     </div>
   </section>
 
   <!-- Sobre mí -->
-  <section id="sobremi" class="section" data-scroll>
-    <h2 class="section-title" data-underline>Sobre Mí</h2>
-    <p>Soy diseñador de juegos digitales y...</p>
+  <section id="sobre-mi" class="wipe-section">
+    <h2><span data-underline>Sobre mí</span></h2>
+    <p>Soy diseñador de juegos digitales con enfoque en narrativa interactiva y diseño sistémico.</p>
   </section>
 
   <!-- Contacto -->
-  <section id="contacto" class="section" data-scroll>
-    <h2 class="section-title" data-underline>Contacto</h2>
+  <section id="contacto" class="wipe-section">
+    <h2><span data-underline>Contacto</span></h2>
     <form id="contact-form" class="contact-form">
-      <label>Nombre</label>
-      <input type="text" name="nombre">
-
-      <label>Email</label>
-      <input type="email" name="email">
-
-      <label>Mensaje</label>
-      <textarea name="mensaje"></textarea>
-
-      <button type="submit" class="ripple-btn">Enviar</button>
-      <div id="form-feedback"></div>
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="field">
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" required></textarea>
+      </div>
+      <button type="submit" class="ripple">Enviar</button>
+      <p id="form-feedback" class="form-feedback"></p>
     </form>
   </section>
-
-  <!-- Footer -->
-  <footer id="footer" data-scroll>
-    <p>&copy; 2025 Paulo Marques. Todos los derechos reservados.</p>
-  </footer>
 
   <script src="assets/js/main.js"></script>
 </body>
