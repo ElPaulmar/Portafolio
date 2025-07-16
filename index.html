@@ -2,79 +2,89 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paulo Marques | Diseñador de Juegos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portafolio Paulo Marques</title>
   <link rel="stylesheet" href="assets/css/main.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
   <script defer src="assets/js/main.js"></script>
 </head>
 <body class="is-preload">
+
+  <!-- Header -->
   <header id="header">
-    <div class="inner">
-      <h1><a href="#" class="animated-underline">Paulo Marques</a></h1>
-      <nav>
-        <ul>
-          <li><a href="#proyectos" class="nav-icon"><span>Proyectos</span></a></li>
-          <li><a href="#sobre-mi" class="nav-icon"><span>Sobre mí</span></a></li>
-          <li><a href="#contacto" class="nav-icon"><span>Contacto</span></a></li>
-        </ul>
-      </nav>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#otros-proyectos">Otros Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="header-content">
+      <h1><span class="animated-underline">Paulo Marques</span></h1>
+      <h2>Diseñador de Juegos Digitales</h2>
+      <div class="diagonal-lines"></div>
     </div>
   </header>
 
-  <section id="portada">
-    <div class="contenido">
-      <h2 class="fade-in" data-scroll>Diseñador de Juegos Digitales</h2>
-      <p class="fade-in delay-1" data-scroll>Historias, identidad y sentido de la vida en cada interacción.</p>
-    </div>
-    <canvas id="particles"></canvas>
-  </section>
-
-  <section id="proyectos" class="fade-in" data-scroll>
-    <h2 class="titulo-subrayado">Proyectos Destacados</h2>
-    <div class="proyectos-grid">
-      <article class="tarjeta-proyecto">
-        <div class="parallax-card">
-          <img src="images/proyecto-universitario.jpg" alt="Proyecto Universitario" />
-        </div>
-        <h3 class="proyecto-nombre">Proyecto Universitario</h3>
-        <button class="toggle-process ripple">Ver proceso</button>
-        <div class="development-process">
-          <p>Detalles del desarrollo...</p>
-        </div>
-      </article>
-      <!-- Más proyectos similares -->
+  <!-- Sección: Proyectos Destacados -->
+  <section id="proyectos" class="section highlight-section">
+    <h2 class="section-title">Proyectos Destacados</h2>
+    <div class="project-cards">
+      <div class="project-card" data-scroll>
+        <h3>Overhaul</h3>
+        <p class="meta">Aventura - 2021 a 2022</p>
+        <p class="roles">Roles: Diseño narrativo, arte, sistema de juego</p>
+        <p class="team">Equipo de 5 personas</p>
+      </div>
+      <div class="project-card" data-scroll>
+        <h3>Postmortalis</h3>
+        <p class="meta">Terror psicológico - 2022 a 2023</p>
+        <p class="roles">Roles: Game design, animación 2D, narrativa</p>
+        <p class="team">Equipo de 4 personas</p>
+      </div>
     </div>
   </section>
 
-  <section id="sobre-mi" class="fade-in" data-scroll>
-    <h2 class="titulo-subrayado">Sobre mí</h2>
-    <p>Soy diseñador de juegos digitales con una pasión por explorar la identidad, el sentido de la vida y la diversidad cultural.</p>
+  <!-- Sección: Otros Proyectos -->
+  <section id="otros-proyectos" class="section secondary-section">
+    <h2 class="section-title">Otros Proyectos</h2>
+    <div class="project-list">
+      <div class="simple-project" data-scroll>
+        <h4>Napi</h4>
+        <p class="meta">Puzzle - 2020</p>
+      </div>
+      <div class="simple-project" data-scroll>
+        <h4>Espíritus del Mar</h4>
+        <p class="meta">Visual novel - 2021</p>
+      </div>
+      <div class="simple-project" data-scroll>
+        <h4>Proyecto Universitario</h4>
+        <p class="meta">Educativo - 2022</p>
+      </div>
+    </div>
   </section>
 
-  <section id="contacto" class="fade-in" data-scroll>
-    <h2 class="titulo-subrayado">Contacto</h2>
+  <!-- Sección: Contacto -->
+  <section id="contacto" class="section contact-section">
+    <h2 class="section-title">Contacto</h2>
     <form id="contact-form" class="contact-form">
       <div class="form-group">
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required />
+        <input type="text" id="nombre" required />
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" required />
       </div>
       <div class="form-group">
         <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" required></textarea>
+        <textarea id="mensaje" rows="5" required></textarea>
       </div>
-      <button type="submit" class="ripple">Enviar</button>
-      <div id="form-feedback"></div>
+      <button type="submit" class="ripple-button">Enviar</button>
+      <p id="form-feedback"></p>
     </form>
   </section>
-
-  <footer>
-    <p>&copy; 2025 Paulo Marques</p>
-  </footer>
 </body>
 </html>
