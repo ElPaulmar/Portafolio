@@ -1,211 +1,204 @@
+/* Paleta de colores */
 :root {
   --primary: #1F4D5B;
-  --secondary: #226A70;
-  --accent: #AB5D4F;
-  --light-bg: #DBE9D1;
-  --neutral: #619A90;
-  --grayish: #5A6456;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --accent: #226A70;
+  --light: #DBE9D1;
+  --highlight: #619A90;
+  --muted: #5A6456;
+  --warm: #AB5D4F;
 }
 
 body {
+  background-color: var(--light);
   font-family: 'Segoe UI', sans-serif;
-  background: var(--light-bg);
-  color: var(--grayish);
-  transition: background 0.5s, color 0.5s;
+  margin: 0;
+  padding: 0;
+  color: var(--primary);
+  transition: background 0.3s, color 0.3s;
 }
 
-header {
-  text-align: center;
-  padding: 4rem 2rem;
+/* Header */
+#header {
+  position: fixed;
+  width: 100%;
   background: var(--primary);
   color: white;
-  position: relative;
-  overflow: hidden;
+  padding: 1em 2em;
+  z-index: 1000;
+  transition: box-shadow 0.3s;
 }
 
-nav ul {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+#header.scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+#header h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+#header nav ul {
   list-style: none;
-  margin-bottom: 2rem;
+  display: flex;
+  gap: 2em;
+  padding: 0;
 }
 
-.nav-link {
-  position: relative;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  bottom: -3px;
-  left: 0;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.titulo-principal {
-  font-size: 3rem;
-  position: relative;
-}
-
-.subtitulo {
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  text-align: center;
-  margin: 3rem 0 2rem;
-}
-
-[data-underline] {
+.nav-icon span {
   position: relative;
   display: inline-block;
 }
 
-[data-underline]::after {
-  content: '';
+.nav-icon:hover span::after {
+  content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
-  width: 0%;
+  bottom: -4px;
   height: 2px;
-  background: var(--accent);
-  transition: width 0.4s ease;
-}
-
-[data-underline][data-scroll="in"]::after {
   width: 100%;
+  background-color: var(--highlight);
+  animation: underlineGrow 0.4s ease-out forwards;
 }
 
-.proyectos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
+@keyframes underlineGrow {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Portada */
+#portada {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+#portada canvas#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Secciones */
+section {
+  padding: 6em 2em;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+h2.titulo-subrayado {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+h2.titulo-subrayado::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 3px;
+  background: var(--warm);
+  animation: underlineWrite 1.5s ease forwards;
+}
+
+@keyframes underlineWrite {
+  to {
+    width: 100%;
+  }
 }
 
 .tarjeta-proyecto {
   background: white;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transform: perspective(1000px);
-  transition: transform 0.3s ease;
-  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   overflow: hidden;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
-.tarjeta-proyecto:hover {
-  transform: perspective(1000px) rotateY(3deg) rotateX(3deg);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+.parallax-card:hover {
+  transform: rotateY(8deg) rotateX(8deg);
 }
 
-.tarjeta-proyecto img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.contact-form {
-  max-width: 600px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  margin-bottom: 0.3rem;
-}
-
-input, textarea {
-  padding: 0.8rem;
-  border-radius: 6px;
-  border: 1px solid var(--grayish);
-  font-size: 1rem;
+.proyecto-nombre {
+  font-weight: bold;
+  margin-top: 1em;
 }
 
 button.ripple {
   position: relative;
   overflow: hidden;
-  background: var(--accent);
+  z-index: 1;
+  background-color: var(--accent);
   color: white;
-  padding: 0.8rem 2rem;
-  font-weight: bold;
   border: none;
-  border-radius: 6px;
+  padding: 0.75em 2em;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 button.ripple::after {
   content: "";
   position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  background: rgba(255, 255, 255, 0.5);
-  animation: ripple 0.6s linear;
-}
-
-button.ripple:active::after {
-  transform: scale(4);
-}
-
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-.form-feedback {
-  font-weight: bold;
-  text-align: center;
-  display: none;
-}
-
-.wipe-section {
-  animation: wipeReveal 1s ease forwards;
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-@keyframes wipeReveal {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Partículas */
-#particles-js {
-  position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  transition: transform 0.5s;
+  border-radius: 50%;
   z-index: -1;
+}
+
+button.ripple:active::after {
+  transform: scale(2.5);
+}
+
+.fade-in[data-scroll] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in[data-scroll="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Formulario */
+.contact-form {
+  display: grid;
+  gap: 1.5em;
+}
+
+.contact-form label {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75em;
+  border: 2px solid var(--muted);
+  border-radius: 8px;
+  font-size: 1em;
+  width: 100%;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2em;
+  background: var(--primary);
+  color: white;
 }

@@ -3,72 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paulo Marques – Diseñador de Juegos</title>
+  <title>Paulo Marques | Diseñador de Juegos</title>
   <link rel="stylesheet" href="assets/css/main.css" />
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-links@2/tsparticles.preset.links.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script defer src="assets/js/main.js"></script>
 </head>
 <body class="is-preload">
-
-  <!-- Partículas -->
-  <div id="particles-js"></div>
-
-  <!-- Header -->
   <header id="header">
-    <nav>
-      <ul>
-        <li><a href="#inicio" class="nav-link">Inicio</a></li>
-        <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
-        <li><a href="#sobre-mi" class="nav-link">Sobre mí</a></li>
-        <li><a href="#contacto" class="nav-link">Contacto</a></li>
-      </ul>
-    </nav>
-    <h1 class="titulo-principal"><span data-underline>Paulo Marques</span></h1>
-    <p class="subtitulo">Diseñador de Juegos Digitales</p>
+    <div class="inner">
+      <h1><a href="#" class="animated-underline">Paulo Marques</a></h1>
+      <nav>
+        <ul>
+          <li><a href="#proyectos" class="nav-icon"><span>Proyectos</span></a></li>
+          <li><a href="#sobre-mi" class="nav-icon"><span>Sobre mí</span></a></li>
+          <li><a href="#contacto" class="nav-icon"><span>Contacto</span></a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!-- Proyectos -->
-  <section id="proyectos" class="wipe-section">
-    <h2 class="section-title"><span data-underline>Proyectos Destacados</span></h2>
+  <section id="portada">
+    <div class="contenido">
+      <h2 class="fade-in" data-scroll>Diseñador de Juegos Digitales</h2>
+      <p class="fade-in delay-1" data-scroll>Historias, identidad y sentido de la vida en cada interacción.</p>
+    </div>
+    <canvas id="particles"></canvas>
+  </section>
+
+  <section id="proyectos" class="fade-in" data-scroll>
+    <h2 class="titulo-subrayado">Proyectos Destacados</h2>
     <div class="proyectos-grid">
-      <div class="tarjeta-proyecto" data-scroll>
-        <img src="images/proyecto1.jpg" alt="Proyecto 1" />
-        <h3 class="nombre-proyecto"><span data-underline>Overhaul</span></h3>
-      </div>
-      <div class="tarjeta-proyecto" data-scroll>
-        <img src="images/proyecto2.jpg" alt="Proyecto 2" />
-        <h3 class="nombre-proyecto"><span data-underline>Espíritus</span></h3>
-      </div>
+      <article class="tarjeta-proyecto">
+        <div class="parallax-card">
+          <img src="images/proyecto-universitario.jpg" alt="Proyecto Universitario" />
+        </div>
+        <h3 class="proyecto-nombre">Proyecto Universitario</h3>
+        <button class="toggle-process ripple">Ver proceso</button>
+        <div class="development-process">
+          <p>Detalles del desarrollo...</p>
+        </div>
+      </article>
+      <!-- Más proyectos similares -->
     </div>
   </section>
 
-  <!-- Sobre mí -->
-  <section id="sobre-mi" class="wipe-section">
-    <h2><span data-underline>Sobre mí</span></h2>
-    <p>Soy diseñador de juegos digitales con enfoque en narrativa interactiva y diseño sistémico.</p>
+  <section id="sobre-mi" class="fade-in" data-scroll>
+    <h2 class="titulo-subrayado">Sobre mí</h2>
+    <p>Soy diseñador de juegos digitales con una pasión por explorar la identidad, el sentido de la vida y la diversidad cultural.</p>
   </section>
 
-  <!-- Contacto -->
-  <section id="contacto" class="wipe-section">
-    <h2><span data-underline>Contacto</span></h2>
+  <section id="contacto" class="fade-in" data-scroll>
+    <h2 class="titulo-subrayado">Contacto</h2>
     <form id="contact-form" class="contact-form">
-      <div class="field">
+      <div class="form-group">
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" required />
+        <input type="text" id="nombre" name="nombre" required />
       </div>
-      <div class="field">
+      <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" required />
+        <input type="email" id="email" name="email" required />
       </div>
-      <div class="field">
+      <div class="form-group">
         <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" required></textarea>
+        <textarea id="mensaje" name="mensaje" required></textarea>
       </div>
       <button type="submit" class="ripple">Enviar</button>
-      <p id="form-feedback" class="form-feedback"></p>
+      <div id="form-feedback"></div>
     </form>
   </section>
 
-  <script src="assets/js/main.js"></script>
+  <footer>
+    <p>&copy; 2025 Paulo Marques</p>
+  </footer>
 </body>
 </html>
