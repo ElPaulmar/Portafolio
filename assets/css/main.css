@@ -160,7 +160,7 @@ a:hover {
 
 /* ===== BANNER ===== */
 #banner {
-    padding: 8em 0 4em 0;
+    padding: 12em 0 10em 0;
     background: linear-gradient(135deg, var(--dark) 0%, var(--accent) 100%);
     color: var(--text-light);
     position: relative;
