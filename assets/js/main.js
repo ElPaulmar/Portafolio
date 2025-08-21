@@ -47,6 +47,7 @@
             $feedback.addClass('success').text('¡Mensaje enviado con éxito!');
             $(this).trigger('reset');
             
+            // Ocultar feedback después de 5 segundos
             setTimeout(function() {
                 $feedback.fadeOut();
             }, 5000);
@@ -77,6 +78,7 @@
         });
     }
     
+    // Inicializar animaciones
     $(window).on('load', scrollAnimation);
     $(window).on('scroll', scrollAnimation);
     
@@ -85,9 +87,14 @@
         return 'ontouchstart' in window || navigator.maxTouchPoints;
     }
     
+    // Ajustar comportamientos para touch
     if(isTouchDevice()) {
         $('html').addClass('touch-device');
+        
+        // Deshabilitar hover en elementos importantes
         $('.skill-category, .improved-project').css('transform', 'none');
+        
+        // Mejorar el formulario para móviles
         $('input, textarea, select').attr({
             'autocorrect': 'off',
             'autocapitalize': 'off',
@@ -112,24 +119,4 @@
     }
     
     $(document).ready(preloadImages);
-
-    // Ripple effect en botones
-    $('body').on('click', 'button, .button', function(e) {
-        const $btn = $(this);
-        const offset = $btn.offset();
-        const x = e.pageX - offset.left;
-        const y = e.pageY - offset.top;
-
-        const $ripple = $('<span class="ripple"></span>').css({
-            top: y,
-            left: x
-        });
-
-        $btn.append($ripple);
-
-        setTimeout(() => {
-            $ripple.remove();
-        }, 600);
-    });
-
 })(jQuery);
