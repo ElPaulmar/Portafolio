@@ -1,122 +1,86 @@
-(function($) {
-    // Preload
-    setTimeout(function() {
-        $('body').removeClass('is-preload');
-    }, 100);
-    
-    // Smooth scrolling for all anchor links
-    $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').on('click', function(e) {
-        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && 
-            location.hostname === this.hostname) {
-            
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-            
-            if (target.length) {
-                e.preventDefault();
-                $('html, body').stop().animate({
-                    scrollTop: target.offset().top - 70
-                }, 800, 'easeInOutExpo');
-            }
-        }
+document.addEventListener("DOMContentLoaded", () => {
+  /* ==============================
+     SMOOTH SCROLL PARA ANCLAS
+  ============================== */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", e => {
+      e.preventDefault();
+      const target = document.querySelector(anchor.getAttribute("href"));
+      if (target) target.scrollIntoView({ behavior: "smooth" });
     });
-    
-    // Header scroll effect
-    $(window).on('scroll', function() {
-        if ($(this).scrollTop() > 50) {
-            $('#header').addClass('scrolled');
-        } else {
-            $('#header').removeClass('scrolled');
-        }
+  });
+
+  /* ==============================
+     TOGGLE DE PROCESO DE PROYECTOS
+  ============================== */
+  const toggles = document.querySelectorAll(".toggle-process");
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      toggle.classList.toggle("active");
+      const process = toggle.nextElementSibling;
+      if (process) process.style.display = toggle.classList.contains("active") ? "block" : "none";
     });
-    
-    // Toggle development process
-    $('body').on('click', '.toggle-process', function(e) {
-        e.preventDefault();
-        $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up')
-            .closest('.project-content').find('.development-process').toggleClass('active');
+  });
+
+  /* ==============================
+     ANIMACIÓN DE ELEMENTOS AL SCROLL
+  ============================== */
+  const scrollElements = document.querySelectorAll(".fade-in, .slide-up, .slide-left, .slide-right");
+  const elementInView = (el, offset = 0) => {
+    const top = el.getBoundingClientRect().top;
+    return top <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+  };
+  const displayScrollElement = el => el.classList.add("in-view");
+  const hideScrollElement = el => el.classList.remove("in-view");
+
+  const handleScrollAnimation = () => {
+    scrollElements.forEach(el => {
+      elementInView(el, 100) ? displayScrollElement(el) : hideScrollElement(el);
     });
-    
-    // Form handling
-    $('#contact-form').on('submit', function(e) {
-        e.preventDefault();
-        var $feedback = $('#form-feedback');
-        $feedback.removeClass('error success').text('Enviando mensaje...').fadeIn();
-        
-        setTimeout(function() {
-            $feedback.addClass('success').text('¡Mensaje enviado con éxito!');
-            $(this).trigger('reset');
-            
-            // Ocultar feedback después de 5 segundos
-            setTimeout(function() {
-                $feedback.fadeOut();
-            }, 5000);
-        }.bind(this), 1500);
+  };
+  window.addEventListener("scroll", handleScrollAnimation);
+  handleScrollAnimation(); // inicial
+
+  /* ==============================
+     MICROINTERACCIONES BOTONES
+  ============================== */
+  const buttons = document.querySelectorAll(".button");
+  buttons.forEach(btn => {
+    btn.addEventListener("mouseenter", () => btn.classList.add("hovered"));
+    btn.addEventListener("mouseleave", () => btn.classList.remove("hovered"));
+  });
+
+  /* ==============================
+     EFECTO PARALLAX EN TARJETAS
+  ============================== */
+  const parallaxCards = document.querySelectorAll(".improved-project");
+  parallaxCards.forEach(card => {
+    card.addEventListener("mousemove", e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
+      card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg) translateZ(0)`;
     });
-    
-    // Form field focus effects
-    $('.contact-form input, .contact-form textarea')
-        .on('focus', function() {
-            $(this).parent().find('label').css('color', 'var(--secondary)');
-        })
-        .on('blur', function() {
-            $(this).parent().find('label').css('color', '');
-        });
-    
-    // Animaciones de scroll
-    function scrollAnimation() {
-        const elements = $('[data-scroll]');
-        const windowHeight = $(window).height() * 0.8;
-        
-        elements.each(function() {
-            const elementPosition = $(this).offset().top;
-            const scrollPosition = $(window).scrollTop() + windowHeight;
-            
-            if (scrollPosition > elementPosition) {
-                $(this).attr('data-scroll', 'in');
-            }
-        });
-    }
-    
-    // Inicializar animaciones
-    $(window).on('load', scrollAnimation);
-    $(window).on('scroll', scrollAnimation);
-    
-    // Detección de touch
-    function isTouchDevice() {
-        return 'ontouchstart' in window || navigator.maxTouchPoints;
-    }
-    
-    // Ajustar comportamientos para touch
-    if(isTouchDevice()) {
-        $('html').addClass('touch-device');
-        
-        // Deshabilitar hover en elementos importantes
-        $('.skill-category, .improved-project').css('transform', 'none');
-        
-        // Mejorar el formulario para móviles
-        $('input, textarea, select').attr({
-            'autocorrect': 'off',
-            'autocapitalize': 'off',
-            'spellcheck': 'false'
-        });
-    }
-    
-    // Precarga de imágenes críticas
-    function preloadImages() {
-        const images = [
-            'images/tu-foto.jpg',
-            'images/título-overhaul.jpg',
-            'images/título-espíritus.jpg',
-            'images/título-napi.jpg',
-            'images/proyecto-universitario.jpg'
-        ];
-        
-        images.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-    }
-    
-    $(document).ready(preloadImages);
-})(jQuery);
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateY(0) rotateX(0) translateZ(0)";
+    });
+  });
+
+  /* ==============================
+     EFECTO RIPPLE EN BOTONES
+  ============================== */
+  buttons.forEach(btn => {
+    btn.addEventListener("click", e => {
+      const circle = document.createElement("span");
+      const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+      const radius = diameter / 2;
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${e.clientX - btn.getBoundingClientRect().left - radius}px`;
+      circle.style.top = `${e.clientY - btn.getBoundingClientRect().top - radius}px`;
+      circle.classList.add("ripple");
+      const ripple = btn.getElementsByClassName("ripple")[0];
+      if (ripple) ripple.remove();
+      btn.appendChild(circle);
+    });
+  });
+});
