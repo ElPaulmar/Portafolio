@@ -4,9 +4,9 @@
 :root {
   --primary-color: #1F4D5B;
   --secondary-color: #226A70;
-  --text-color: #619A90;
+  --text-color: #DBE9D1;
   --heading-color: #AB5D4F;
-  --accent-color: #DBE9D1;
+  --accent-color: #619A90;
   --transition: 0.3s ease;
   --max-width: 1200px;
 }
