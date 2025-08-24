@@ -123,10 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ==============================
-     ANIMACIÓN DE ELEMENTOS AL SCROLL
+     FUNCIONES PARA ANIMACIONES DE SCROLL (DECLARADAS UNA SOLA VEZ)
   ============================== */
-  const scrollElements = document.querySelectorAll(".fade-in, .slide-up, .slide-left, .slide-right");
-  
   const elementInView = (el, offset = 100) => {
     const elementTop = el.getBoundingClientRect().top;
     const elementBottom = el.getBoundingClientRect().bottom;
@@ -147,14 +145,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  /* ==============================
+     ANIMACIÓN DE ELEMENTOS AL SCROLL
+  ============================== */
+  const scrollElements = document.querySelectorAll(".fade-in, .slide-up, .slide-left, .slide-right");
+  
   const handleScrollAnimation = () => {
-    scrollElements.forEach(el => {
-      elementInView(el, 100) ? displayScrollElement(el) : hideScrollElement(el);
+    scrollElements.forEach((el, index) => {
+      if (elementInView(el, 100)) {
+        // Añadir delay escalonado para elementos múltiples
+        setTimeout(() => {
+          displayScrollElement(el);
+        }, index * 100);
+      } else {
+        hideScrollElement(el);
+      }
     });
   };
-
-  window.addEventListener("scroll", handleScrollAnimation);
-  handleScrollAnimation(); // Ejecutar al cargar
 
   /* ==============================
      ANIMACIÓN DE BARRAS DE HABILIDADES
@@ -162,34 +169,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const animateSkillBars = () => {
     const skillBars = document.querySelectorAll('.skill-fill');
     
-    skillBars.forEach(bar => {
+    skillBars.forEach((bar, index) => {
       const skillValue = bar.getAttribute('data-skill');
       const skillContainer = bar.closest('.skill-category');
       
-      if (elementInView(skillContainer, 150)) {
+      if (elementInView(skillContainer, 150) && (bar.style.width === '0px' || !bar.style.width)) {
         setTimeout(() => {
           bar.style.width = skillValue + '%';
-        }, 200);
+        }, index * 200); // Delay escalonado
       }
     });
   };
 
+  // Configurar event listeners para animaciones
+  window.addEventListener("scroll", handleScrollAnimation);
   window.addEventListener('scroll', animateSkillBars);
-  setTimeout(animateSkillBars, 500); // Ejecutar al cargar con delay
+  handleScrollAnimation(); // Ejecutar al cargar
+  setTimeout(animateSkillBars, 1000); // Ejecutar al cargar con delay
 
   /* ==============================
      MICROINTERACCIONES BOTONES
   ============================== */
   const buttons = document.querySelectorAll(".button");
   buttons.forEach(btn => {
-    btn.addEventListener("mouseenter", () => {
-      btn.classList.add("hovered");
-    });
-    
-    btn.addEventListener("mouseleave", () => {
-      btn.classList.remove("hovered");
-    });
-
     // Efecto ripple mejorado
     btn.addEventListener('click', function (e) {
       // Prevenir múltiples ripples
@@ -398,60 +400,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* ==============================
-     ANIMACIÓN DE ELEMENTOS AL SCROLL
-  ============================== */
-  const scrollElements = document.querySelectorAll(".fade-in, .slide-up, .slide-left, .slide-right");
-  
-  const elementInView = (el, offset = 100) => {
-    const elementTop = el.getBoundingClientRect().top;
-    const elementBottom = el.getBoundingClientRect().bottom;
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-    
-    return elementTop <= viewportHeight - offset && elementBottom >= 0;
-  };
-  
-  const displayScrollElement = el => {
-    if (!el.classList.contains('in-view')) {
-      el.classList.add("in-view");
-    }
-  };
-
-  const handleScrollAnimation = () => {
-    scrollElements.forEach((el, index) => {
-      if (elementInView(el, 100)) {
-        // Añadir delay escalonado para elementos múltiples
-        setTimeout(() => {
-          displayScrollElement(el);
-        }, index * 100);
-      }
-    });
-  };
-
-  window.addEventListener("scroll", handleScrollAnimation);
-  handleScrollAnimation(); // Ejecutar al cargar
-
-  /* ==============================
-     ANIMACIÓN DE BARRAS DE HABILIDADES
-  ============================== */
-  const animateSkillBars = () => {
-    const skillBars = document.querySelectorAll('.skill-fill');
-    
-    skillBars.forEach((bar, index) => {
-      const skillValue = bar.getAttribute('data-skill');
-      const skillContainer = bar.closest('.skill-category');
-      
-      if (elementInView(skillContainer, 150) && bar.style.width === '0px' || !bar.style.width) {
-        setTimeout(() => {
-          bar.style.width = skillValue + '%';
-        }, index * 200); // Delay escalonado
-      }
-    });
-  };
-
-  window.addEventListener('scroll', animateSkillBars);
-  setTimeout(animateSkillBars, 1000); // Ejecutar al cargar con delay
-
-  /* ==============================
      EFECTO TYPING PARA HERO TEXT
   ============================== */
   const typeWriter = (element, text, speed = 50) => {
@@ -505,11 +453,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const match = text.match(/(\d+)/);
     if (match) {
       const years = parseInt(match[1]);
-      el.addEventListener('animationstart', () => {
-        setTimeout(() => {
-          animateCounter(el, 0, years, 2000);
-        }, 500);
+      // Usar Intersection Observer en lugar de animationstart
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(el, 0, years, 2000);
+            observer.unobserve(el);
+          }
+        });
       });
+      observer.observe(el);
     }
   });
 
@@ -602,6 +555,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Efecto de partículas en el hero
   const createParticle = () => {
     const banner = document.getElementById('banner');
+    if (!banner) return;
+    
     const particle = document.createElement('div');
     
     particle.style.position = 'absolute';
@@ -654,12 +609,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Aplicar throttle a eventos costosos
-  window.addEventListener('scroll', throttle(() => {
+  const throttledScrollHandler = throttle(() => {
     handleScrollAnimation();
     animateSkillBars();
     updateActiveNavigation();
     handleHeaderScroll();
-  }, 16)); // ~60fps
+  }, 16); // ~60fps
+
+  window.addEventListener('scroll', throttledScrollHandler);
 
   /* ==============================
      INICIALIZACIÓN FINAL
@@ -700,7 +657,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Desactivar efectos parallax en móviles
     parallaxCards.forEach(card => {
-      card.style.transform = 'none !important';
+      card.style.transform = 'none';
     });
   }
 
@@ -714,6 +671,11 @@ document.addEventListener("DOMContentLoaded", () => {
       document.documentElement.style.setProperty('--bg-white', '#1a1a1a');
       document.documentElement.style.setProperty('--bg-light', '#2a2a2a');
       document.documentElement.style.setProperty('--text-dark', '#e0e0e0');
+    } else {
+      // Restaurar valores por defecto
+      document.documentElement.style.setProperty('--bg-white', '#ffffff');
+      document.documentElement.style.setProperty('--bg-light', '#f8f9fa');
+      document.documentElement.style.setProperty('--text-dark', '#2c3e50');
     }
   };
 
