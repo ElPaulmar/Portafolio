@@ -34,56 +34,73 @@
         <a href="#habilidades">Habilidades</a>
         <a href="#contacto">Contacto</a>
       </nav>
+      <!-- Botón hamburguesa para móvil -->
+      <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
     </header>
+
+    <!-- Menú móvil -->
+    <nav class="mobile-menu">
+      <a href="#proyectos">Proyectos Destacados</a>
+      <a href="#otros-proyectos">Otros Proyectos</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
 
     <!-- Hero Banner -->
     <section id="banner">
       <div class="inner">
         <div class="hero-content">
           <div class="profile-container">
-            <img src="images/tu-foto.jpg" class="profile-pic" alt="Foto de Paulo Marques" loading="lazy">
+            <img src="https://via.placeholder.com/220x220/1F4D5B/FFFFFF?text=PM" class="profile-pic" alt="Foto de Paulo Marques" loading="lazy">
           </div>
           <div class="hero-text">
-            <h2>Diseñador de Juegos</h2>
-            <p class="description">Estudiante de Diseño de Juegos Digitales en UNAB, especializándome en integrar mecánicas
-              innovadoras con historias memorables.</p>
-            <div class="hero-actions">
-              <a href="#proyectos" class="button primary">Proyectos</a>
+            <h2 class="fade-in">Diseñador de Juegos</h2>
+            <p class="subtitle fade-in">Narrativas Interactivas & Mecánicas Innovadoras</p>
+            <p class="description fade-in">Estudiante de Diseño de Juegos Digitales en UNAB, especializándome en integrar mecánicas
+              innovadoras con historias memorables que conecten emocionalmente con los jugadores.</p>
+            <div class="hero-actions fade-in">
+              <a href="#proyectos" class="button primary">Ver Proyectos</a>
               <a href="#contacto" class="button with-icon"><i class="fas fa-paper-plane"></i> Colaboremos</a>
             </div>
           </div>
         </div>
+      </div>
+      <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
       </div>
     </section>
 
     <!-- Proyectos Destacados -->
     <section id="proyectos" class="wrapper style2">
       <div class="inner">
-        <h2 class="major">Proyectos Destacados</h2>
-        <p class="section-subtitle">Mis Proyectos de Mayor Reconocimiento</p>
+        <h2 class="major slide-up">Proyectos Destacados</h2>
+        <p class="section-subtitle slide-up">Mis Proyectos de Mayor Reconocimiento</p>
 
         <!-- Overhaul -->
-        <article class="project-card">
+        <article class="project-card slide-up">
           <div class="project-header">
             <div class="project-media">
-              <img src="images/título-overhaul.jpg" alt="Overhaul" class="project-thumb" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/AB5D4F/FFFFFF?text=OVERHAUL" alt="Overhaul" class="project-thumb" loading="lazy">
             </div>
             <div class="project-basic-info">
               <div class="project-meta">
-                <span class="project-date">Feb-Jun 2024</span>
-                <span class="project-genre">Hack & Slash | PC</span>
+                <span class="project-date"><i class="fas fa-calendar"></i> Feb-Jun 2024</span>
+                <span class="project-genre"><i class="fas fa-gamepad"></i> Hack & Slash | PC</span>
               </div>
               <h3>Overhaul</h3>
               <div class="project-roles">
                 <span class="role-tag">Diseñador de Juego</span>
                 <span class="role-tag">Escritor</span>
               </div>
+              <p class="project-summary">Un hack & slash innovador que combina narrativa profunda con mecánicas de combate modulares.</p>
             </div>
           </div>
 
           <div class="project-content">
             <div class="project-description">
-              <h4>Contribuciones Clave</h4>
+              <h4><i class="fas fa-star"></i> Contribuciones Clave</h4>
               <ul>
                 <li>Diseño de narrativas: historia principal y arcos de personajes</li>
                 <li>Creación de diálogos y sistema de exposición narrativa</li>
@@ -94,10 +111,11 @@
             </div>
 
             <div class="project-tools">
-              <h4>Herramientas Utilizadas</h4>
+              <h4><i class="fas fa-tools"></i> Herramientas Utilizadas</h4>
               <div class="tool-tags">
                 <span class="tool-tag">Unity</span>
                 <span class="tool-tag">Google Docs</span>
+                <span class="tool-tag">C#</span>
               </div>
             </div>
 
@@ -107,6 +125,9 @@
               </button>
               <a href="#" class="button primary with-icon">
                 <i class="fas fa-play"></i> Ver Demo
+              </a>
+              <a href="#" class="button with-icon">
+                <i class="fas fa-code"></i> Ver Código
               </a>
             </div>
 
@@ -141,11 +162,11 @@
 
               <div class="project-gallery">
                 <div class="gif-container">
-                  <img src="images/overhaul-combat.gif" alt="Sistema de combate" class="project-gif" loading="lazy">
+                  <img src="https://via.placeholder.com/400x225/226A70/FFFFFF?text=Combat+System" alt="Sistema de combate" class="project-gif" loading="lazy">
                   <p>Transición fluida entre estilos</p>
                 </div>
                 <div class="gif-container">
-                  <img src="images/overhaul-progression.gif" alt="Progresión de habilidades" class="project-gif"
+                  <img src="https://via.placeholder.com/400x225/619A90/FFFFFF?text=Progression" alt="Progresión de habilidades" class="project-gif"
                     loading="lazy">
                   <p>Menú de personalización</p>
                 </div>
@@ -159,12 +180,12 @@
     <!-- Otros Proyectos -->
     <section id="otros-proyectos" class="wrapper style3">
       <div class="inner">
-        <h2 class="major">Otros Proyectos</h2>
+        <h2 class="major slide-up">Otros Proyectos</h2>
         <div class="improved-project-grid">
           <!-- Espíritus de Hartshorn -->
-          <article class="improved-project">
+          <article class="improved-project slide-left">
             <div class="project-image-container">
-              <img src="images/título-espíritus.jpg" alt="Espíritus de Hartshorn" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/AB5D4F/FFFFFF?text=ESPÍRITUS" alt="Espíritus de Hartshorn" loading="lazy">
               <div class="project-overlay">
                 <a href="#" class="button small">Ver Detalles</a>
               </div>
@@ -172,17 +193,21 @@
             <div class="project-info">
               <h3>Espíritus de Hartshorn</h3>
               <div class="project-meta">
-                <span>Ago-Dic 2023</span>
-                <span>Hack&Slash | 2.5D</span>
+                <span><i class="fas fa-calendar"></i> Ago-Dic 2023</span>
+                <span><i class="fas fa-gamepad"></i> Hack&Slash | 2.5D</span>
               </div>
               <p>Diseñé mecánicas de toma de decisión integradas en el sistema de combate.</p>
+              <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">Game Design</span>
+              </div>
             </div>
           </article>
 
           <!-- Las Huellas de Napi -->
-          <article class="improved-project">
+          <article class="improved-project slide-up">
             <div class="project-image-container">
-              <img src="images/título-napi.jpg" alt="Napi" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/619A90/FFFFFF?text=NAPI" alt="Napi" loading="lazy">
               <div class="project-overlay">
                 <a href="#" class="button small">Ver Detalles</a>
               </div>
@@ -190,17 +215,22 @@
             <div class="project-info">
               <h3>Las Huellas de Napi</h3>
               <div class="project-meta">
-                <span>Mar-Jun 2023</span>
-                <span>Plataformero | Narrativo</span>
+                <span><i class="fas fa-calendar"></i> Mar-Jun 2023</span>
+                <span><i class="fas fa-gamepad"></i> Plataformero | Narrativo</span>
               </div>
-              <p>Programé todo.</p>
+              <p>Desarrollo completo del juego, desde programación hasta diseño de mecánicas.</p>
+              <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">C#</span>
+                <span class="tag">Narrativa</span>
+              </div>
             </div>
           </article>
 
           <!-- Sponji y la Calamidad Cibernética -->
-          <article class="improved-project">
+          <article class="improved-project slide-right">
             <div class="project-image-container">
-              <img src="images/título-sponji.jpg" alt="Sponji" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/1F4D5B/FFFFFF?text=SPONJI" alt="Sponji" loading="lazy">
               <div class="project-overlay">
                 <a href="#" class="button small">Ver Detalles</a>
               </div>
@@ -208,13 +238,16 @@
             <div class="project-info">
               <h3>Sponji y la Calamidad Cibernética</h3>
               <div class="project-meta">
-                <span>Mar-Jun 2022</span>
-                <span>Plataformero | 2D</span>
+                <span><i class="fas fa-calendar"></i> Mar-Jun 2022</span>
+                <span><i class="fas fa-gamepad"></i> Plataformero | 2D</span>
               </div>
               <p>Desarrollé rompecabezas narrativos, integrando historia y mecánicas de manera orgánica.</p>
+              <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">Puzzle Design</span>
+              </div>
             </div>
           </article>
-          <!-- Otros proyectos pueden agregarse igual -->
         </div>
       </div>
     </section>
@@ -222,35 +255,98 @@
     <!-- Habilidades -->
     <section id="habilidades" class="wrapper style1">
       <div class="inner">
-        <h2 class="major">Habilidades Técnicas</h2>
+        <h2 class="major slide-up">Habilidades Técnicas</h2>
         <div class="skills-grid">
-          <div class="skill-category">
+          <div class="skill-category slide-left">
             <h3><i class="fas fa-gamepad"></i> Diseño de Juegos</h3>
-            <ul class="skill-list">
-              <li><strong>Unity</strong>: 3 años de experiencia</li>
-              <li><strong>Unreal Engine</strong>: Blueprints básicos</li>
-              <li>Diseño de mecánicas y sistemas</li>
-              <li>Balanceo de gameplay</li>
-              <li>Prototipado rápido</li>
-            </ul>
+            <div class="skill-progress-container">
+              <div class="skill-item">
+                <span class="skill-name">Unity</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="85"></div>
+                </div>
+                <span class="skill-years">3 años</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Unreal Engine</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="40"></div>
+                </div>
+                <span class="skill-years">Básico</span>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Game Design Document</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="90"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Balanceo de Gameplay</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="75"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="skill-category">
+          
+          <div class="skill-category slide-up">
             <h3><i class="fas fa-book"></i> Narrativa</h3>
-            <ul class="skill-list">
-              <li><strong>Twine</strong>: Historias interactivas</li>
-              <li>Escritura de diálogos</li>
-              <li>Arcos de personajes</li>
-              <li>Estructuras narrativas no lineales</li>
-            </ul>
+            <div class="skill-progress-container">
+              <div class="skill-item">
+                <span class="skill-name">Twine</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="80"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Escritura de Diálogos</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="85"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Arcos de Personajes</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="80"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Narrativa No Lineal</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="75"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="skill-category">
+          
+          <div class="skill-category slide-right">
             <h3><i class="fas fa-tools"></i> Herramientas</h3>
-            <ul class="skill-list">
-              <li><strong>Adobe CC</strong>: Suite creativa</li>
-              <li><strong>Google Suite</strong>: Documentación</li>
-              <li><strong>Git</strong>: Control de versiones</li>
-              <li>Figma (wireframes UI/UX)</li>
-            </ul>
+            <div class="skill-progress-container">
+              <div class="skill-item">
+                <span class="skill-name">Adobe Creative Suite</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="70"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Git & GitHub</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="65"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Figma</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="60"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">C#</span>
+                <div class="skill-bar">
+                  <div class="skill-fill" data-skill="70"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -259,41 +355,64 @@
     <!-- Contacto -->
     <section id="contacto" class="wrapper style4">
       <div class="inner">
-        <h2 class="major">Contacto</h2>
-        <p>Si quieres trabajar juntos o tienes alguna propuesta, ¡escríbeme!</p>
-        <form id="contact-form">
-          <div class="fields">
-            <div class="field half">
-              <label for="name">Nombre</label>
-              <input type="text" name="name" id="name" required>
+        <h2 class="major slide-up">Contacto</h2>
+        <p class="slide-up">Si quieres trabajar juntos o tienes alguna propuesta, ¡escríbeme!</p>
+        <div class="contact-container">
+          <form id="contact-form" class="slide-left">
+            <div class="fields">
+              <div class="field half">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" id="name" required>
+              </div>
+              <div class="field half">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+              </div>
+              <div class="field">
+                <label for="message">Mensaje</label>
+                <textarea name="message" id="message" rows="6" required></textarea>
+              </div>
             </div>
-            <div class="field half">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" required>
+            <ul class="actions">
+              <li><input type="submit" value="Enviar Mensaje" class="primary button"></li>
+            </ul>
+          </form>
+          
+          <div class="contact-info slide-right">
+            <h3>Información de Contacto</h3>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>tu@email.com</span>
             </div>
-            <div class="field">
-              <label for="message">Mensaje</label>
-              <textarea name="message" id="message" rows="6" required></textarea>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Santiago, Chile</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-graduation-cap"></i>
+              <span>UNAB - Diseño de Juegos Digitales</span>
             </div>
           </div>
-          <ul class="actions">
-            <li><input type="submit" value="Enviar Mensaje" class="primary"></li>
-          </ul>
-        </form>
+        </div>
       </div>
     </section>
 
     <!-- Footer -->
     <footer id="footer">
       <ul class="icons">
-        <li><a href="https://github.com/tu-github" class="icon brands fa-github"><span class="label">GitHub</span></a>
-        </li>
-        <li><a href="https://linkedin.com/in/tu-linkedin" class="icon brands fa-linkedin"><span
-              class="label">LinkedIn</span></a></li>
+        <li><a href="https://github.com/tu-github" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+        <li><a href="https://linkedin.com/in/tu-linkedin" class="icon brands fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
         <li><a href="mailto:tu@email.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
+        <li><a href="https://itch.io/tu-perfil" class="icon brands fa-itch-io" target="_blank"><span class="label">Itch.io</span></a></li>
       </ul>
       <p>&copy; 2025 Paulo Marques. Todos los derechos reservados.</p>
     </footer>
+  </div>
+
+  <!-- Notificación de mensaje enviado -->
+  <div id="message-notification" class="notification">
+    <i class="fas fa-check-circle"></i>
+    <span>¡Mensaje enviado correctamente!</span>
   </div>
 
   <script src="assets/js/main.js" defer></script>
