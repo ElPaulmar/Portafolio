@@ -79,9 +79,9 @@ h2.major::after {
    LAYOUT GENERAL
 ============================== */
 #page-wrapper {
-  max-width: var(--max-width);
+  width: 100%;
   margin: auto;
-  background: var(--bg-white);
+  background: var(--text-color);
   box-shadow: var(--shadow-light);
 }
 
@@ -94,15 +94,15 @@ section {
 }
 
 .wrapper.style1 {
-  background: var(--bg-white);
+  background: var(--text-color);
 }
 
 .wrapper.style2 {
-  background: var(--bg-light);
+  background: var(--secondary-color);
 }
 
 .wrapper.style3 {
-  background: var(--bg-white);
+  background: var(--text-color);
 }
 
 .wrapper.style4 {
@@ -125,11 +125,9 @@ section {
 #header {
   position: fixed;
   width: 100%;
-  max-width: var(--max-width);
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
+  left: 0;
+  background: rgba(31, 77, 91, 0.95);
   backdrop-filter: blur(10px);
   z-index: 999;
   display: flex;
@@ -141,7 +139,7 @@ section {
 }
 
 #header.scrolled {
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(31, 77, 91, 0.98);
   box-shadow: var(--shadow-medium);
 }
 
@@ -152,7 +150,7 @@ section {
 
 #header h1 a {
   text-decoration: none;
-  color: var(--heading-color);
+  color: var(--text-color);
   transition: color var(--transition);
 }
 
@@ -163,7 +161,7 @@ section {
 
 #header nav a {
   text-decoration: none;
-  color: var(--text-dark);
+  color: var(--text-color);
   font-weight: 600;
   position: relative;
   transition: color var(--transition);
@@ -182,7 +180,7 @@ section {
 }
 
 #header nav a:hover {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 #header nav a:hover::after {
@@ -194,7 +192,7 @@ section {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--heading-color);
+  color: var(--text-color);
   cursor: pointer;
 }
 
@@ -202,11 +200,9 @@ section {
   display: none;
   position: fixed;
   top: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: var(--max-width);
+  left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(31, 77, 91, 0.98);
   backdrop-filter: blur(10px);
   z-index: 998;
   padding: 1rem 2rem;
@@ -217,10 +213,10 @@ section {
 
 .mobile-menu a {
   text-decoration: none;
-  color: var(--text-dark);
+  color: var(--text-color);
   font-weight: 600;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(219, 233, 209, 0.2);
 }
 
 /* ==============================
@@ -443,7 +439,7 @@ section {
 }
 
 .skill-category {
-  background: var(--bg-white);
+  background: var(--primary-color);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-light);
@@ -460,7 +456,7 @@ section {
   align-items: center;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-md);
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .skill-category h3 i {
@@ -481,7 +477,7 @@ section {
 
 .skill-name {
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--text-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -489,13 +485,13 @@ section {
 
 .skill-years {
   font-size: 0.8rem;
-  color: #666;
+  color: var(--accent-color);
   font-weight: normal;
 }
 
 .skill-bar {
   height: 8px;
-  background: #e9ecef;
+  background: rgba(171, 93, 79, 0.3);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -530,7 +526,7 @@ section {
    PROYECTOS
 ============================== */
 .project-card {
-  background: var(--bg-white);
+  background: var(--primary-color);
   border-radius: var(--border-radius);
   margin-bottom: var(--spacing-lg);
   overflow: hidden;
@@ -579,7 +575,7 @@ section {
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 0.85rem;
-  color: #666;
+  color: var(--accent-color);
   margin-bottom: var(--spacing-xs);
 }
 
@@ -596,13 +592,14 @@ section {
 .project-basic-info h3 {
   font-size: 1.8rem;
   margin-bottom: var(--spacing-xs);
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .project-summary {
-  color: #666;
+  color: var(--text-color);
   font-style: italic;
   margin-bottom: var(--spacing-sm);
+  opacity: 0.9;
 }
 
 .project-roles {
@@ -629,7 +626,7 @@ section {
 
 .project-description h4,
 .project-tools h4 {
-  color: var(--primary-color);
+  color: var(--text-color);
   margin-bottom: var(--spacing-sm);
   display: flex;
   align-items: center;
@@ -667,18 +664,18 @@ section {
 }
 
 .tool-tag {
-  background: var(--bg-light);
-  color: var(--text-dark);
+  background: var(--secondary-color);
+  color: var(--text-color);
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   font-size: 0.8rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--accent-color);
   transition: all var(--transition);
 }
 
 .tool-tag:hover {
   background: var(--accent-color);
-  color: var(--text-light);
+  color: var(--primary-color);
   transform: translateY(-2px);
 }
 
@@ -716,13 +713,13 @@ section {
 .process-step {
   margin-bottom: var(--spacing-md);
   padding: var(--spacing-sm);
-  background: var(--bg-light);
+  background: var(--secondary-color);
   border-radius: 0.5rem;
   border-left: 4px solid var(--accent-color);
 }
 
 .process-step h4 {
-  color: var(--primary-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -760,7 +757,7 @@ section {
 .gif-container p {
   margin-top: var(--spacing-xs);
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 /* ==============================
@@ -774,7 +771,7 @@ section {
 }
 
 .improved-project {
-  background: var(--bg-white);
+  background: var(--primary-color);
   border-radius: var(--border-radius);
   overflow: hidden;
   position: relative;
@@ -1010,19 +1007,19 @@ input:focus, textarea:focus {
 ============================== */
 .fade-in, .slide-up, .slide-left, .slide-right {
   opacity: 0;
-  transition: all 0.8s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 .slide-up {
-  transform: translateY(30px);
+  transform: translateY(20px);
 }
 
 .slide-left {
-  transform: translateX(-30px);
+  transform: translateX(-20px);
 }
 
 .slide-right {
-  transform: translateX(30px);
+  transform: translateX(20px);
 }
 
 .fade-in.in-view,
@@ -1174,4 +1171,41 @@ input:focus, textarea:focus {
 /* Smooth scroll con offset para header fijo */
 html {
   scroll-padding-top: 80px;
+}
+
+/* Añade esto al final de tu CSS para mejorar la legibilidad */
+.skill-category, 
+.project-card, 
+.improved-project {
+  background: var(--primary-color) !important;
+  color: var(--text-color) !important;
+}
+
+.skill-category h3,
+.project-basic-info h3,
+.project-info h3 {
+  color: var(--text-color) !important;
+}
+
+.project-summary,
+.project-description,
+.process-step {
+  color: var(--text-color) !important;
+  opacity: 0.9 !important;
+}
+
+/* Mejorar contraste */
+.skill-bar {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.tool-tag {
+  background: var(--secondary-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--accent-color) !important;
+}
+
+.tool-tag:hover {
+  background: var(--accent-color) !important;
+  color: var(--primary-color) !important;
 }

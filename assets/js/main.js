@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ocultar header al hacer scroll down, mostrar al hacer scroll up
     if (currentScrollY > lastScrollY && currentScrollY > 200) {
-      header.style.transform = 'translateX(-50%) translateY(-100%)';
+      header.style.transform = 'translateY(-100%)';
     } else {
-      header.style.transform = 'translateX(-50%) translateY(0)';
+      header.style.transform = 'translateY(0)';
     }
 
     lastScrollY = currentScrollY;
@@ -45,9 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileMenuOpen = !mobileMenuOpen;
     mobileMenu.style.display = mobileMenuOpen ? 'flex' : 'none';
     mobileMenuToggle.innerHTML = mobileMenuOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    
+    // Prevenir scroll del body cuando el menú está abierto
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
   };
 
-  mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+  mobileMenuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
 
   // Cerrar menú móvil al hacer clic en un enlace
   document.querySelectorAll('.mobile-menu a').forEach(link => {
@@ -65,6 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Cerrar menú al cambiar tamaño de ventana (si se vuelve a desktop)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900 && mobileMenuOpen) {
+      toggleMobileMenu();
+    }
+  });
+
   /* ==============================
      SMOOTH SCROLL PARA ANCLAS
   ============================== */
@@ -72,6 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
     anchor.addEventListener("click", e => {
       e.preventDefault();
       const targetId = anchor.getAttribute("href");
+      
+      // Ignorar enlaces vacíos
+      if (targetId === '#') return;
+      
       const target = document.querySelector(targetId);
       
       if (target) {
@@ -94,7 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollIndicator.addEventListener('click', () => {
       const proyectosSection = document.getElementById('proyectos');
       if (proyectosSection) {
-        proyectosSection.scrollIntoView({ behavior: 'smooth' });
+        const headerHeight = document.getElementById('header').offsetHeight;
+        const targetPosition = proyectosSection.offsetTop - headerHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
       }
     });
   }
@@ -106,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggles.forEach(toggle => {
     toggle.addEventListener("click", () => {
       toggle.classList.toggle("active");
-      const process = toggle.parentElement.nextElementSibling;
+      const process = toggle.closest('.project-actions').nextElementSibling;
       
       if (process && process.classList.contains('development-process')) {
         if (toggle.classList.contains("active")) {
@@ -123,14 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ==============================
-     FUNCIONES PARA ANIMACIONES DE SCROLL (DECLARADAS UNA SOLA VEZ)
+     FUNCIONES PARA ANIMACIONES (DECLARADAS UNA SOLA VEZ)
   ============================== */
-  const elementInView = (el, offset = 100) => {
+  const elementInView = (el, offset = 50) => {
     const elementTop = el.getBoundingClientRect().top;
-    const elementBottom = el.getBoundingClientRect().bottom;
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     
-    return elementTop <= viewportHeight - offset && elementBottom >= 0;
+    return elementTop <= viewportHeight - offset;
   };
   
   const displayScrollElement = el => {
@@ -152,11 +174,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const handleScrollAnimation = () => {
     scrollElements.forEach((el, index) => {
-      if (elementInView(el, 100)) {
-        // Añadir delay escalonado para elementos múltiples
+      if (elementInView(el, 50)) {
         setTimeout(() => {
           displayScrollElement(el);
-        }, index * 100);
+        }, index * 50);
       } else {
         hideScrollElement(el);
       }
@@ -167,16 +188,17 @@ document.addEventListener("DOMContentLoaded", () => {
      ANIMACIÓN DE BARRAS DE HABILIDADES
   ============================== */
   const animateSkillBars = () => {
-    const skillBars = document.querySelectorAll('.skill-fill');
+    const skillBars = document.querySelectorAll('.skill-fill:not(.animated)');
     
     skillBars.forEach((bar, index) => {
       const skillValue = bar.getAttribute('data-skill');
       const skillContainer = bar.closest('.skill-category');
       
-      if (elementInView(skillContainer, 150) && (bar.style.width === '0px' || !bar.style.width)) {
+      if (elementInView(skillContainer, 150)) {
+        bar.classList.add('animated');
         setTimeout(() => {
           bar.style.width = skillValue + '%';
-        }, index * 200); // Delay escalonado
+        }, index * 200);
       }
     });
   };
@@ -185,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", handleScrollAnimation);
   window.addEventListener('scroll', animateSkillBars);
   handleScrollAnimation(); // Ejecutar al cargar
-  setTimeout(animateSkillBars, 1000); // Ejecutar al cargar con delay
+  setTimeout(animateSkillBars, 1000);
 
   /* ==============================
      MICROINTERACCIONES BOTONES
@@ -223,26 +245,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ==============================
-     EFECTO PARALLAX EN TARJETAS
+     EFECTO PARALLAX EN TARJETAS (SOLO DESKTOP)
   ============================== */
   const parallaxCards = document.querySelectorAll(".improved-project");
   
-  parallaxCards.forEach(card => {
-    card.addEventListener("mousemove", e => {
-      if (window.innerWidth > 768) { // Solo en desktop
+  if (window.innerWidth > 768) {
+    parallaxCards.forEach(card => {
+      card.addEventListener("mousemove", e => {
         const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 15;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 15;
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
         card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg) translateZ(0)`;
-      }
-    });
-    
-    card.addEventListener("mouseleave", () => {
-      if (window.innerWidth > 768) {
+      });
+      
+      card.addEventListener("mouseleave", () => {
         card.style.transform = "perspective(1000px) rotateY(0) rotateX(0) translateZ(0)";
-      }
+      });
     });
-  });
+  }
 
   /* ==============================
      FORMULARIO DE CONTACTO
@@ -251,6 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const notification = document.getElementById('message-notification');
 
   const showNotification = (message, type = 'success') => {
+    if (!notification) return;
+    
     notification.innerHTML = `
       <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
       <span>${message}</span>
@@ -298,7 +320,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Simular envío (aquí conectarías con tu backend)
       const submitButton = contactForm.querySelector('input[type="submit"]');
       const originalText = submitButton.value;
       
@@ -306,10 +327,8 @@ document.addEventListener("DOMContentLoaded", () => {
       submitButton.disabled = true;
       
       try {
-        // Simular delay de envío
         await new Promise(resolve => setTimeout(resolve, 1500));
         
-        // Aquí irían los datos a tu servidor
         const formDataObj = {
           name: formData.get('name'),
           email: formData.get('email'),
@@ -318,7 +337,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         
         console.log('Datos del formulario:', formDataObj);
-        
         showNotification('¡Mensaje enviado correctamente! Te responderé pronto.');
         contactForm.reset();
         
@@ -420,7 +438,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Activar efecto typing después de un delay
   setTimeout(() => {
     const heroTitle = document.querySelector('.hero-text h2');
-    if (heroTitle) {
+    if (heroTitle && !heroTitle.classList.contains('typed')) {
+      heroTitle.classList.add('typed');
       const originalText = heroTitle.textContent;
       typeWriter(heroTitle, originalText, 80);
     }
@@ -436,7 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
       const currentValue = Math.floor(progress * (end - start) + start);
-      element.textContent = currentValue;
+      element.textContent = currentValue + (end > 1 ? ' años' : ' año');
       
       if (progress < 1) {
         requestAnimationFrame(step);
@@ -446,25 +465,25 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(step);
   };
 
-  // Buscar elementos que contengan años y animarlos
+  // Usar Intersection Observer para contadores
   const yearElements = document.querySelectorAll('.skill-years');
-  yearElements.forEach(el => {
-    const text = el.textContent;
-    const match = text.match(/(\d+)/);
-    if (match) {
-      const years = parseInt(match[1]);
-      // Usar Intersection Observer en lugar de animationstart
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateCounter(el, 0, years, 2000);
-            observer.unobserve(el);
-          }
-        });
-      });
-      observer.observe(el);
-    }
+  const yearObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent;
+        const match = text.match(/(\d+)/);
+        
+        if (match) {
+          const years = parseInt(match[1]);
+          animateCounter(el, 0, years, 2000);
+          yearObserver.unobserve(el);
+        }
+      }
+    });
   });
+
+  yearElements.forEach(el => yearObserver.observe(el));
 
   /* ==============================
      LAZY LOADING PARA IMÁGENES
@@ -477,15 +496,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const img = entry.target;
         img.classList.add('loading');
         
-        img.addEventListener('load', () => {
+        // Forzar carga si no se ha cargado
+        if (img.complete) {
           img.classList.remove('loading');
           img.style.opacity = '1';
-        });
+        } else {
+          img.addEventListener('load', () => {
+            img.classList.remove('loading');
+            img.style.opacity = '1';
+          });
+          
+          img.addEventListener('error', () => {
+            img.classList.remove('loading');
+            img.style.opacity = '1';
+          });
+        }
         
         observer.unobserve(img);
       }
     });
-  });
+  }, { rootMargin: '200px 0px' });
 
   images.forEach(img => {
     img.style.opacity = '0';
@@ -540,7 +570,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     if (konamiCode.join(',') === konamiSequence.join(',')) {
-      // Easter egg activado
       document.body.style.filter = 'hue-rotate(180deg)';
       showNotification('🎮 ¡Código Konami activado! Eres un verdadero gamer.');
       
@@ -558,65 +587,95 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!banner) return;
     
     const particle = document.createElement('div');
-    
-    particle.style.position = 'absolute';
-    particle.style.width = Math.random() * 4 + 1 + 'px';
-    particle.style.height = particle.style.width;
-    particle.style.background = 'rgba(255, 255, 255, 0.1)';
-    particle.style.borderRadius = '50%';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = '100%';
-    particle.style.pointerEvents = 'none';
-    particle.style.zIndex = '1';
+    particle.style.cssText = `
+      position: absolute;
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      background: rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1});
+      border-radius: 50%;
+      left: ${Math.random() * 100}%;
+      top: 100%;
+      pointer-events: none;
+      z-index: 1;
+    `;
     
     banner.appendChild(particle);
     
     const animationDuration = Math.random() * 3000 + 2000;
     
-    particle.animate([
+    const animation = particle.animate([
       { transform: 'translateY(0) translateX(0)', opacity: 0 },
-      { transform: `translateY(-${window.innerHeight}px) translateX(${Math.random() * 200 - 100}px)`, opacity: 1 },
-      { transform: `translateY(-${window.innerHeight * 1.5}px) translateX(${Math.random() * 300 - 150}px)`, opacity: 0 }
+      { transform: `translateY(-${window.innerHeight}px) translateX(${Math.random() * 100 - 50}px)`, opacity: 0.8 },
+      { transform: `translateY(-${window.innerHeight * 1.5}px) translateX(${Math.random() * 200 - 100}px)`, opacity: 0 }
     ], {
       duration: animationDuration,
       easing: 'linear'
-    }).onfinish = () => {
-      if (particle.parentNode) {
-        particle.remove();
-      }
-    };
+    });
+
+    animation.onfinish = () => particle.remove();
   };
 
-  // Crear partículas periódicamente
-  setInterval(createParticle, 800);
+  // Crear partículas periódicamente solo si es necesario
+  let particleInterval;
+  const startParticles = () => {
+    if (window.innerWidth > 768 && document.visibilityState === 'visible') {
+      particleInterval = setInterval(createParticle, 300);
+    }
+  };
+
+  const stopParticles = () => {
+    clearInterval(particleInterval);
+  };
+
+  // Manejar visibilidad de la página
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      startParticles();
+    } else {
+      stopParticles();
+    }
+  });
+
+  startParticles();
 
   /* ==============================
      PERFORMANCE OPTIMIZATIONS
   ============================== */
   
-  // Throttle para eventos de scroll
+  // Throttle mejorado
   const throttle = (func, limit) => {
     let inThrottle;
+    let lastRan;
+    
     return function() {
-      const args = arguments;
       const context = this;
+      const args = arguments;
+      
       if (!inThrottle) {
         func.apply(context, args);
+        lastRan = Date.now();
         inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
+      } else {
+        clearTimeout(lastRan);
+        lastRan = setTimeout(() => {
+          if (Date.now() - lastRan >= limit) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
       }
     };
   };
 
-  // Aplicar throttle a eventos costosos
-  const throttledScrollHandler = throttle(() => {
+  // Aplicar throttle a eventos
+  const throttledScroll = throttle(() => {
     handleScrollAnimation();
     animateSkillBars();
     updateActiveNavigation();
     handleHeaderScroll();
-  }, 16); // ~60fps
+  }, 16);
 
-  window.addEventListener('scroll', throttledScrollHandler);
+  window.addEventListener('scroll', throttledScroll);
 
   /* ==============================
      INICIALIZACIÓN FINAL
@@ -628,9 +687,9 @@ document.addEventListener("DOMContentLoaded", () => {
     heroElements.forEach((el, index) => {
       setTimeout(() => {
         el.classList.add('in-view');
-      }, index * 200);
+      }, index * 100);
     });
-  }, 500);
+  }, 100);
 
   // Precargar imágenes importantes
   const preloadImages = [
@@ -649,20 +708,15 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ==============================
      DETECCIÓN DE DISPOSITIVO
   ============================== */
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const isTouch = 'ontouchstart' in window;
-
-  if (isMobile || isTouch) {
+  const isMobile = window.innerWidth <= 900;
+  
+  if (isMobile) {
     document.body.classList.add('mobile-device');
-    
-    // Desactivar efectos parallax en móviles
-    parallaxCards.forEach(card => {
-      card.style.transform = 'none';
-    });
+    stopParticles();
   }
 
   /* ==============================
-     MODO OSCURO (OPCIONAL)
+     MODO OSCURO (MEJORADO)
   ============================== */
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
   
@@ -687,5 +741,10 @@ document.addEventListener("DOMContentLoaded", () => {
   applyTheme(prefersDark.matches);
 
   console.log('🎮 Portafolio de Paulo Marques cargado correctamente!');
-  console.log('💡 Tip: Prueba el código Konami para un easter egg');
+  console.log('💡 Tip: Prueba el código Konami (↑↑↓↓←→←→BA) para un easter egg');
+});
+
+// Manejar recarga de página
+window.addEventListener('beforeunload', () => {
+  document.body.classList.add('is-preload');
 });
