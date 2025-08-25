@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Paulo Marques | Diseñador de Juegos & Narrativas</title>
   <meta name="description"
@@ -10,50 +10,90 @@
   <meta name="keywords"
     content="game designer, diseñador de juegos, Unity, Unreal Engine, portfolio, portafolio, Chile, desarrollo de videojuegos, narrativa interactiva">
   <meta name="author" content="Paulo Marques">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tu-portafolio.com">
   <meta property="og:title" content="Paulo Marques | Diseñador de Juegos & Narrativas">
   <meta property="og:description"
     content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tu-portafolio.com">
-  <meta property="og:image" content="https://tu-portafolio.com/images/tu-foto.jpg">
+  <meta property="og:image" content="https://tu-portafolio.com/images/preview.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tu-portafolio.com">
+  <meta property="twitter:title" content="Paulo Marques | Diseñador de Juegos & Narrativas">
+  <meta property="twitter:description"
+    content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas">
+  <meta property="twitter:image" content="https://tu-portafolio.com/images/preview.jpg">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://tu-portafolio.com">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@700;800&display=swap"
     rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Paulo Marques",
+    "jobTitle": "Game Designer",
+    "description": "Diseñador de juegos especializado en narrativas interactivas y mecánicas innovadoras",
+    "url": "https://tu-portafolio.com",
+    "alumniOf": "Universidad Andrés Bello",
+    "knowsAbout": ["Game Design", "Unity", "Narrative Design", "C#"]
+  }
+  </script>
 </head>
 
 <body class="is-preload">
   <div id="page-wrapper">
     <!-- Header -->
-    <header id="header" class="alt">
+    <header id="header" class="alt" role="banner">
       <h1><a href="#banner">PAULO MARQUES | DISEÑADOR DE JUEGOS</a></h1>
-      <nav>
+      <nav aria-label="Navegación principal">
         <a href="#proyectos">Proyectos Destacados</a>
         <a href="#otros-proyectos">Otros Proyectos</a>
         <a href="#habilidades">Habilidades</a>
+        <a href="#testimonios">Testimonios</a>
         <a href="#contacto">Contacto</a>
       </nav>
       <!-- Botón hamburguesa para móvil -->
-      <button class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
+      <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Abrir menú de navegación">
+        <i class="fas fa-bars" aria-hidden="true"></i>
       </button>
     </header>
 
     <!-- Menú móvil -->
-    <nav class="mobile-menu">
+    <nav class="mobile-menu" aria-label="Menú móvil">
       <a href="#proyectos">Proyectos Destacados</a>
       <a href="#otros-proyectos">Otros Proyectos</a>
       <a href="#habilidades">Habilidades</a>
+      <a href="#testimonios">Testimonios</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
     <!-- Hero Banner -->
-    <section id="banner">
+    <section id="banner" role="main">
       <div class="inner">
         <div class="hero-content">
           <div class="profile-container">
-            <img src="https://via.placeholder.com/220x220/1F4D5B/FFFFFF?text=PM" class="profile-pic" alt="Foto de Paulo Marques" loading="lazy">
+            <img src="https://via.placeholder.com/220x220/1F4D5B/FFFFFF?text=PM" 
+                 class="profile-pic" 
+                 alt="Foto de Paulo Marques" 
+                 loading="eager"
+                 width="220" 
+                 height="220">
           </div>
           <div class="hero-text">
             <h2 class="fade-in">Diseñador de Juegos</h2>
@@ -62,14 +102,17 @@
               innovadoras con historias memorables que conecten emocionalmente con los jugadores.</p>
             <div class="hero-actions fade-in">
               <a href="#proyectos" class="button primary">Ver Proyectos</a>
-              <a href="#contacto" class="button with-icon"><i class="fas fa-paper-plane"></i> Colaboremos</a>
+              <a href="#contacto" class="button with-icon">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i> 
+                Colaboremos
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="scroll-indicator">
-        <i class="fas fa-chevron-down"></i>
-      </div>
+      <button class="scroll-indicator" aria-label="Desplazarse hacia abajo">
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
     </section>
 
     <!-- Proyectos Destacados -->
@@ -82,12 +125,23 @@
         <article class="project-card slide-up">
           <div class="project-header">
             <div class="project-media">
-              <img src="https://via.placeholder.com/300x200/AB5D4F/FFFFFF?text=OVERHAUL" alt="Overhaul" class="project-thumb" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/AB5D4F/FFFFFF?text=OVERHAUL" 
+                   alt="Overhaul - Juego hack and slash" 
+                   class="project-thumb" 
+                   loading="lazy"
+                   width="300"
+                   height="200">
             </div>
             <div class="project-basic-info">
               <div class="project-meta">
-                <span class="project-date"><i class="fas fa-calendar"></i> Feb-Jun 2024</span>
-                <span class="project-genre"><i class="fas fa-gamepad"></i> Hack & Slash | PC</span>
+                <span class="project-date">
+                  <i class="fas fa-calendar" aria-hidden="true"></i> 
+                  <time datetime="2024-02">Feb-Jun 2024</time>
+                </span>
+                <span class="project-genre">
+                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
+                  Hack & Slash | PC
+                </span>
               </div>
               <h3>Overhaul</h3>
               <div class="project-roles">
@@ -100,7 +154,7 @@
 
           <div class="project-content">
             <div class="project-description">
-              <h4><i class="fas fa-star"></i> Contribuciones Clave</h4>
+              <h4><i class="fas fa-star" aria-hidden="true"></i> Contribuciones Clave</h4>
               <ul>
                 <li>Diseño de narrativas: historia principal y arcos de personajes</li>
                 <li>Creación de diálogos y sistema de exposición narrativa</li>
@@ -111,7 +165,7 @@
             </div>
 
             <div class="project-tools">
-              <h4><i class="fas fa-tools"></i> Herramientas Utilizadas</h4>
+              <h4><i class="fas fa-tools" aria-hidden="true"></i> Herramientas Utilizadas</h4>
               <div class="tool-tags">
                 <span class="tool-tag">Unity</span>
                 <span class="tool-tag">Google Docs</span>
@@ -120,32 +174,35 @@
             </div>
 
             <div class="project-actions">
-              <button class="button with-icon toggle-process">
-                <i class="fas fa-chevron-down"></i> Proceso de Desarrollo
+              <button class="button with-icon toggle-process" aria-expanded="false" aria-controls="overhaul-process">
+                <i class="fas fa-chevron-down" aria-hidden="true"></i> 
+                Proceso de Desarrollo
               </button>
               <a href="#" class="button primary with-icon">
-                <i class="fas fa-play"></i> Ver Demo
+                <i class="fas fa-play" aria-hidden="true"></i> 
+                Ver Demo
               </a>
               <a href="#" class="button with-icon">
-                <i class="fas fa-code"></i> Ver Código
+                <i class="fas fa-code" aria-hidden="true"></i> 
+                Ver Código
               </a>
             </div>
 
-            <div class="development-process">
+            <div class="development-process" id="overhaul-process" aria-hidden="true">
               <div class="process-step">
-                <h4><i class="fas fa-bullseye"></i> Objetivo</h4>
+                <h4><i class="fas fa-bullseye" aria-hidden="true"></i> Objetivo</h4>
                 <p>Crear un sistema de combate que permitiera personalización profunda sin abrumar al jugador, donde
                   cada estilo de arma modificara sustancialmente la experiencia.</p>
               </div>
 
               <div class="process-step">
-                <h4><i class="fas fa-lightbulb"></i> Concepto Inicial</h4>
+                <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> Concepto Inicial</h4>
                 <p>Inspirado en juegos clásicos de acción como Devil May Cry, pero con énfasis en combos fluidos entre
                   estilos. El prototipo inicial usaba placeholders en Unity para probar la viabilidad técnica.</p>
               </div>
 
               <div class="process-step">
-                <h4><i class="fas fa-project-diagram"></i> Diseño de Sistemas</h4>
+                <h4><i class="fas fa-project-diagram" aria-hidden="true"></i> Diseño de Sistemas</h4>
                 <p>Documenté las mecánicas clave en un GDD modular, incluyendo:</p>
                 <ul>
                   <li>Tablas de daño y escalado</li>
@@ -155,19 +212,28 @@
               </div>
 
               <div class="process-step">
-                <h4><i class="fas fa-book"></i> Integración Narrativa</h4>
+                <h4><i class="fas fa-book" aria-hidden="true"></i> Integración Narrativa</h4>
                 <p>Las armas modulares se vincularon a la historia como fragmentos de una reliquia ancestral,
                   justificando mecánicamente su poder y personalización.</p>
               </div>
 
               <div class="project-gallery">
                 <div class="gif-container">
-                  <img src="https://via.placeholder.com/400x225/226A70/FFFFFF?text=Combat+System" alt="Sistema de combate" class="project-gif" loading="lazy">
+                  <img src="https://via.placeholder.com/400x225/226A70/FFFFFF?text=Combat+System" 
+                       alt="Sistema de combate de Overhaul" 
+                       class="project-gif" 
+                       loading="lazy"
+                       width="400"
+                       height="225">
                   <p>Transición fluida entre estilos</p>
                 </div>
                 <div class="gif-container">
-                  <img src="https://via.placeholder.com/400x225/619A90/FFFFFF?text=Progression" alt="Progresión de habilidades" class="project-gif"
-                    loading="lazy">
+                  <img src="https://via.placeholder.com/400x225/619A90/FFFFFF?text=Progression" 
+                       alt="Progresión de habilidades" 
+                       class="project-gif"
+                       loading="lazy"
+                       width="400"
+                       height="225">
                   <p>Menú de personalización</p>
                 </div>
               </div>
@@ -185,7 +251,11 @@
           <!-- Espíritus de Hartshorn -->
           <article class="improved-project slide-left">
             <div class="project-image-container">
-              <img src="https://via.placeholder.com/300x200/AB5D4F/FFFFFF?text=ESPÍRITUS" alt="Espíritus de Hartshorn" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/AB5D4F/FFFFFF?text=ESPÍRITUS" 
+                   alt="Espíritus de Hartshorn" 
+                   loading="lazy"
+                   width="300"
+                   height="200">
               <div class="project-overlay">
                 <a href="#" class="button small">Ver Detalles</a>
               </div>
@@ -193,8 +263,14 @@
             <div class="project-info">
               <h3>Espíritus de Hartshorn</h3>
               <div class="project-meta">
-                <span><i class="fas fa-calendar"></i> Ago-Dic 2023</span>
-                <span><i class="fas fa-gamepad"></i> Hack&Slash | 2.5D</span>
+                <span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i> 
+                  <time datetime="2023-08">Ago-Dic 2023</time>
+                </span>
+                <span>
+                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
+                  Hack&Slash | 2.5D
+                </span>
               </div>
               <p>Diseñé mecánicas de toma de decisión integradas en el sistema de combate.</p>
               <div class="project-tags">
@@ -207,7 +283,11 @@
           <!-- Las Huellas de Napi -->
           <article class="improved-project slide-up">
             <div class="project-image-container">
-              <img src="https://via.placeholder.com/300x200/619A90/FFFFFF?text=NAPI" alt="Napi" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/619A90/FFFFFF?text=NAPI" 
+                   alt="Las Huellas de Napi" 
+                   loading="lazy"
+                   width="300"
+                   height="200">
               <div class="project-overlay">
                 <a href="#" class="button small">Ver Detalles</a>
               </div>
@@ -215,8 +295,14 @@
             <div class="project-info">
               <h3>Las Huellas de Napi</h3>
               <div class="project-meta">
-                <span><i class="fas fa-calendar"></i> Mar-Jun 2023</span>
-                <span><i class="fas fa-gamepad"></i> Plataformero | Narrativo</span>
+                <span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i> 
+                  <time datetime="2023-03">Mar-Jun 2023</time>
+                </span>
+                <span>
+                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
+                  Plataformero | Narrativo
+                </span>
               </div>
               <p>Desarrollo completo del juego, desde programación hasta diseño de mecánicas.</p>
               <div class="project-tags">
@@ -230,7 +316,11 @@
           <!-- Sponji y la Calamidad Cibernética -->
           <article class="improved-project slide-right">
             <div class="project-image-container">
-              <img src="https://via.placeholder.com/300x200/1F4D5B/FFFFFF?text=SPONJI" alt="Sponji" loading="lazy">
+              <img src="https://via.placeholder.com/300x200/1F4D5B/FFFFFF?text=SPONJI" 
+                   alt="Sponji y la Calamidad Cibernética" 
+                   loading="lazy"
+                   width="300"
+                   height="200">
               <div class="project-overlay">
                 <a href="#" class="button small">Ver Detalles</a>
               </div>
@@ -238,8 +328,14 @@
             <div class="project-info">
               <h3>Sponji y la Calamidad Cibernética</h3>
               <div class="project-meta">
-                <span><i class="fas fa-calendar"></i> Mar-Jun 2022</span>
-                <span><i class="fas fa-gamepad"></i> Plataformero | 2D</span>
+                <span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i> 
+                  <time datetime="2022-03">Mar-Jun 2022</time>
+                </span>
+                <span>
+                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
+                  Plataformero | 2D
+                </span>
               </div>
               <p>Desarrollé rompecabezas narrativos, integrando historia y mecánicas de manera orgánica.</p>
               <div class="project-tags">
@@ -258,31 +354,35 @@
         <h2 class="major slide-up">Habilidades Técnicas</h2>
         <div class="skills-grid">
           <div class="skill-category slide-left">
-            <h3><i class="fas fa-gamepad"></i> Diseño de Juegos</h3>
+            <h3><i class="fas fa-gamepad" aria-hidden="true"></i> Diseño de Juegos</h3>
             <div class="skill-progress-container">
               <div class="skill-item">
-                <span class="skill-name">Unity</span>
-                <div class="skill-bar">
+                <span class="skill-name">
+                  Unity
+                  <span class="skill-years">3 años</span>
+                </span>
+                <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="85"></div>
                 </div>
-                <span class="skill-years">3 años</span>
               </div>
               <div class="skill-item">
-                <span class="skill-name">Unreal Engine</span>
-                <div class="skill-bar">
+                <span class="skill-name">
+                  Unreal Engine
+                  <span class="skill-years">Básico</span>
+                </span>
+                <div class="skill-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="40"></div>
                 </div>
-                <span class="skill-years">Básico</span>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Game Design Document</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="90"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Balanceo de Gameplay</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="75"></div>
                 </div>
               </div>
@@ -290,29 +390,29 @@
           </div>
           
           <div class="skill-category slide-up">
-            <h3><i class="fas fa-book"></i> Narrativa</h3>
+            <h3><i class="fas fa-book" aria-hidden="true"></i> Narrativa</h3>
             <div class="skill-progress-container">
               <div class="skill-item">
                 <span class="skill-name">Twine</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="80"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Escritura de Diálogos</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="85"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Arcos de Personajes</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="80"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Narrativa No Lineal</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="75"></div>
                 </div>
               </div>
@@ -320,34 +420,78 @@
           </div>
           
           <div class="skill-category slide-right">
-            <h3><i class="fas fa-tools"></i> Herramientas</h3>
+            <h3><i class="fas fa-tools" aria-hidden="true"></i> Herramientas</h3>
             <div class="skill-progress-container">
               <div class="skill-item">
                 <span class="skill-name">Adobe Creative Suite</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="70"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Git & GitHub</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="65"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">Figma</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="60"></div>
                 </div>
               </div>
               <div class="skill-item">
                 <span class="skill-name">C#</span>
-                <div class="skill-bar">
+                <div class="skill-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
                   <div class="skill-fill" data-skill="70"></div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="wrapper style2">
+      <div class="inner">
+        <h2 class="major slide-up">Lo que dicen de mi trabajo</h2>
+        <div class="testimonials-grid">
+          <article class="testimonial slide-left">
+            <div class="testimonial-content">
+              <blockquote>
+                "Paulo demuestra una comprensión excepcional de cómo integrar narrativa con mecánicas de juego. Su trabajo en Overhaul mostró una madurez de diseño notable."
+              </blockquote>
+              <cite class="testimonial-author">
+                <strong>Profesor de Game Design</strong>
+                <span>Universidad Andrés Bello</span>
+              </cite>
+            </div>
+          </article>
+          
+          <article class="testimonial slide-up">
+            <div class="testimonial-content">
+              <blockquote>
+                "Trabajar con Paulo en proyectos grupales siempre es una experiencia enriquecedora. Su enfoque metodológico y creativo aporta mucho al equipo."
+              </blockquote>
+              <cite class="testimonial-author">
+                <strong>Compañero de estudios</strong>
+                <span>Proyecto Las Huellas de Napi</span>
+              </cite>
+            </div>
+          </article>
+          
+          <article class="testimonial slide-right">
+            <div class="testimonial-content">
+              <blockquote>
+                "Sus documentos de diseño son claros, detallados y fáciles de seguir. Demuestra un entendimiento profundo de los sistemas de juego."
+              </blockquote>
+              <cite class="testimonial-author">
+                <strong>Mentor de desarrollo</strong>
+                <span>Proyecto Espíritus de Hartshorn</span>
+              </cite>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -358,39 +502,50 @@
         <h2 class="major slide-up">Contacto</h2>
         <p class="slide-up">Si quieres trabajar juntos o tienes alguna propuesta, ¡escríbeme!</p>
         <div class="contact-container">
-          <form id="contact-form" class="slide-left">
+          <form id="contact-form" class="slide-left" novalidate>
             <div class="fields">
               <div class="field half">
-                <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" required>
+                <label for="name">Nombre *</label>
+                <input type="text" name="name" id="name" required aria-required="true" autocomplete="name">
               </div>
               <div class="field half">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
+                <label for="email">Email *</label>
+                <input type="email" name="email" id="email" required aria-required="true" autocomplete="email">
               </div>
               <div class="field">
-                <label for="message">Mensaje</label>
-                <textarea name="message" id="message" rows="6" required></textarea>
+                <label for="subject">Asunto</label>
+                <input type="text" name="subject" id="subject" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="message">Mensaje *</label>
+                <textarea name="message" id="message" rows="6" required aria-required="true" placeholder="Cuéntame sobre tu proyecto o propuesta..."></textarea>
               </div>
             </div>
-            <ul class="actions">
-              <li><input type="submit" value="Enviar Mensaje" class="primary button"></li>
-            </ul>
+            <div class="actions">
+              <button type="submit" class="primary button" disabled>
+                <span class="button-text">Enviar Mensaje</span>
+                <span class="button-loader" aria-hidden="true"></span>
+              </button>
+            </div>
           </form>
           
           <div class="contact-info slide-right">
             <h3>Información de Contacto</h3>
             <div class="contact-item">
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-envelope" aria-hidden="true"></i>
               <span>tu@email.com</span>
             </div>
             <div class="contact-item">
-              <i class="fas fa-map-marker-alt"></i>
+              <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
               <span>Santiago, Chile</span>
             </div>
             <div class="contact-item">
-              <i class="fas fa-graduation-cap"></i>
+              <i class="fas fa-graduation-cap" aria-hidden="true"></i>
               <span>UNAB - Diseño de Juegos Digitales</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock" aria-hidden="true"></i>
+              <span>Respuesta en 24-48 horas</span>
             </div>
           </div>
         </div>
@@ -398,22 +553,65 @@
     </section>
 
     <!-- Footer -->
-    <footer id="footer">
+    <footer id="footer" role="contentinfo">
       <ul class="icons">
-        <li><a href="https://github.com/tu-github" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-        <li><a href="https://linkedin.com/in/tu-linkedin" class="icon brands fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
-        <li><a href="mailto:tu@email.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
-        <li><a href="https://itch.io/tu-perfil" class="icon brands fa-itch-io" target="_blank"><span class="label">Itch.io</span></a></li>
+        <li>
+          <a href="https://github.com/tu-github" 
+             class="icon brands fa-github" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             aria-label="Visitar mi perfil de GitHub">
+            <span class="label">GitHub</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com/in/tu-linkedin" 
+             class="icon brands fa-linkedin" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             aria-label="Conectar en LinkedIn">
+            <span class="label">LinkedIn</span>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:tu@email.com" 
+             class="icon fa-envelope"
+             aria-label="Enviar email">
+            <span class="label">Email</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://itch.io/tu-perfil" 
+             class="icon brands fa-itch-io" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             aria-label="Ver mis juegos en Itch.io">
+            <span class="label">Itch.io</span>
+          </a>
+        </li>
       </ul>
       <p>&copy; 2025 Paulo Marques. Todos los derechos reservados.</p>
     </footer>
   </div>
 
   <!-- Notificación de mensaje enviado -->
-  <div id="message-notification" class="notification">
-    <i class="fas fa-check-circle"></i>
+  <div id="message-notification" 
+       class="notification" 
+       role="alert" 
+       aria-live="polite" 
+       aria-atomic="true">
+    <i class="fas fa-check-circle" aria-hidden="true"></i>
     <span>¡Mensaje enviado correctamente!</span>
   </div>
+
+  <!-- Skeleton Loading Template -->
+  <template id="skeleton-template">
+    <div class="skeleton-content">
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line short"></div>
+      <div class="skeleton-line"></div>
+    </div>
+  </template>
 
   <script src="assets/js/main.js" defer></script>
 </body>

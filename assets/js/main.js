@@ -1,590 +1,830 @@
-document.addEventListener("DOMContentLoaded", () => {
-  
-  /* ==============================
-     PRELOADER
-  ============================== */
-  setTimeout(() => {
-    document.body.classList.remove('is-preload');
-  }, 100);
+/**
+ * Portafolio Paulo Marques - JavaScript Principal
+ * Versión optimizada con mejoras de rendimiento y accesibilidad
+ */
 
-  /* ==============================
-     HEADER SCROLL EFFECT
-  ============================== */
-  const header = document.getElementById('header');
-  let lastScrollY = window.scrollY;
+// Configuración global
+const CONFIG = {
+  ANIMATION_DURATION: 300,
+  SCROLL_OFFSET: 80,
+  NOTIFICATION_DURATION: 4000,
+  THROTTLE_DELAY: 16, // ~60fps
+  INTERSECTION_THRESHOLD: 0.1,
+  INTERSECTION_MARGIN: '50px'
+};
 
-  const handleHeaderScroll = () => {
-    const currentScrollY = window.scrollY;
+// Estado global de la aplicación
+const AppState = {
+  isPreloaded: false,
+  isMobileMenuOpen: false,
+  currentSection: 'banner',
+  scrollY: 0,
+  reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+};
+
+/**
+ * Utilidades de rendimiento
+ */
+const Utils = {
+  // Throttle optimizado
+  throttle: (func, limit) => {
+    let inThrottle;
+    let lastRan;
     
-    if (currentScrollY > 100) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
+    return function(...args) {
+      const context = this;
+      
+      if (!inThrottle) {
+        func.apply(context, args);
+        lastRan = Date.now();
+        inThrottle = true;
+      } else {
+        clearTimeout(lastRan);
+        lastRan = setTimeout(() => {
+          if (Date.now() - lastRan >= limit) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
+      }
+    };
+  },
 
-    // Ocultar header al hacer scroll down, mostrar al hacer scroll up
-    if (currentScrollY > lastScrollY && currentScrollY > 200) {
-      header.style.transform = 'translateY(-100%)';
-    } else {
-      header.style.transform = 'translateY(0)';
-    }
+  // Debounce para eventos que no necesitan ser tan frecuentes
+  debounce: (func, wait) => {
+    let timeout;
+    return function(...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  },
 
-    lastScrollY = currentScrollY;
-  };
-
-  window.addEventListener('scroll', handleHeaderScroll);
-
-  /* ==============================
-     MENÚ MÓVIL
-  ============================== */
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
-  let mobileMenuOpen = false;
-
-  const toggleMobileMenu = () => {
-    mobileMenuOpen = !mobileMenuOpen;
-    mobileMenu.style.display = mobileMenuOpen ? 'flex' : 'none';
-    mobileMenuToggle.innerHTML = mobileMenuOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+  // Detección de elementos en viewport optimizada
+  elementInView: (el, offset = CONFIG.INTERSECTION_THRESHOLD * 100) => {
+    if (!el) return false;
     
-    // Prevenir scroll del body cuando el menú está abierto
-    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
-  };
-
-  mobileMenuToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleMobileMenu();
-  });
-
-  // Cerrar menú móvil al hacer clic en un enlace
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileMenuOpen) {
-        toggleMobileMenu();
-      }
-    });
-  });
-
-  // Cerrar menú móvil al hacer clic fuera
-  document.addEventListener('click', (e) => {
-    if (mobileMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-      toggleMobileMenu();
-    }
-  });
-
-  // Cerrar menú al cambiar tamaño de ventana (si se vuelve a desktop)
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 900 && mobileMenuOpen) {
-      toggleMobileMenu();
-    }
-  });
-
-  /* ==============================
-     SMOOTH SCROLL PARA ANCLAS
-  ============================== */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", e => {
-      e.preventDefault();
-      const targetId = anchor.getAttribute("href");
-      
-      // Ignorar enlaces vacíos
-      if (targetId === '#') return;
-      
-      const target = document.querySelector(targetId);
-      
-      if (target) {
-        const headerHeight = document.getElementById('header').offsetHeight;
-        const targetPosition = target.offsetTop - headerHeight - 20;
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth"
-        });
-      }
-    });
-  });
-
-  /* ==============================
-     SCROLL INDICATOR
-  ============================== */
-  const scrollIndicator = document.querySelector('.scroll-indicator');
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', () => {
-      const proyectosSection = document.getElementById('proyectos');
-      if (proyectosSection) {
-        const headerHeight = document.getElementById('header').offsetHeight;
-        const targetPosition = proyectosSection.offsetTop - headerHeight - 20;
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth"
-        });
-      }
-    });
-  }
-
-  /* ==============================
-     TOGGLE DE PROCESO DE PROYECTOS
-  ============================== */
-  const toggles = document.querySelectorAll(".toggle-process");
-  toggles.forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      toggle.classList.toggle("active");
-      const process = toggle.closest('.project-actions').nextElementSibling;
-      
-      if (process && process.classList.contains('development-process')) {
-        if (toggle.classList.contains("active")) {
-          process.style.display = "block";
-          process.classList.add('show');
-          toggle.querySelector('i').style.transform = 'rotate(180deg)';
-        } else {
-          process.style.display = "none";
-          process.classList.remove('show');
-          toggle.querySelector('i').style.transform = 'rotate(0deg)';
-        }
-      }
-    });
-  });
-
-  /* ==============================
-     FUNCIONES PARA ANIMACIONES (DECLARADAS UNA SOLA VEZ)
-  ============================== */
-  const elementInView = (el, offset = 50) => {
-    const elementTop = el.getBoundingClientRect().top;
+    const rect = el.getBoundingClientRect();
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     
-    return elementTop <= viewportHeight - offset;
-  };
-  
-  const displayScrollElement = el => {
-    if (!el.classList.contains('in-view')) {
-      el.classList.add("in-view");
-    }
-  };
-  
-  const hideScrollElement = el => {
-    if (el.classList.contains('in-view')) {
-      el.classList.remove("in-view");
-    }
-  };
+    return rect.top <= viewportHeight - offset && rect.bottom >= offset;
+  },
 
-  /* ==============================
-     ANIMACIÓN DE ELEMENTOS AL SCROLL
-  ============================== */
-  const scrollElements = document.querySelectorAll(".fade-in, .slide-up, .slide-left, .slide-right");
-  
-  const handleScrollAnimation = () => {
-    scrollElements.forEach((el, index) => {
-      if (elementInView(el, 50)) {
-        setTimeout(() => {
-          displayScrollElement(el);
-        }, index * 50);
-      } else {
-        hideScrollElement(el);
-      }
-    });
-  };
+  // Smooth scroll con fallback
+  smoothScrollTo: (target, offset = CONFIG.SCROLL_OFFSET) => {
+    const element = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!element) return;
 
-  /* ==============================
-     ANIMACIÓN DE BARRAS DE HABILIDADES
-  ============================== */
-  const animateSkillBars = () => {
-    const skillBars = document.querySelectorAll('.skill-fill:not(.animated)');
+    const targetPosition = element.offsetTop - offset;
     
-    skillBars.forEach((bar, index) => {
-      const skillValue = bar.getAttribute('data-skill');
-      const skillContainer = bar.closest('.skill-category');
-      
-      if (elementInView(skillContainer, 150)) {
-        bar.classList.add('animated');
-        setTimeout(() => {
-          bar.style.width = skillValue + '%';
-        }, index * 200);
-      }
-    });
-  };
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({
+        top: targetPosition,
+        behavior: AppState.reducedMotion ? 'auto' : 'smooth'
+      });
+    } else {
+      // Fallback para navegadores antiguos
+      window.scrollTo(0, targetPosition);
+    }
+  },
 
-  // Configurar event listeners para animaciones
-  window.addEventListener("scroll", handleScrollAnimation);
-  window.addEventListener('scroll', animateSkillBars);
-  handleScrollAnimation(); // Ejecutar al cargar
-  setTimeout(animateSkillBars, 1000);
+  // Validación de email mejorada
+  isValidEmail: (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email?.trim());
+  },
 
-  /* ==============================
-     MICROINTERACCIONES BOTONES
-  ============================== */
-  const buttons = document.querySelectorAll(".button");
-  buttons.forEach(btn => {
-    // Efecto ripple mejorado
-    btn.addEventListener('click', function (e) {
-      // Prevenir múltiples ripples
-      const existingRipple = this.querySelector('.ripple');
-      if (existingRipple) {
-        existingRipple.remove();
-      }
+  // Escape HTML para prevenir XSS
+  escapeHtml: (text) => {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  },
 
-      const circle = document.createElement('span');
-      circle.classList.add('ripple');
-      this.appendChild(circle);
+  // Detectar si es dispositivo móvil
+  isMobile: () => window.innerWidth <= 900,
 
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
+  // Detectar si soporta hover
+  supportsHover: () => window.matchMedia('(hover: hover) and (pointer: fine)').matches
+};
 
-      circle.style.width = circle.style.height = size + 'px';
-      circle.style.left = x + 'px';
-      circle.style.top = y + 'px';
+/**
+ * Manejo de intersecciones (Intersection Observer)
+ */
+class IntersectionManager {
+  constructor() {
+    this.observers = new Map();
+    this.init();
+  }
 
-      // Remover ripple después de la animación
-      circle.addEventListener('animationend', () => {
-        if (circle.parentNode) {
-          circle.remove();
+  init() {
+    // Observer para animaciones de scroll
+    this.createObserver('scroll-animations', {
+      threshold: CONFIG.INTERSECTION_THRESHOLD,
+      rootMargin: CONFIG.INTERSECTION_MARGIN
+    }, this.handleScrollAnimations.bind(this));
+
+    // Observer para barras de habilidades
+    this.createObserver('skill-bars', {
+      threshold: 0.3,
+      rootMargin: '100px'
+    }, this.handleSkillBars.bind(this));
+
+    // Observer para navegación activa
+    this.createObserver('sections', {
+      threshold: 0.5,
+      rootMargin: '-100px 0px -50% 0px'
+    }, this.handleActiveNavigation.bind(this));
+
+    // Observer para lazy loading de imágenes
+    this.createObserver('images', {
+      threshold: 0.1,
+      rootMargin: '200px'
+    }, this.handleImageLoading.bind(this));
+  }
+
+  createObserver(name, options, callback) {
+    const observer = new IntersectionObserver(callback, options);
+    this.observers.set(name, observer);
+    return observer;
+  }
+
+  observe(name, elements) {
+    const observer = this.observers.get(name);
+    if (!observer) return;
+
+    if (Array.isArray(elements)) {
+      elements.forEach(el => observer.observe(el));
+    } else {
+      observer.observe(elements);
+    }
+  }
+
+  handleScrollAnimations(entries) {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting && !entry.target.classList.contains('in-view')) {
+        if (AppState.reducedMotion) {
+          entry.target.classList.add('in-view');
+        } else {
+          setTimeout(() => {
+            entry.target.classList.add('in-view');
+          }, index * 50);
         }
+      }
+    });
+  }
+
+  handleSkillBars(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const skillFills = entry.target.querySelectorAll('.skill-fill:not(.animated)');
+        skillFills.forEach((bar, index) => {
+          const skillValue = bar.getAttribute('data-skill');
+          if (skillValue) {
+            bar.classList.add('animated');
+            setTimeout(() => {
+              bar.style.width = skillValue + '%';
+            }, AppState.reducedMotion ? 0 : index * 200);
+          }
+        });
+        this.observers.get('skill-bars').unobserve(entry.target);
+      }
+    });
+  }
+
+  handleActiveNavigation(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        AppState.currentSection = entry.target.id;
+        this.updateActiveNavLinks(entry.target.id);
+      }
+    });
+  }
+
+  handleImageLoading(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        this.loadImage(img);
+        this.observers.get('images').unobserve(img);
+      }
+    });
+  }
+
+  loadImage(img) {
+    img.style.opacity = '0';
+    img.style.transition = 'opacity 0.5s ease';
+    
+    const loadHandler = () => {
+      img.classList.remove('loading');
+      img.style.opacity = '1';
+      img.removeEventListener('load', loadHandler);
+      img.removeEventListener('error', errorHandler);
+    };
+
+    const errorHandler = () => {
+      img.classList.remove('loading');
+      img.style.opacity = '1';
+      img.removeEventListener('load', loadHandler);
+      img.removeEventListener('error', errorHandler);
+    };
+
+    img.addEventListener('load', loadHandler);
+    img.addEventListener('error', errorHandler);
+
+    if (img.complete) {
+      loadHandler();
+    }
+  }
+
+  updateActiveNavLinks(sectionId) {
+    const navLinks = document.querySelectorAll('#header nav a, .mobile-menu a');
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${sectionId}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+}
+
+/**
+ * Manejo del header
+ */
+class HeaderManager {
+  constructor() {
+    this.header = document.getElementById('header');
+    this.lastScrollY = window.pageYOffset;
+    this.init();
+  }
+
+  init() {
+    if (!this.header) return;
+
+    const handleScroll = Utils.throttle(() => {
+      this.updateHeader();
+    }, CONFIG.THROTTLE_DELAY);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  updateHeader() {
+    const currentScrollY = window.pageYOffset;
+    
+    // Añadir clase scrolled
+    if (currentScrollY > 100) {
+      this.header.classList.add('scrolled');
+    } else {
+      this.header.classList.remove('scrolled');
+    }
+
+    // Auto-hide en móviles
+    if (Utils.isMobile()) {
+      if (currentScrollY > this.lastScrollY && currentScrollY > 200) {
+        this.header.style.transform = 'translateY(-100%)';
+      } else {
+        this.header.style.transform = 'translateY(0)';
+      }
+    }
+
+    this.lastScrollY = currentScrollY;
+    AppState.scrollY = currentScrollY;
+  }
+}
+
+/**
+ * Manejo del menú móvil
+ */
+class MobileMenuManager {
+  constructor() {
+    this.toggle = document.querySelector('.mobile-menu-toggle');
+    this.menu = document.querySelector('.mobile-menu');
+    this.init();
+  }
+
+  init() {
+    if (!this.toggle || !this.menu) return;
+
+    this.toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.toggleMenu();
+    });
+
+    // Cerrar menú al hacer clic en enlaces
+    this.menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        this.closeMenu();
       });
     });
-  });
 
-  /* ==============================
-     EFECTO PARALLAX EN TARJETAS (SOLO DESKTOP)
-  ============================== */
-  const parallaxCards = document.querySelectorAll(".improved-project");
-  
-  if (window.innerWidth > 768) {
-    parallaxCards.forEach(card => {
-      card.addEventListener("mousemove", e => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
-        card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg) translateZ(0)`;
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      if (AppState.isMobileMenuOpen && 
+          !this.menu.contains(e.target) && 
+          !this.toggle.contains(e.target)) {
+        this.closeMenu();
+      }
+    });
+
+    // Cerrar menú con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && AppState.isMobileMenuOpen) {
+        this.closeMenu();
+      }
+    });
+
+    // Cerrar menú al cambiar a desktop
+    window.addEventListener('resize', Utils.debounce(() => {
+      if (!Utils.isMobile() && AppState.isMobileMenuOpen) {
+        this.closeMenu();
+      }
+    }, 250));
+  }
+
+  toggleMenu() {
+    if (AppState.isMobileMenuOpen) {
+      this.closeMenu();
+    } else {
+      this.openMenu();
+    }
+  }
+
+  openMenu() {
+    AppState.isMobileMenuOpen = true;
+    this.menu.style.display = 'flex';
+    this.toggle.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+    this.toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+
+    // Focus en el primer enlace
+    const firstLink = this.menu.querySelector('a');
+    if (firstLink) {
+      setTimeout(() => firstLink.focus(), 100);
+    }
+  }
+
+  closeMenu() {
+    AppState.isMobileMenuOpen = false;
+    this.menu.style.display = 'none';
+    this.toggle.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+    this.toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+}
+
+/**
+ * Manejo de navegación y smooth scroll
+ */
+class NavigationManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    // Smooth scroll para anclas
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+      if (href === '#') return;
+
+      e.preventDefault();
+      Utils.smoothScrollTo(href);
+    });
+
+    // Scroll indicator
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', () => {
+        Utils.smoothScrollTo('#proyectos');
       });
-      
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "perspective(1000px) rotateY(0) rotateX(0) translateZ(0)";
+    }
+  }
+}
+
+/**
+ * Manejo de proyectos expandibles
+ */
+class ProjectManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    const toggles = document.querySelectorAll('.toggle-process');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.toggleProcess(toggle);
       });
     });
   }
 
-  /* ==============================
-     FORMULARIO DE CONTACTO
-  ============================== */
-  const contactForm = document.getElementById('contact-form');
-  const notification = document.getElementById('message-notification');
-
-  const showNotification = (message, type = 'success') => {
-    if (!notification) return;
+  toggleProcess(toggle) {
+    const isActive = toggle.classList.contains('active');
+    const process = toggle.closest('.project-actions').nextElementSibling;
     
-    notification.innerHTML = `
-      <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-      <span>${message}</span>
+    if (!process || !process.classList.contains('development-process')) return;
+
+    toggle.classList.toggle('active');
+    const icon = toggle.querySelector('i');
+    
+    if (isActive) {
+      // Cerrar
+      process.style.display = 'none';
+      process.classList.remove('show');
+      process.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      if (icon) icon.style.transform = 'rotate(0deg)';
+    } else {
+      // Abrir
+      process.style.display = 'block';
+      process.classList.add('show');
+      process.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      if (icon) icon.style.transform = 'rotate(180deg)';
+      
+      // Scroll suave hacia el contenido expandido
+      setTimeout(() => {
+        if (!AppState.reducedMotion) {
+          const rect = process.getBoundingClientRect();
+          const scrollTarget = window.pageYOffset + rect.top - CONFIG.SCROLL_OFFSET;
+          window.scrollTo({
+            top: scrollTarget,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+    }
+  }
+}
+
+/**
+ * Sistema de notificaciones
+ */
+class NotificationManager {
+  constructor() {
+    this.notification = document.getElementById('message-notification');
+    this.queue = [];
+    this.isShowing = false;
+  }
+
+  show(message, type = 'success') {
+    this.queue.push({ message, type });
+    this.processQueue();
+  }
+
+  async processQueue() {
+    if (this.isShowing || this.queue.length === 0) return;
+    
+    this.isShowing = true;
+    const { message, type } = this.queue.shift();
+    
+    await this.displayNotification(message, type);
+    
+    this.isShowing = false;
+    
+    // Procesar siguiente notificación si existe
+    if (this.queue.length > 0) {
+      setTimeout(() => this.processQueue(), 500);
+    }
+  }
+
+  async displayNotification(message, type) {
+    if (!this.notification) return;
+
+    const iconMap = {
+      success: 'fa-check-circle',
+      error: 'fa-exclamation-circle',
+      warning: 'fa-exclamation-triangle',
+      info: 'fa-info-circle'
+    };
+
+    const colorMap = {
+      success: '#27ae60',
+      error: '#e74c3c',
+      warning: '#f39c12',
+      info: '#3498db'
+    };
+
+    this.notification.innerHTML = `
+      <i class="fas ${iconMap[type] || iconMap.info}" aria-hidden="true"></i>
+      <span>${Utils.escapeHtml(message)}</span>
     `;
-    notification.style.background = type === 'success' ? 'var(--accent-color)' : '#e74c3c';
-    notification.classList.add('show');
+    
+    this.notification.style.background = colorMap[type] || colorMap.info;
+    this.notification.classList.add('show');
+    this.notification.setAttribute('role', type === 'error' ? 'alert' : 'status');
 
-    setTimeout(() => {
-      notification.classList.remove('show');
-    }, 4000);
-  };
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.notification.classList.remove('show');
+        setTimeout(resolve, 300); // Esperar a que termine la animación
+      }, CONFIG.NOTIFICATION_DURATION);
+    });
+  }
+}
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+/**
+ * Manejo del formulario de contacto
+ */
+class ContactFormManager {
+  constructor() {
+    this.form = document.getElementById('contact-form');
+    this.notification = new NotificationManager();
+    this.init();
+  }
 
-  const validateForm = (formData) => {
+  init() {
+    if (!this.form) return;
+
+    // Validación en tiempo real
+    this.setupRealTimeValidation();
+    
+    // Manejo del envío
+    this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleSubmit();
+    });
+  }
+
+  setupRealTimeValidation() {
+    const inputs = this.form.querySelectorAll('input, textarea');
+    
+    inputs.forEach(input => {
+      // Habilitar botón cuando el formulario sea válido
+      input.addEventListener('input', Utils.debounce(() => {
+        this.updateSubmitButton();
+      }, 300));
+
+      // Validación al perder el foco
+      input.addEventListener('blur', () => {
+        this.validateField(input);
+      });
+
+      // Limpiar errores al escribir
+      input.addEventListener('input', () => {
+        this.clearFieldError(input);
+      });
+    });
+  }
+
+  updateSubmitButton() {
+    const submitButton = this.form.querySelector('button[type="submit"]');
+    if (!submitButton) return;
+
+    const formData = new FormData(this.form);
+    const errors = this.validateFormData(formData);
+    
+    submitButton.disabled = errors.length > 0;
+  }
+
+  validateFormData(formData) {
     const errors = [];
     
-    if (!formData.get('name') || formData.get('name').trim().length < 2) {
+    const name = formData.get('name')?.trim();
+    const email = formData.get('email')?.trim();
+    const message = formData.get('message')?.trim();
+    
+    if (!name || name.length < 2) {
       errors.push('El nombre debe tener al menos 2 caracteres');
     }
     
-    if (!formData.get('email') || !validateEmail(formData.get('email'))) {
+    if (!email || !Utils.isValidEmail(email)) {
       errors.push('Por favor ingresa un email válido');
     }
     
-    if (!formData.get('message') || formData.get('message').trim().length < 10) {
+    if (!message || message.length < 10) {
       errors.push('El mensaje debe tener al menos 10 caracteres');
     }
     
     return errors;
-  };
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(contactForm);
-      const errors = validateForm(formData);
-      
-      if (errors.length > 0) {
-        showNotification(errors[0], 'error');
-        return;
-      }
-
-      const submitButton = contactForm.querySelector('input[type="submit"]');
-      const originalText = submitButton.value;
-      
-      submitButton.value = 'Enviando...';
-      submitButton.disabled = true;
-      
-      try {
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        const formDataObj = {
-          name: formData.get('name'),
-          email: formData.get('email'),
-          message: formData.get('message'),
-          timestamp: new Date().toISOString()
-        };
-        
-        console.log('Datos del formulario:', formDataObj);
-        showNotification('¡Mensaje enviado correctamente! Te responderé pronto.');
-        contactForm.reset();
-        
-      } catch (error) {
-        showNotification('Error al enviar el mensaje. Intenta nuevamente.', 'error');
-      } finally {
-        submitButton.value = originalText;
-        submitButton.disabled = false;
-      }
-    });
-
-    // Validación en tiempo real
-    const inputs = contactForm.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-      input.addEventListener('blur', () => {
-        validateField(input);
-      });
-      
-      input.addEventListener('input', () => {
-        clearFieldError(input);
-      });
-    });
   }
 
-  const validateField = (field) => {
+  validateField(field) {
     const value = field.value.trim();
     let isValid = true;
     let errorMessage = '';
 
     switch (field.type) {
       case 'text':
-        if (value.length < 2) {
+        if (field.hasAttribute('required') && value.length < 2) {
           isValid = false;
           errorMessage = 'Mínimo 2 caracteres';
         }
         break;
       case 'email':
-        if (!validateEmail(value)) {
+        if (field.hasAttribute('required') && !Utils.isValidEmail(value)) {
           isValid = false;
           errorMessage = 'Email inválido';
         }
         break;
       default:
-        if (field.tagName === 'TEXTAREA' && value.length < 10) {
+        if (field.tagName === 'TEXTAREA' && field.hasAttribute('required') && value.length < 10) {
           isValid = false;
           errorMessage = 'Mínimo 10 caracteres';
         }
     }
 
     if (!isValid) {
-      showFieldError(field, errorMessage);
+      this.showFieldError(field, errorMessage);
     } else {
-      clearFieldError(field);
+      this.clearFieldError(field);
     }
 
     return isValid;
-  };
+  }
 
-  const showFieldError = (field, message) => {
-    clearFieldError(field);
+  showFieldError(field, message) {
+    this.clearFieldError(field);
     field.style.borderColor = '#e74c3c';
+    field.setAttribute('aria-invalid', 'true');
     
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
     errorDiv.textContent = message;
-    errorDiv.style.color = '#e74c3c';
-    errorDiv.style.fontSize = '0.8rem';
-    errorDiv.style.marginTop = '0.25rem';
+    errorDiv.setAttribute('role', 'alert');
     
     field.parentNode.appendChild(errorDiv);
-  };
+  }
 
-  const clearFieldError = (field) => {
+  clearFieldError(field) {
     field.style.borderColor = '';
+    field.removeAttribute('aria-invalid');
+    
     const errorDiv = field.parentNode.querySelector('.field-error');
     if (errorDiv) {
       errorDiv.remove();
     }
-  };
+  }
 
-  /* ==============================
-     EFECTO TYPING PARA HERO TEXT
-  ============================== */
-  const typeWriter = (element, text, speed = 50) => {
-    let i = 0;
-    element.textContent = '';
+  async handleSubmit() {
+    const formData = new FormData(this.form);
+    const errors = this.validateFormData(formData);
     
-    const typing = () => {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-        setTimeout(typing, speed);
-      }
-    };
-    
-    typing();
-  };
-
-  // Activar efecto typing después de un delay
-  setTimeout(() => {
-    const heroTitle = document.querySelector('.hero-text h2');
-    if (heroTitle && !heroTitle.classList.contains('typed')) {
-      heroTitle.classList.add('typed');
-      const originalText = heroTitle.textContent;
-      typeWriter(heroTitle, originalText, 80);
+    if (errors.length > 0) {
+      this.notification.show(errors[0], 'error');
+      return;
     }
-  }, 1000);
 
-  /* ==============================
-     CONTADOR ANIMADO PARA AÑOS DE EXPERIENCIA
-  ============================== */
-  const animateCounter = (element, start, end, duration) => {
-    let startTimestamp = null;
+    const submitButton = this.form.querySelector('button[type="submit"]');
+    const buttonText = submitButton.querySelector('.button-text');
+    const buttonLoader = submitButton.querySelector('.button-loader');
     
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const currentValue = Math.floor(progress * (end - start) + start);
-      element.textContent = currentValue + (end > 1 ? ' años' : ' año');
+    // Estado de carga
+    submitButton.disabled = true;
+    submitButton.classList.add('loading');
+    buttonText.textContent = 'Enviando...';
+    
+    try {
+      // Simular envío (aquí integrarías con tu backend real)
+      await this.simulateFormSubmission(formData);
       
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
+      const formDataObj = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject') || 'Contacto desde portafolio',
+        message: formData.get('message'),
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        source: 'portafolio-web'
+      };
+      
+      // Log para desarrollo (remover en producción)
+      console.log('Datos del formulario:', formDataObj);
+      
+      this.notification.show('¡Mensaje enviado correctamente! Te responderé pronto.');
+      this.form.reset();
+      this.updateSubmitButton();
+      
+    } catch (error) {
+      console.error('Error al enviar formulario:', error);
+      this.notification.show('Error al enviar el mensaje. Por favor intenta nuevamente.', 'error');
+    } finally {
+      // Restaurar estado del botón
+      submitButton.disabled = false;
+      submitButton.classList.remove('loading');
+      buttonText.textContent = 'Enviar Mensaje';
+    }
+  }
+
+  async simulateFormSubmission(formData) {
+    // Simular delay de red
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
-    requestAnimationFrame(step);
-  };
-
-  // Usar Intersection Observer para contadores
-  const yearElements = document.querySelectorAll('.skill-years');
-  const yearObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const text = el.textContent;
-        const match = text.match(/(\d+)/);
-        
-        if (match) {
-          const years = parseInt(match[1]);
-          animateCounter(el, 0, years, 2000);
-          yearObserver.unobserve(el);
-        }
-      }
-    });
-  });
-
-  yearElements.forEach(el => yearObserver.observe(el));
-
-  /* ==============================
-     LAZY LOADING PARA IMÁGENES
-  ============================== */
-  const images = document.querySelectorAll('img[loading="lazy"]');
-  
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.classList.add('loading');
-        
-        // Forzar carga si no se ha cargado
-        if (img.complete) {
-          img.classList.remove('loading');
-          img.style.opacity = '1';
-        } else {
-          img.addEventListener('load', () => {
-            img.classList.remove('loading');
-            img.style.opacity = '1';
-          });
-          
-          img.addEventListener('error', () => {
-            img.classList.remove('loading');
-            img.style.opacity = '1';
-          });
-        }
-        
-        observer.unobserve(img);
-      }
-    });
-  }, { rootMargin: '200px 0px' });
-
-  images.forEach(img => {
-    img.style.opacity = '0';
-    img.style.transition = 'opacity 0.5s ease';
-    imageObserver.observe(img);
-  });
-
-  /* ==============================
-     NAVEGACIÓN ACTIVA
-  ============================== */
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('#header nav a, .mobile-menu a');
-
-  const updateActiveNavigation = () => {
-    const scrollPosition = window.scrollY + 100;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  };
-
-  window.addEventListener('scroll', updateActiveNavigation);
-
-  /* ==============================
-     EASTER EGGS Y DETALLES
-  ============================== */
-  
-  // Konami Code Easter Egg
-  let konamiCode = [];
-  const konamiSequence = [
-    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-    'KeyB', 'KeyA'
-  ];
-
-  document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.code);
-    
-    if (konamiCode.length > konamiSequence.length) {
-      konamiCode.shift();
+    // Simular posible error (5% probabilidad)
+    if (Math.random() < 0.05) {
+      throw new Error('Error de red simulado');
     }
     
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-      document.body.style.filter = 'hue-rotate(180deg)';
-      showNotification('🎮 ¡Código Konami activado! Eres un verdadero gamer.');
-      
-      setTimeout(() => {
-        document.body.style.filter = '';
-      }, 5000);
-      
-      konamiCode = [];
-    }
-  });
+    return { success: true };
+  }
+}
 
-  // Efecto de partículas en el hero
-  const createParticle = () => {
+/**
+ * Efectos de interactividad
+ */
+class InteractivityManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.setupRippleEffect();
+    this.setupParallaxCards();
+    this.setupParticleSystem();
+  }
+
+  setupRippleEffect() {
+    document.addEventListener('click', (e) => {
+      const button = e.target.closest('.button');
+      if (!button || AppState.reducedMotion) return;
+
+      this.createRipple(button, e);
+    });
+  }
+
+  createRipple(button, event) {
+    // Remover ripple existente
+    const existingRipple = button.querySelector('.ripple');
+    if (existingRipple) {
+      existingRipple.remove();
+    }
+
+    const circle = document.createElement('span');
+    circle.classList.add('ripple');
+    button.appendChild(circle);
+
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    circle.style.width = circle.style.height = size + 'px';
+    circle.style.left = x + 'px';
+    circle.style.top = y + 'px';
+
+    circle.addEventListener('animationend', () => {
+      if (circle.parentNode) {
+        circle.remove();
+      }
+    });
+  }
+
+  setupParallaxCards() {
+    if (!Utils.supportsHover() || Utils.isMobile() || AppState.reducedMotion) return;
+
+    const parallaxCards = document.querySelectorAll('.improved-project');
+    
+    parallaxCards.forEach(card => {
+      card.addEventListener('mousemove', Utils.throttle((e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+        card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg) translateZ(0)`;
+      }, CONFIG.THROTTLE_DELAY));
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0)';
+      });
+    });
+  }
+
+  setupParticleSystem() {
+    if (Utils.isMobile() || AppState.reducedMotion) return;
+
+    this.particleInterval = null;
+    this.startParticles();
+
+    // Pausar/reanudar según visibilidad de la página
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        this.startParticles();
+      } else {
+        this.stopParticles();
+      }
+    });
+  }
+
+  startParticles() {
+    if (this.particleInterval) return;
+    
+    this.particleInterval = setInterval(() => {
+      this.createParticle();
+    }, 300);
+  }
+
+  stopParticles() {
+    if (this.particleInterval) {
+      clearInterval(this.particleInterval);
+      this.particleInterval = null;
+    }
+  }
+
+  createParticle() {
     const banner = document.getElementById('banner');
-    if (!banner) return;
+    if (!banner || document.visibilityState !== 'visible') return;
     
     const particle = document.createElement('div');
     particle.style.cssText = `
@@ -612,139 +852,261 @@ document.addEventListener("DOMContentLoaded", () => {
       easing: 'linear'
     });
 
-    animation.onfinish = () => particle.remove();
-  };
-
-  // Crear partículas periódicamente solo si es necesario
-  let particleInterval;
-  const startParticles = () => {
-    if (window.innerWidth > 768 && document.visibilityState === 'visible') {
-      particleInterval = setInterval(createParticle, 300);
-    }
-  };
-
-  const stopParticles = () => {
-    clearInterval(particleInterval);
-  };
-
-  // Manejar visibilidad de la página
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      startParticles();
-    } else {
-      stopParticles();
-    }
-  });
-
-  startParticles();
-
-  /* ==============================
-     PERFORMANCE OPTIMIZATIONS
-  ============================== */
-  
-  // Throttle mejorado
-  const throttle = (func, limit) => {
-    let inThrottle;
-    let lastRan;
-    
-    return function() {
-      const context = this;
-      const args = arguments;
-      
-      if (!inThrottle) {
-        func.apply(context, args);
-        lastRan = Date.now();
-        inThrottle = true;
-      } else {
-        clearTimeout(lastRan);
-        lastRan = setTimeout(() => {
-          if (Date.now() - lastRan >= limit) {
-            func.apply(context, args);
-            lastRan = Date.now();
-          }
-        }, limit - (Date.now() - lastRan));
+    animation.onfinish = () => {
+      if (particle.parentNode) {
+        particle.remove();
       }
     };
-  };
+  }
+}
 
-  // Aplicar throttle a eventos
-  const throttledScroll = throttle(() => {
-    handleScrollAnimation();
-    animateSkillBars();
-    updateActiveNavigation();
-    handleHeaderScroll();
-  }, 16);
-
-  window.addEventListener('scroll', throttledScroll);
-
-  /* ==============================
-     INICIALIZACIÓN FINAL
-  ============================== */
-  
-  // Aplicar animaciones iniciales
-  setTimeout(() => {
-    const heroElements = document.querySelectorAll('#banner .fade-in');
-    heroElements.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('in-view');
-      }, index * 100);
-    });
-  }, 100);
-
-  // Precargar imágenes importantes
-  const preloadImages = [
-    'images/tu-foto.jpg',
-    'images/título-overhaul.jpg',
-    'images/título-espíritus.jpg',
-    'images/título-napi.jpg',
-    'images/título-sponji.jpg'
-  ];
-
-  preloadImages.forEach(src => {
-    const img = new Image();
-    img.src = src;
-  });
-
-  /* ==============================
-     DETECCIÓN DE DISPOSITIVO
-  ============================== */
-  const isMobile = window.innerWidth <= 900;
-  
-  if (isMobile) {
-    document.body.classList.add('mobile-device');
-    stopParticles();
+/**
+ * Easter eggs y funciones especiales
+ */
+class EasterEggManager {
+  constructor() {
+    this.konamiCode = [];
+    this.konamiSequence = [
+      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+      'KeyB', 'KeyA'
+    ];
+    this.notification = new NotificationManager();
+    this.init();
   }
 
-  /* ==============================
-     MODO OSCURO (MEJORADO)
-  ============================== */
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  const applyTheme = (isDark) => {
-    if (isDark) {
-      document.documentElement.style.setProperty('--bg-white', '#1a1a1a');
-      document.documentElement.style.setProperty('--bg-light', '#2a2a2a');
-      document.documentElement.style.setProperty('--text-dark', '#e0e0e0');
-    } else {
-      // Restaurar valores por defecto
-      document.documentElement.style.setProperty('--bg-white', '#ffffff');
-      document.documentElement.style.setProperty('--bg-light', '#f8f9fa');
-      document.documentElement.style.setProperty('--text-dark', '#2c3e50');
+  init() {
+    document.addEventListener('keydown', (e) => {
+      this.handleKonamiCode(e);
+    });
+
+    // Typing effect para el hero title
+    setTimeout(() => {
+      this.initTypingEffect();
+    }, 1000);
+  }
+
+  handleKonamiCode(e) {
+    this.konamiCode.push(e.code);
+    
+    if (this.konamiCode.length > this.konamiSequence.length) {
+      this.konamiCode.shift();
     }
-  };
+    
+    if (this.konamiCode.join(',') === this.konamiSequence.join(',')) {
+      this.activateKonamiEasterEgg();
+      this.konamiCode = [];
+    }
+  }
 
-  prefersDark.addEventListener('change', (e) => {
-    applyTheme(e.matches);
-  });
+  activateKonamiEasterEgg() {
+    document.body.style.filter = 'hue-rotate(180deg)';
+    this.notification.show('🎮 ¡Código Konami activado! Eres un verdadero gamer.');
+    
+    setTimeout(() => {
+      document.body.style.filter = '';
+    }, 5000);
+  }
 
-  // Aplicar tema inicial
-  applyTheme(prefersDark.matches);
+  initTypingEffect() {
+    if (AppState.reducedMotion) return;
+    
+    const heroTitle = document.querySelector('.hero-text h2');
+    if (!heroTitle || heroTitle.classList.contains('typed')) return;
 
-  console.log('🎮 Portafolio de Paulo Marques cargado correctamente!');
-  console.log('💡 Tip: Prueba el código Konami (↑↑↓↓←→←→BA) para un easter egg');
-});
+    heroTitle.classList.add('typed');
+    const originalText = heroTitle.textContent;
+    this.typeWriter(heroTitle, originalText, 80);
+  }
 
-// Manejar recarga de página
-window.addEventListener('beforeunload', () => {
-  document.body.classList.add('is-preload');
-});
+  typeWriter(element, text, speed = 50) {
+    let i = 0;
+    element.textContent = '';
+    
+    const typing = () => {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, speed);
+      }
+    };
+    
+    typing();
+  }
+}
+
+/**
+ * Inicialización de la aplicación
+ */
+class PortfolioApp {
+  constructor() {
+    this.intersectionManager = null;
+    this.components = {};
+    
+    this.init();
+  }
+
+  async init() {
+    // Esperar a que el DOM esté listo
+    if (document.readyState === 'loading') {
+      await new Promise(resolve => {
+        document.addEventListener('DOMContentLoaded', resolve);
+      });
+    }
+
+    // Preloader
+    this.handlePreloader();
+    
+    // Inicializar componentes principales
+    this.intersectionManager = new IntersectionManager();
+    
+    this.components = {
+      header: new HeaderManager(),
+      mobileMenu: new MobileMenuManager(),
+      navigation: new NavigationManager(),
+      projects: new ProjectManager(),
+      contactForm: new ContactFormManager(),
+      interactivity: new InteractivityManager(),
+      easterEggs: new EasterEggManager()
+    };
+
+    // Configurar observers
+    this.setupObservers();
+    
+    // Configurar listeners globales
+    this.setupGlobalListeners();
+    
+    // Aplicar animaciones iniciales
+    this.applyInitialAnimations();
+    
+    // Precargar recursos
+    this.preloadResources();
+
+    console.log('🎮 Portafolio de Paulo Marques cargado correctamente!');
+    console.log('💡 Tip: Prueba el código Konami (↑↑↓↓←→←→BA) para un easter egg');
+  }
+
+  handlePreloader() {
+    setTimeout(() => {
+      document.body.classList.remove('is-preload');
+      AppState.isPreloaded = true;
+    }, 100);
+  }
+
+  setupObservers() {
+    // Elementos para animaciones de scroll
+    const scrollElements = document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right');
+    this.intersectionManager.observe('scroll-animations', Array.from(scrollElements));
+
+    // Categorías de habilidades
+    const skillCategories = document.querySelectorAll('.skill-category');
+    this.intersectionManager.observe('skill-bars', Array.from(skillCategories));
+
+    // Secciones para navegación activa
+    const sections = document.querySelectorAll('section[id]');
+    this.intersectionManager.observe('sections', Array.from(sections));
+
+    // Imágenes para lazy loading
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    this.intersectionManager.observe('images', Array.from(lazyImages));
+  }
+
+  setupGlobalListeners() {
+    // Manejo de errores globales
+    window.addEventListener('error', (e) => {
+      console.error('Error global capturado:', e.error);
+    });
+
+    // Manejo de promesas rechazadas
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('Promesa rechazada no manejada:', e.reason);
+    });
+
+    // Manejo de cambio de tamaño de ventana
+    window.addEventListener('resize', Utils.debounce(() => {
+      this.handleResize();
+    }, 250));
+
+    // Manejo de cambios en las preferencias de movimiento
+    const motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    motionMediaQuery.addEventListener('change', (e) => {
+      AppState.reducedMotion = e.matches;
+      if (e.matches) {
+        this.components.interactivity.stopParticles();
+      }
+    });
+
+    // Manejo de visibilidad de la página
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        this.components.interactivity.stopParticles();
+      } else if (!AppState.reducedMotion && !Utils.isMobile()) {
+        this.components.interactivity.startParticles();
+      }
+    });
+
+    // Prevenir recarga accidental
+    window.addEventListener('beforeunload', () => {
+      document.body.classList.add('is-preload');
+    });
+  }
+
+  handleResize() {
+    // Actualizar estado móvil
+    const wasMobile = document.body.classList.contains('mobile-device');
+    const isMobile = Utils.isMobile();
+    
+    if (isMobile !== wasMobile) {
+      document.body.classList.toggle('mobile-device', isMobile);
+      
+      // Reiniciar sistema de partículas si es necesario
+      if (isMobile) {
+        this.components.interactivity.stopParticles();
+      } else if (!AppState.reducedMotion) {
+        this.components.interactivity.startParticles();
+      }
+    }
+  }
+
+  applyInitialAnimations() {
+    if (AppState.reducedMotion) return;
+    
+    setTimeout(() => {
+      const heroElements = document.querySelectorAll('#banner .fade-in');
+      heroElements.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add('in-view');
+        }, index * 100);
+      });
+    }, 200);
+  }
+
+  preloadResources() {
+    // Precargar imágenes críticas si están definidas
+    const preloadImages = [
+      // Añadir aquí las rutas de imágenes importantes
+      // 'assets/images/perfil-paulo.jpg',
+      // 'assets/images/overhaul-preview.jpg'
+    ];
+
+    preloadImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
+    // Precargar fuentes si es necesario
+    if ('fonts' in document) {
+      Promise.all([
+        document.fonts.load('400 1em "Open Sans"'),
+        document.fonts.load('700 1em "Raleway"')
+      ]).then(() => {
+        console.log('Fuentes cargadas correctamente');
+      }).catch(err => {
+        console.warn('Error cargando fuentes:', err);
+      });
+    }
+  }
+}
+
+// Inicializar la aplicación
+const app = new PortfolioApp();
