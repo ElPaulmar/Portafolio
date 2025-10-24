@@ -3,6 +3,98 @@
    Archivo complementario a main.css
 ============================== */
 
+/* Variable adicional para el color rojo ladrillo */
+:root {
+  --brick-red: #A0402E;
+}
+
+/* Aplicar rojo ladrillo a títulos principales */
+#banner h2,
+.page-hero h1,
+h2.major {
+  color: var(--brick-red) !important;
+}
+
+/* Aplicar rojo ladrillo al marco de la foto de perfil */
+.profile-pic {
+  border-color: var(--brick-red) !important;
+}
+
+.about-profile-pic {
+  border-color: var(--brick-red) !important;
+}
+
+/* ==============================
+   LANGUAGE TOGGLE
+============================== */
+.language-toggle {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: var(--spacing-sm);
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 25px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.lang-btn:hover,
+.lang-btn:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.lang-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--text-light);
+}
+
+.lang-btn .flag {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.lang-btn .lang-text {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .language-toggle {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .lang-btn {
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .lang-btn .lang-text {
+    display: none;
+  }
+  
+  .lang-btn .flag {
+    font-size: 1.5rem;
+  }
+}
+
 /* ==============================
    PAGE HERO
 ============================== */
