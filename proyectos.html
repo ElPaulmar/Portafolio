@@ -27,6 +27,7 @@
   
   <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/multipage.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@700;800&display=swap"
@@ -35,8 +36,8 @@
 
 <body class="is-preload">
   <div id="page-wrapper">
-    <!-- Header -->
-    <header id="header" role="banner">
+    <!-- Header: centrado en esta página -->
+    <header id="header" class="centered" role="banner">
       <h1><a href="index.html">PAULO MARQUES</a></h1>
       <nav aria-label="Navegación principal">
         <a href="index.html">Inicio</a>
@@ -164,6 +165,7 @@
             </div>
 
             <div class="development-process" id="postmortalis-process" aria-hidden="true">
+              <div class="development-process" id="postmortalis-process" aria-hidden="true">
               <div class="process-step">
                 <h4><i class="fas fa-bullseye" aria-hidden="true"></i> Diseño de Sistemas</h4>
                 <p>Trabajé en la conceptualización y diseño iterativo de los sistemas principales del juego. El sistema de autopsia permite a los jugadores investigar cuerpos para descubrir pistas sobre la narrativa, mientras que los diálogos con jefes crean momentos de tensión narrativa donde las decisiones del jugador tienen consecuencias reales.</p>
@@ -458,7 +460,6 @@
         <h2 class="major slide-up">Otros Proyectos</h2>
         <p class="section-subtitle slide-up">Proyectos académicos y colaborativos</p>
         <div class="improved-project-grid">
-
           <!-- Espíritus de Hartshorn -->
           <article class="improved-project slide-left">
             <div class="project-image-container">
@@ -571,11 +572,12 @@
         <h2 class="slide-up">¿Te interesa colaborar?</h2>
         <p class="slide-up">Estos son solo algunos de mis proyectos. Si quieres conocer más sobre mi proceso de trabajo o discutir una posible colaboración, ¡contáctame!</p>
         <div class="cta-actions slide-up">
+          <!-- ✨ Alineado: ambos botones usan primary -->
           <a href="about.html#contacto" class="button large primary with-icon">
             <i class="fas fa-envelope"></i>
             Contactar
           </a>
-          <a href="about.html" class="button large with-icon">
+          <a href="about.html" class="button large primary with-icon">
             <i class="fas fa-user"></i>
             Conocer más sobre mí
           </a>

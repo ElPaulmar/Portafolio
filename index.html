@@ -95,35 +95,93 @@
 
     <!-- Hero Banner -->
     <section id="banner" role="main">
+      <!-- Imagen de fondo -->
+      <div class="banner-background">
+        <img src="images/hero-background.jpg" 
+             alt="" 
+             class="hero-bg-image"
+             loading="eager"
+             onerror="this.style.display='none'">
+      </div>
+      
+      <!-- Contenido con efecto glassmorphism -->
       <div class="inner">
         <div class="hero-content">
-          <div class="profile-container">
-            <img src="images/tu-foto.jpg" 
-                 class="profile-pic" 
-                 alt="Foto de Paulo Marques" 
-                 loading="eager"
-                 width="220" 
-                 height="220"
-                 onerror="this.src='https://via.placeholder.com/220x220/1F4D5B/DBE9D1?text=PM'">
-          </div>
-          <div class="hero-text">
-            <h2 class="fade-in">Diseñador de Juegos</h2>
-            <p class="subtitle fade-in">Narrativas Interactivas & Mecánicas Innovadoras</p>
-            <p class="description fade-in">Estudiante de Diseño de Juegos Digitales en UNAB, especializándome en diseñar mecánicas
-              innovadoras y crear historias memorables que conecten emocionalmente con los jugadores.</p>
-            <div class="hero-actions fade-in">
-              <a href="#proyectos-destacados" class="button primary">Ver Proyectos</a>
-              <a href="about.html#contacto" class="button with-icon">
-                <i class="fas fa-paper-plane" aria-hidden="true"></i> 
-                Colaboremos
-              </a>
+          <div class="hero-glass-card">
+            <div class="profile-container">
+              <img src="images/tu-foto.jpg" 
+                   class="profile-pic" 
+                   alt="Foto de Paulo Marques" 
+                   loading="eager"
+                   width="220" 
+                   height="220"
+                   onerror="this.src='https://via.placeholder.com/220x220/1F4D5B/DBE9D1?text=PM'">
+            </div>
+            <div class="hero-text">
+              <h2 class="fade-in">Diseñador de Juegos</h2>
+
+              <!-- ✨ Aquí aplicamos justificado (cambiado) -->
+              <p class="subtitle fade-in">Narrativas Interactivas & Mecánicas Innovadoras</p>
+              <p class="description fade-in">Estudiante de Diseño de Juegos Digitales en UNAB, especializándome en integrar mecánicas
+                innovadoras con historias memorables que conecten emocionalmente con los jugadores.</p>
+
+              <div class="hero-actions fade-in">
+                <a href="#proyectos-destacados" class="button primary">Ver Proyectos</a>
+                <!-- ✨ Hice que "Colaboremos" use la misma clase primary para verse igual -->
+                <a href="about.html#contacto" class="button primary with-icon">
+                  <i class="fas fa-paper-plane" aria-hidden="true"></i> 
+                  Colaboremos
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="scroll-indicator" aria-label="Desplazarse hacia abajo">
+
+      <!-- Botón flecha: ahora buscará la sección "proyectos-destacados" si existe -->
+      <button class="scroll-indicator" aria-label="Ir a Proyectos Destacados">
         <i class="fas fa-chevron-down" aria-hidden="true"></i>
       </button>
+    </section>
+
+    <!-- Sobre Mí (Resumen) -->
+    <section id="sobre-mi" class="wrapper style1">
+      <div class="inner">
+        <h2 class="major slide-up">Sobre Mí</h2>
+        <div class="about-preview">
+          <div class="about-content slide-left">
+            <p>
+              Soy un estudiante apasionado por el diseño de videojuegos, actualmente cursando mi carrera en la Universidad Andrés Bello. 
+              Mi enfoque principal está en crear experiencias que combinen narrativas profundas con mecánicas innovadoras.
+            </p>
+            <p>
+              A lo largo de mi formación, he trabajado en diversos proyectos que van desde hack & slash hasta novelas visuales, 
+              siempre buscando formas de hacer que cada juego sea una experiencia memorable para los jugadores.
+            </p>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <i class="fas fa-gamepad"></i>
+                <strong>+10</strong>
+                <span>Proyectos Completados</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-code"></i>
+                <strong>3+</strong>
+                <span>Años con Unity</span>
+              </div>
+              <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <strong>490h</strong>
+                <span>Práctica Profesional</span>
+              </div>
+            </div>
+            <a href="about.html" class="button with-icon">
+              <i class="fas fa-user"></i>
+              Conocer más sobre mí
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Proyectos Destacados (Preview) -->
@@ -184,6 +242,7 @@
             </div>
 
             <div class="project-actions">
+              <!-- ✨ Botón centrado en la tarjeta -->
               <a href="proyectos.html#postmortalis" class="button primary with-icon">
                 <i class="fas fa-info-circle" aria-hidden="true"></i> 
                 Ver Detalles Completos
@@ -284,15 +343,6 @@
               </ul>
             </div>
 
-            <div class="project-tools">
-              <h4><i class="fas fa-tools" aria-hidden="true"></i> Herramientas Utilizadas</h4>
-              <div class="tool-tags">
-                <span class="tool-tag">Unity</span>
-                <span class="tool-tag">Google Docs</span>
-                <span class="tool-tag">C#</span>
-              </div>
-            </div>
-
             <div class="project-actions">
               <a href="proyectos.html#overhaul" class="button primary with-icon">
                 <i class="fas fa-info-circle" aria-hidden="true"></i> 
@@ -351,7 +401,8 @@
             <i class="fas fa-envelope"></i>
             Contáctame
           </a>
-          <a href="proyectos.html" class="button large with-icon">
+          <!-- ✨ Explorarar ahora usa primary también -->
+          <a href="proyectos.html" class="button large primary with-icon">
             <i class="fas fa-folder-open"></i>
             Explorar Proyectos
           </a>
@@ -401,7 +452,6 @@
     </footer>
   </div>
 
-  <script src="assets/js/language-handler.js"></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 

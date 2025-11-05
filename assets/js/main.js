@@ -1,239 +1,322 @@
-/**
- * Portafolio Paulo Marques - JavaScript Principal
- * Versión actualizada para multi-página
- */
-
 // Configuración global
 const CONFIG = {
   ANIMATION_DURATION: 300,
   SCROLL_OFFSET: 80,
   NOTIFICATION_DURATION: 4000,
-  THROTTLE_DELAY: 16,
+  THROTTLE_DELAY: 16, // ~60fps
   INTERSECTION_THRESHOLD: 0.1,
   INTERSECTION_MARGIN: '50px'
 };
 
-// Estado global
+// Estado de la aplicación
 const AppState = {
   isPreloaded: false,
   isMobileMenuOpen: false,
   currentSection: null,
+  currentLanguage: null,
   scrollY: 0,
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  currentPage: window.location.pathname.split('/').pop() || 'index.html'
+  observers: new Map(),
+  cache: new Map()
 };
 
-// Utilidades
+// Utilidades optimizadas
 const Utils = {
-  throttle: (func, limit) => {
-    let inThrottle;
-    return function(...args) {
-      if (!inThrottle) {
+  // Throttle mejorado con requestAnimationFrame
+  throttle(func, limit = CONFIG.THROTTLE_DELAY) {
+    let waiting = false;
+    let lastArgs = null;
+    
+    return function throttled(...args) {
+      if (!waiting) {
         func.apply(this, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
+        waiting = true;
+        setTimeout(() => {
+          waiting = false;
+          if (lastArgs) {
+            throttled.apply(this, lastArgs);
+            lastArgs = null;
+          }
+        }, limit);
+      } else {
+        lastArgs = args;
       }
     };
   },
 
-  debounce: (func, wait) => {
+  // Debounce optimizado
+  debounce(func, wait) {
     let timeout;
-    return function(...args) {
+    return function debounced(...args) {
+      const later = () => {
+        timeout = null;
+        func.apply(this, args);
+      };
       clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
+      timeout = setTimeout(later, wait);
     };
   },
 
-  smoothScrollTo: (target, offset = CONFIG.SCROLL_OFFSET) => {
+  // Smooth scroll con fallback
+  smoothScrollTo(target, offset = CONFIG.SCROLL_OFFSET) {
     const element = typeof target === 'string' ? document.querySelector(target) : target;
     if (!element) return;
 
     const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
     
-    if ('scrollBehavior' in document.documentElement.style) {
+    if (AppState.reducedMotion || !('scrollBehavior' in document.documentElement.style)) {
+      window.scrollTo(0, targetPosition);
+    } else {
       window.scrollTo({
         top: targetPosition,
-        behavior: AppState.reducedMotion ? 'auto' : 'smooth'
+        behavior: 'smooth'
       });
-    } else {
-      window.scrollTo(0, targetPosition);
     }
   },
 
-  isValidEmail: (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email?.trim());
+  // Validación de email optimizada
+  isValidEmail: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email?.trim()),
+
+  // Escape HTML para prevenir XSS
+  escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
   },
 
-  escapeHtml: (text) => {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+  // Detección de móvil con caché
+  isMobile() {
+    if (!AppState.cache.has('isMobile')) {
+      AppState.cache.set('isMobile', window.innerWidth <= 900);
+    }
+    return AppState.cache.get('isMobile');
   },
 
-  isMobile: () => window.innerWidth <= 900
+  // Prefetch de imágenes
+  preloadImage(src) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = src;
+    });
+  }
 };
 
-/**
- * Intersection Observer Manager
- */
-class IntersectionManager {
+// Language Manager optimizado
+class LanguageManager {
   constructor() {
-    this.observers = new Map();
+    this.pageMapping = {
+      'index.html': 'en/index.html',
+      'proyectos.html': 'en/projects.html',
+      'about.html': 'en/about.html',
+      'en/index.html': 'index.html',
+      'en/projects.html': 'proyectos.html',
+      'en/about.html': 'about.html'
+    };
     this.init();
   }
 
   init() {
-    this.createObserver('scroll-animations', {
-      threshold: CONFIG.INTERSECTION_THRESHOLD,
-      rootMargin: CONFIG.INTERSECTION_MARGIN
-    }, this.handleScrollAnimations.bind(this));
-
-    this.createObserver('skill-bars', {
-      threshold: 0.3,
-      rootMargin: '100px'
-    }, this.handleSkillBars.bind(this));
-
-    this.createObserver('sections', {
-      threshold: 0.5,
-      rootMargin: '-100px 0px -50% 0px'
-    }, this.handleActiveNavigation.bind(this));
+    this.detectLanguage();
+    this.setupButtons();
   }
 
-  createObserver(name, options, callback) {
-    const observer = new IntersectionObserver(callback, options);
-    this.observers.set(name, observer);
-    return observer;
-  }
-
-  observe(name, elements) {
-    const observer = this.observers.get(name);
-    if (!observer) return;
-
-    if (Array.isArray(elements)) {
-      elements.forEach(el => observer.observe(el));
-    } else {
-      observer.observe(elements);
+  detectLanguage() {
+    const path = window.location.pathname;
+    AppState.currentLanguage = path.includes('/en/') ? 'en' : 'es';
+    
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang && savedLang !== AppState.currentLanguage) {
+      AppState.currentLanguage = savedLang;
     }
   }
 
-  handleScrollAnimations(entries) {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting && !entry.target.classList.contains('in-view')) {
-        if (AppState.reducedMotion) {
-          entry.target.classList.add('in-view');
-        } else {
-          setTimeout(() => {
-            entry.target.classList.add('in-view');
-          }, index * 50);
+  setupButtons() {
+    const buttons = document.querySelectorAll('.lang-btn');
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+      const lang = btn.dataset.lang;
+      
+      if (lang === AppState.currentLanguage) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.changeLanguage(lang);
+      }, { passive: false });
+    });
+  }
+
+  changeLanguage(targetLang) {
+    if (targetLang === AppState.currentLanguage) return;
+
+    try {
+      localStorage.setItem('preferredLanguage', targetLang);
+    } catch (e) {
+      console.warn('No se pudo guardar preferencia de idioma');
+    }
+
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.split('/').pop() || 'index.html';
+    const fullCurrentPage = currentPath.includes('/en/') ? 'en/' + currentPage : currentPage;
+    
+    const targetPage = this.pageMapping[fullCurrentPage] || 'index.html';
+    const hash = window.location.hash;
+
+    window.location.href = targetPage + hash;
+  }
+}
+
+// Intersection Manager optimizado
+class IntersectionManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    // Observer único para todas las animaciones
+    const animationObserver = new IntersectionObserver(
+      (entries) => this.handleIntersection(entries),
+      {
+        threshold: CONFIG.INTERSECTION_THRESHOLD,
+        rootMargin: CONFIG.INTERSECTION_MARGIN
+      }
+    );
+    
+    AppState.observers.set('animations', animationObserver);
+  }
+
+  handleIntersection(entries) {
+    // Procesar en batch para mejor rendimiento
+    requestAnimationFrame(() => {
+      entries.forEach((entry, index) => {
+        if (!entry.isIntersecting) return;
+        
+        const target = entry.target;
+        
+        // Animaciones de entrada
+        if (target.classList.contains('fade-in') || 
+            target.classList.contains('slide-up') || 
+            target.classList.contains('slide-left') || 
+            target.classList.contains('slide-right')) {
+          
+          const delay = AppState.reducedMotion ? 0 : index * 50;
+          setTimeout(() => target.classList.add('in-view'), delay);
+          
+          // Dejar de observar después de animar
+          AppState.observers.get('animations').unobserve(target);
         }
-      }
+        
+        // Animación de skill bars
+        if (target.classList.contains('skill-category')) {
+          this.animateSkillBars(target);
+          AppState.observers.get('animations').unobserve(target);
+        }
+        
+        // Actualizar sección activa
+        if (target.hasAttribute('id')) {
+          AppState.currentSection = target.id;
+          this.updateActiveLinks(target.id);
+        }
+      });
     });
   }
 
-  handleSkillBars(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const skillFills = entry.target.querySelectorAll('.skill-fill:not(.animated)');
-        skillFills.forEach((bar, index) => {
-          const skillValue = bar.getAttribute('data-skill');
-          if (skillValue) {
-            bar.classList.add('animated');
-            setTimeout(() => {
-              bar.style.width = skillValue + '%';
-            }, AppState.reducedMotion ? 0 : index * 200);
-          }
-        });
-        this.observers.get('skill-bars').unobserve(entry.target);
-      }
-    });
+  observe(elements) {
+    const observer = AppState.observers.get('animations');
+    if (!observer) return;
+
+    // Usar DocumentFragment para mejor rendimiento
+    elements.forEach(el => observer.observe(el));
   }
 
-  handleActiveNavigation(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        AppState.currentSection = entry.target.id;
-        this.updateActiveLinks(entry.target.id);
+  animateSkillBars(container) {
+    const fills = container.querySelectorAll('.skill-fill:not(.animated)');
+    
+    fills.forEach((bar, index) => {
+      const value = bar.dataset.skill;
+      if (!value) return;
+      
+      bar.classList.add('animated');
+      
+      if (AppState.reducedMotion) {
+        bar.style.width = value + '%';
+      } else {
+        setTimeout(() => {
+          bar.style.width = value + '%';
+        }, index * 200);
       }
     });
   }
 
   updateActiveLinks(sectionId) {
-    // Actualizar navegación principal
-    const navLinks = document.querySelectorAll('#header nav a, .mobile-menu a');
-    navLinks.forEach(link => {
+    // Caché de selectores
+    if (!AppState.cache.has('navLinks')) {
+      AppState.cache.set('navLinks', 
+        document.querySelectorAll('#header nav a, .mobile-menu a, .sidebar-link, .sidebar-sublink')
+      );
+    }
+    
+    const links = AppState.cache.get('navLinks');
+    links.forEach(link => {
       const href = link.getAttribute('href');
-      if (href && href.includes('#')) {
+      if (href?.includes('#')) {
         const linkSection = href.split('#')[1];
-        if (linkSection === sectionId) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      }
-    });
-
-    // Actualizar sidebar
-    const sidebarLinks = document.querySelectorAll('.sidebar-link, .sidebar-sublink');
-    sidebarLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const linkSection = href.substring(1);
-        if (linkSection === sectionId) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
+        link.classList.toggle('active', linkSection === sectionId);
       }
     });
   }
 }
 
-/**
- * Header Manager
- */
+// Header Manager optimizado
 class HeaderManager {
   constructor() {
     this.header = document.getElementById('header');
     this.lastScrollY = window.pageYOffset;
+    this.ticking = false;
     this.init();
   }
 
   init() {
     if (!this.header) return;
 
-    const handleScroll = Utils.throttle(() => {
-      this.updateHeader();
-    }, CONFIG.THROTTLE_DELAY);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Usar passive: true para mejor scroll performance
+    window.addEventListener('scroll', () => {
+      if (!this.ticking) {
+        requestAnimationFrame(() => this.handleScroll());
+        this.ticking = true;
+      }
+    }, { passive: true });
   }
 
-  updateHeader() {
+  handleScroll() {
     const currentScrollY = window.pageYOffset;
     
-    if (currentScrollY > 100) {
-      this.header.classList.add('scrolled');
-    } else {
-      this.header.classList.remove('scrolled');
-    }
+    // Añadir clase scrolled
+    this.header.classList.toggle('scrolled', currentScrollY > 100);
 
-    if (Utils.isMobile()) {
-      if (currentScrollY > this.lastScrollY && currentScrollY > 200) {
-        this.header.style.transform = 'translateY(-100%)';
-      } else {
-        this.header.style.transform = 'translateY(0)';
-      }
+    // Auto-hide en móvil
+    if (Utils.isMobile() && currentScrollY > 200) {
+      const direction = currentScrollY > this.lastScrollY ? '-100%' : '0';
+      this.header.style.transform = `translateY(${direction})`;
     }
 
     this.lastScrollY = currentScrollY;
     AppState.scrollY = currentScrollY;
+    this.ticking = false;
   }
 }
 
-/**
- * Mobile Menu Manager
- */
+// Mobile Menu Manager optimizado
 class MobileMenuManager {
   constructor() {
     this.toggle = document.querySelector('.mobile-menu-toggle');
@@ -244,17 +327,20 @@ class MobileMenuManager {
   init() {
     if (!this.toggle || !this.menu) return;
 
+    // Event delegation para mejor rendimiento
     this.toggle.addEventListener('click', (e) => {
       e.stopPropagation();
       this.toggleMenu();
     });
 
-    this.menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
+    // Cerrar al hacer click en links
+    this.menu.addEventListener('click', (e) => {
+      if (e.target.matches('a')) {
         this.closeMenu();
-      });
+      }
     });
 
+    // Cerrar al hacer click fuera
     document.addEventListener('click', (e) => {
       if (AppState.isMobileMenuOpen && 
           !this.menu.contains(e.target) && 
@@ -263,25 +349,25 @@ class MobileMenuManager {
       }
     });
 
+    // Cerrar con Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && AppState.isMobileMenuOpen) {
         this.closeMenu();
+        this.toggle.focus();
       }
     });
 
+    // Cerrar en resize a desktop
     window.addEventListener('resize', Utils.debounce(() => {
       if (!Utils.isMobile() && AppState.isMobileMenuOpen) {
         this.closeMenu();
       }
+      AppState.cache.delete('isMobile'); // Invalidar caché
     }, 250));
   }
 
   toggleMenu() {
-    if (AppState.isMobileMenuOpen) {
-      this.closeMenu();
-    } else {
-      this.openMenu();
-    }
+    AppState.isMobileMenuOpen ? this.closeMenu() : this.openMenu();
   }
 
   openMenu() {
@@ -290,11 +376,10 @@ class MobileMenuManager {
     this.toggle.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
     this.toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
-
+    
+    // Mover focus al primer link
     const firstLink = this.menu.querySelector('a');
-    if (firstLink) {
-      setTimeout(() => firstLink.focus(), 100);
-    }
+    if (firstLink) firstLink.focus();
   }
 
   closeMenu() {
@@ -306,139 +391,112 @@ class MobileMenuManager {
   }
 }
 
-/**
- * Navigation Manager
- */
+// Navigation Manager optimizado
 class NavigationManager {
   constructor() {
     this.init();
   }
 
   init() {
+    // Event delegation en documento
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href^="#"]');
       if (!link) return;
 
       const href = link.getAttribute('href');
-      if (href === '#' || href === '') return;
+      if (!href || href === '#') return;
 
       e.preventDefault();
       Utils.smoothScrollTo(href);
+      
+      // Actualizar URL sin recargar
+      if (history.pushState) {
+        history.pushState(null, null, href);
+      }
     });
 
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-      scrollIndicator.addEventListener('click', () => {
-        const firstSection = document.querySelector('section[id]:not(#banner)');
-        if (firstSection) {
-          Utils.smoothScrollTo(`#${firstSection.id}`);
+    // Scroll indicator
+    const indicator = document.querySelector('.scroll-indicator');
+    if (indicator) {
+      indicator.addEventListener('click', () => {
+        const featured = document.querySelector('#proyectos-destacados');
+        if (featured) {
+          Utils.smoothScrollTo('#proyectos-destacados');
+        } else {
+          const firstSection = document.querySelector('section[id]:not(#banner)');
+          if (firstSection) {
+            Utils.smoothScrollTo(`#${firstSection.id}`);
+          }
         }
       });
     }
   }
 }
 
-/**
- * Sidebar Manager
- */
-class SidebarManager {
-  constructor() {
-    this.sidebar = document.querySelector('.sidebar-index');
-    this.init();
-  }
-
-  init() {
-    if (!this.sidebar) return;
-
-    // Smooth scroll para links del sidebar
-    this.sidebar.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = link.getAttribute('href');
-        Utils.smoothScrollTo(target);
-      });
-    });
-
-    // Actualizar posición en scroll
-    const handleScroll = Utils.throttle(() => {
-      this.updateSidebarPosition();
-    }, CONFIG.THROTTLE_DELAY);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  }
-
-  updateSidebarPosition() {
-    if (!this.sidebar || Utils.isMobile()) return;
-
-    const scrollY = window.pageYOffset;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    
-    // Mantener el sidebar visible pero sin salirse del viewport
-    if (scrollY > 100 && scrollY < maxScroll - 200) {
-      this.sidebar.style.position = 'fixed';
-      this.sidebar.style.top = '150px';
-    }
-  }
-}
-
-/**
- * Project Manager
- */
+// Project Manager optimizado
 class ProjectManager {
   constructor() {
+    this.activeProcesses = new Set();
     this.init();
   }
 
   init() {
-    const toggles = document.querySelectorAll('.toggle-process');
-    toggles.forEach(toggle => {
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.toggleProcess(toggle);
-      });
+    // Event delegation
+    document.addEventListener('click', (e) => {
+      const toggle = e.target.closest('.toggle-process');
+      if (!toggle) return;
+      
+      e.preventDefault();
+      this.toggleProcess(toggle);
     });
   }
 
   toggleProcess(toggle) {
-    const isActive = toggle.classList.contains('active');
     const processId = toggle.getAttribute('aria-controls');
     const process = document.getElementById(processId);
-    
     if (!process) return;
 
-    toggle.classList.toggle('active');
-    const icon = toggle.querySelector('i');
+    const isActive = this.activeProcesses.has(processId);
     
     if (isActive) {
+      this.activeProcesses.delete(processId);
+      toggle.classList.remove('active');
       process.style.display = 'none';
       process.classList.remove('show');
       process.setAttribute('aria-hidden', 'true');
       toggle.setAttribute('aria-expanded', 'false');
-      if (icon) icon.style.transform = 'rotate(0deg)';
     } else {
+      this.activeProcesses.add(processId);
+      toggle.classList.add('active');
       process.style.display = 'block';
-      process.classList.add('show');
-      process.setAttribute('aria-hidden', 'false');
-      toggle.setAttribute('aria-expanded', 'true');
-      if (icon) icon.style.transform = 'rotate(180deg)';
       
-      setTimeout(() => {
-        if (!AppState.reducedMotion) {
+      // Usar requestAnimationFrame para animación suave
+      requestAnimationFrame(() => {
+        process.classList.add('show');
+        process.setAttribute('aria-hidden', 'false');
+        toggle.setAttribute('aria-expanded', 'true');
+      });
+
+      // Scroll suave al contenido expandido
+      if (!AppState.reducedMotion) {
+        setTimeout(() => {
           const rect = process.getBoundingClientRect();
-          const scrollTarget = window.pageYOffset + rect.top - CONFIG.SCROLL_OFFSET;
-          window.scrollTo({
-            top: scrollTarget,
-            behavior: 'smooth'
-          });
-        }
-      }, 300);
+          if (rect.top < 0 || rect.bottom > window.innerHeight) {
+            Utils.smoothScrollTo(process, CONFIG.SCROLL_OFFSET);
+          }
+        }, 300);
+      }
+    }
+
+    // Actualizar icono
+    const icon = toggle.querySelector('i');
+    if (icon) {
+      icon.style.transform = isActive ? 'rotate(0deg)' : 'rotate(180deg)';
     }
   }
 }
 
-/**
- * Notification Manager
- */
+// Notification Manager optimizado
 class NotificationManager {
   constructor() {
     this.notification = document.getElementById('message-notification');
@@ -448,47 +506,44 @@ class NotificationManager {
 
   show(message, type = 'success') {
     this.queue.push({ message, type });
-    this.processQueue();
+    if (!this.isShowing) {
+      this.processQueue();
+    }
   }
 
   async processQueue() {
-    if (this.isShowing || this.queue.length === 0) return;
+    if (!this.queue.length) {
+      this.isShowing = false;
+      return;
+    }
     
     this.isShowing = true;
     const { message, type } = this.queue.shift();
     
     await this.displayNotification(message, type);
     
-    this.isShowing = false;
-    
-    if (this.queue.length > 0) {
-      setTimeout(() => this.processQueue(), 500);
-    }
+    // Procesar siguiente en la cola
+    this.processQueue();
   }
 
   async displayNotification(message, type) {
-    if (!this.notification) return;
+    if (!this.notification) return Promise.resolve();
 
-    const iconMap = {
-      success: 'fa-check-circle',
-      error: 'fa-exclamation-circle',
-      warning: 'fa-exclamation-triangle',
-      info: 'fa-info-circle'
+    const config = {
+      success: { icon: 'fa-check-circle', color: '#21585A' },
+      error: { icon: 'fa-exclamation-circle', color: '#90403E' },
+      warning: { icon: 'fa-exclamation-triangle', color: '#56475D' },
+      info: { icon: 'fa-info-circle', color: '#21585A' }
     };
 
-    const colorMap = {
-      success: '#27ae60',
-      error: '#e74c3c',
-      warning: '#f39c12',
-      info: '#3498db'
-    };
+    const { icon, color } = config[type] || config.info;
 
     this.notification.innerHTML = `
-      <i class="fas ${iconMap[type] || iconMap.info}" aria-hidden="true"></i>
+      <i class="fas ${icon}" aria-hidden="true"></i>
       <span>${Utils.escapeHtml(message)}</span>
     `;
     
-    this.notification.style.background = colorMap[type] || colorMap.info;
+    this.notification.style.background = color;
     this.notification.classList.add('show');
     this.notification.setAttribute('role', type === 'error' ? 'alert' : 'status');
 
@@ -501,20 +556,30 @@ class NotificationManager {
   }
 }
 
-/**
- * Contact Form Manager
- */
+// Contact Form Manager optimizado
 class ContactFormManager {
   constructor() {
     this.form = document.getElementById('contact-form');
     this.notification = new NotificationManager();
+    this.validators = new Map();
     this.init();
   }
 
   init() {
     if (!this.form) return;
 
-    this.setupRealTimeValidation();
+    const inputs = this.form.querySelectorAll('input, textarea');
+    
+    // Event delegation con debounce
+    inputs.forEach(input => {
+      const debouncedUpdate = Utils.debounce(() => {
+        this.updateSubmitButton();
+        this.clearFieldError(input);
+      }, 300);
+
+      input.addEventListener('input', debouncedUpdate);
+      input.addEventListener('blur', () => this.validateField(input));
+    });
     
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -522,100 +587,46 @@ class ContactFormManager {
     });
   }
 
-  setupRealTimeValidation() {
-    const inputs = this.form.querySelectorAll('input, textarea');
-    
-    inputs.forEach(input => {
-      input.addEventListener('input', Utils.debounce(() => {
-        this.updateSubmitButton();
-      }, 300));
-
-      input.addEventListener('blur', () => {
-        this.validateField(input);
-      });
-
-      input.addEventListener('input', () => {
-        this.clearFieldError(input);
-      });
-    });
-  }
-
   updateSubmitButton() {
-    const submitButton = this.form.querySelector('button[type="submit"]');
-    if (!submitButton) return;
+    const button = this.form.querySelector('button[type="submit"]');
+    if (!button) return;
 
     const formData = new FormData(this.form);
-    const errors = this.validateFormData(formData);
-    
-    submitButton.disabled = errors.length > 0;
-  }
-
-  validateFormData(formData) {
-    const errors = [];
-    
     const name = formData.get('name')?.trim();
     const email = formData.get('email')?.trim();
     const message = formData.get('message')?.trim();
     
-    if (!name || name.length < 2) {
-      errors.push('El nombre debe tener al menos 2 caracteres');
-    }
+    const isValid = name?.length >= 2 && 
+                    Utils.isValidEmail(email) && 
+                    message?.length >= 10;
     
-    if (!email || !Utils.isValidEmail(email)) {
-      errors.push('Por favor ingresa un email válido');
-    }
-    
-    if (!message || message.length < 10) {
-      errors.push('El mensaje debe tener al menos 10 caracteres');
-    }
-    
-    return errors;
+    button.disabled = !isValid;
   }
 
   validateField(field) {
     const value = field.value.trim();
-    let isValid = true;
-    let errorMessage = '';
+    let error = '';
 
-    switch (field.type) {
-      case 'text':
-        if (field.hasAttribute('required') && value.length < 2) {
-          isValid = false;
-          errorMessage = 'Mínimo 2 caracteres';
-        }
-        break;
-      case 'email':
-        if (field.hasAttribute('required') && !Utils.isValidEmail(value)) {
-          isValid = false;
-          errorMessage = 'Email inválido';
-        }
-        break;
-      default:
-        if (field.tagName === 'TEXTAREA' && field.hasAttribute('required') && value.length < 10) {
-          isValid = false;
-          errorMessage = 'Mínimo 10 caracteres';
-        }
+    if (field.type === 'email' && field.required) {
+      error = Utils.isValidEmail(value) ? '' : 'Email inválido';
+    } else if (field.type === 'text' && field.required) {
+      error = value.length >= 2 ? '' : 'Mínimo 2 caracteres';
+    } else if (field.tagName === 'TEXTAREA' && field.required) {
+      error = value.length >= 10 ? '' : 'Mínimo 10 caracteres';
     }
 
-    if (!isValid) {
-      this.showFieldError(field, errorMessage);
-    } else {
-      this.clearFieldError(field);
-    }
-
-    return isValid;
+    error ? this.showFieldError(field, error) : this.clearFieldError(field);
   }
 
   showFieldError(field, message) {
     this.clearFieldError(field);
-    field.style.borderColor = '#e74c3c';
+    field.style.borderColor = '#90403E';
     field.setAttribute('aria-invalid', 'true');
     
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
     errorDiv.textContent = message;
     errorDiv.setAttribute('role', 'alert');
-    
     field.parentNode.appendChild(errorDiv);
   }
 
@@ -623,206 +634,157 @@ class ContactFormManager {
     field.style.borderColor = '';
     field.removeAttribute('aria-invalid');
     
-    const errorDiv = field.parentNode.querySelector('.field-error');
-    if (errorDiv) {
-      errorDiv.remove();
-    }
+    const error = field.parentNode.querySelector('.field-error');
+    if (error) error.remove();
   }
 
   async handleSubmit() {
-    const formData = new FormData(this.form);
-    const errors = this.validateFormData(formData);
+    const button = this.form.querySelector('button[type="submit"]');
+    const buttonText = button.querySelector('.button-text');
     
-    if (errors.length > 0) {
-      this.notification.show(errors[0], 'error');
-      return;
-    }
-
-    const submitButton = this.form.querySelector('button[type="submit"]');
-    const buttonText = submitButton.querySelector('.button-text');
-    
-    submitButton.disabled = true;
-    submitButton.classList.add('loading');
+    button.disabled = true;
+    button.classList.add('loading');
     buttonText.textContent = 'Enviando...';
     
     try {
-      await this.simulateFormSubmission(formData);
+      // Simular envío (reemplazar con fetch real)
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       this.notification.show('¡Mensaje enviado correctamente! Te responderé pronto.');
       this.form.reset();
       this.updateSubmitButton();
       
     } catch (error) {
-      console.error('Error al enviar formulario:', error);
-      this.notification.show('Error al enviar el mensaje. Por favor intenta nuevamente.', 'error');
+      console.error('Error:', error);
+      this.notification.show('Error al enviar. Intenta nuevamente.', 'error');
     } finally {
-      submitButton.disabled = false;
-      submitButton.classList.remove('loading');
+      button.disabled = false;
+      button.classList.remove('loading');
       buttonText.textContent = 'Enviar Mensaje';
     }
   }
-
-  async simulateFormSubmission(formData) {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    if (Math.random() < 0.05) {
-      throw new Error('Error de red simulado');
-    }
-    
-    return { success: true };
-  }
 }
 
-/**
- * Interactivity Manager
- */
+// Interactivity Manager
 class InteractivityManager {
   constructor() {
-    this.init();
-  }
-
-  init() {
     this.setupRippleEffect();
   }
 
   setupRippleEffect() {
+    if (AppState.reducedMotion) return;
+
     document.addEventListener('click', (e) => {
       const button = e.target.closest('.button');
-      if (!button || AppState.reducedMotion) return;
+      if (!button) return;
 
-      this.createRipple(button, e);
-    });
-  }
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple');
+      
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
 
-  createRipple(button, event) {
-    const existingRipple = button.querySelector('.ripple');
-    if (existingRipple) {
-      existingRipple.remove();
-    }
-
-    const circle = document.createElement('span');
-    circle.classList.add('ripple');
-    button.appendChild(circle);
-
-    const rect = button.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    circle.style.width = circle.style.height = size + 'px';
-    circle.style.left = x + 'px';
-    circle.style.top = y + 'px';
-
-    circle.addEventListener('animationend', () => {
-      if (circle.parentNode) {
-        circle.remove();
-      }
-    });
+      ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
+      
+      button.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+    }, { passive: true });
   }
 }
 
-/**
- * Aplicación Principal
- */
+// Portfolio App - Orquestador principal
 class PortfolioApp {
   constructor() {
-    this.intersectionManager = null;
     this.components = {};
-    
     this.init();
   }
 
   async init() {
+    // Esperar a que el DOM esté listo
     if (document.readyState === 'loading') {
       await new Promise(resolve => {
         document.addEventListener('DOMContentLoaded', resolve);
       });
     }
 
-    this.handlePreloader();
+    // Remover preload
+    setTimeout(() => {
+      document.body.classList.remove('is-preload');
+      AppState.isPreloaded = true;
+    }, 100);
     
-    this.intersectionManager = new IntersectionManager();
-    
+    // Inicializar componentes
     this.components = {
+      language: new LanguageManager(),
+      intersection: new IntersectionManager(),
       header: new HeaderManager(),
       mobileMenu: new MobileMenuManager(),
       navigation: new NavigationManager(),
-      sidebar: new SidebarManager(),
       projects: new ProjectManager(),
       contactForm: new ContactFormManager(),
       interactivity: new InteractivityManager()
     };
 
+    // Setup
     this.setupObservers();
     this.setupGlobalListeners();
     this.applyInitialAnimations();
+    this.prefetchCriticalImages();
 
-    console.log('Portafolio de Paulo Marques cargado correctamente');
-  }
-
-  handlePreloader() {
-    setTimeout(() => {
-      document.body.classList.remove('is-preload');
-      AppState.isPreloaded = true;
-    }, 100);
+    console.log('✅ Portafolio cargado y optimizado');
   }
 
   setupObservers() {
-    const scrollElements = document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right');
-    this.intersectionManager.observe('scroll-animations', Array.from(scrollElements));
-
-    const skillCategories = document.querySelectorAll('.skill-category');
-    this.intersectionManager.observe('skill-bars', Array.from(skillCategories));
-
-    const sections = document.querySelectorAll('section[id]');
-    this.intersectionManager.observe('sections', Array.from(sections));
+    const elements = [
+      ...document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right'),
+      ...document.querySelectorAll('.skill-category'),
+      ...document.querySelectorAll('section[id]')
+    ];
+    
+    this.components.intersection.observe(elements);
   }
 
   setupGlobalListeners() {
-    window.addEventListener('error', (e) => {
-      console.error('Error global capturado:', e.error);
-    });
-
-    window.addEventListener('unhandledrejection', (e) => {
-      console.error('Promesa rechazada no manejada:', e.reason);
-    });
-
+    // Resize con debounce
     window.addEventListener('resize', Utils.debounce(() => {
-      this.handleResize();
+      document.body.classList.toggle('mobile-device', Utils.isMobile());
+      AppState.cache.delete('isMobile');
     }, 250));
 
-    const motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    motionMediaQuery.addEventListener('change', (e) => {
-      AppState.reducedMotion = e.matches;
-    });
-
-    window.addEventListener('beforeunload', () => {
-      document.body.classList.add('is-preload');
-    });
-  }
-
-  handleResize() {
-    const wasMobile = document.body.classList.contains('mobile-device');
-    const isMobile = Utils.isMobile();
-    
-    if (isMobile !== wasMobile) {
-      document.body.classList.toggle('mobile-device', isMobile);
-    }
+    // Cambios en reduced motion
+    window.matchMedia('(prefers-reduced-motion: reduce)')
+      .addEventListener('change', (e) => {
+        AppState.reducedMotion = e.matches;
+      });
   }
 
   applyInitialAnimations() {
     if (AppState.reducedMotion) return;
     
-    setTimeout(() => {
-      const heroElements = document.querySelectorAll('.page-hero .fade-in, #banner .fade-in');
-      heroElements.forEach((el, index) => {
-        setTimeout(() => {
-          el.classList.add('in-view');
-        }, index * 100);
-      });
-    }, 200);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        document.querySelectorAll('.page-hero .fade-in, #banner .fade-in')
+          .forEach((el, i) => {
+            setTimeout(() => el.classList.add('in-view'), i * 100);
+          });
+      }, 200);
+    });
+  }
+
+  prefetchCriticalImages() {
+    // Prefetch de imágenes importantes
+    const criticalImages = document.querySelectorAll('img[loading="eager"]');
+    criticalImages.forEach(img => {
+      if (!img.complete) {
+        Utils.preloadImage(img.src).catch(() => {
+          console.warn('Failed to preload:', img.src);
+        });
+      }
+    });
   }
 }
 
-// Inicializar la aplicación
+// Inicialización
 const app = new PortfolioApp();

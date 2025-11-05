@@ -1,125 +1,22 @@
 /* ==============================
-   ESTILOS MULTI-PÁGINA
-   Archivo complementario a main.css
+   ESTILOS ESPECÍFICOS MULTIPÁGINA
+   Solo elementos únicos de otras páginas
 ============================== */
 
-/* Variable adicional para el color rojo ladrillo */
-:root {
-  --brick-red: #721a0b;
-}
-
-/* Aplicar rojo ladrillo a títulos principales */
-#banner h2,
-.page-hero h1,
-h2.major {
-  color: var(--brick-red) !important;
-}
-
-/* Aplicar rojo ladrillo al marco de la foto de perfil */
-.profile-pic {
-  border-color: var(--brick-red) !important;
-}
-
-.about-profile-pic {
-  border-color: var(--brick-red) !important;
-}
-
 /* ==============================
-   LANGUAGE TOGGLE
-============================== */
-.language-toggle {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  margin-left: var(--spacing-sm);
-}
-
-.lang-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.5rem 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid transparent;
-  border-radius: 25px;
-  color: var(--text-color);
-  cursor: pointer;
-  transition: all var(--transition);
-  font-family: 'Raleway', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-.lang-btn:hover,
-.lang-btn:focus {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: var(--accent-color);
-  transform: translateY(-2px);
-  outline: none;
-}
-
-.lang-btn.active {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  color: var(--text-light);
-}
-
-.lang-btn .flag {
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-.lang-btn .lang-text {
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-@media (max-width: 900px) {
-  .language-toggle {
-    position: absolute;
-    right: 70px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .lang-btn {
-    padding: 0.4rem 0.6rem;
-  }
-  
-  .lang-btn .lang-text {
-    display: none;
-  }
-  
-  .lang-btn .flag {
-    font-size: 1.5rem;
-  }
-}
-
-/* ==============================
-   PAGE HERO
+   PAGE HERO (páginas internas)
 ============================== */
 .page-hero {
   min-height: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-  color: var(--text-light);
   position: relative;
   overflow: hidden;
   margin-top: 70px;
   padding: var(--spacing-xl) var(--spacing-md);
-}
-
-.page-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  opacity: 0.3;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-light);
 }
 
 .page-hero .inner {
@@ -130,21 +27,20 @@ h2.major {
 
 .page-hero h1 {
   font-size: clamp(2.5rem, 6vw, 4rem);
-  color: var(--text-light);
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--accent-color);
+  text-shadow: 2px 2px 4px rgba(10, 36, 26, 0.5);
 }
 
 .page-hero p {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
-  color: var(--text-light);
   opacity: 0.95;
   max-width: 600px;
   margin: 0 auto;
 }
 
 /* ==============================
-   SIDEBAR INDEX (ÍNDICE LATERAL)
+   SIDEBAR INDEX
 ============================== */
 .sidebar-index {
   position: fixed;
@@ -216,11 +112,10 @@ h2.major {
 
 .sidebar-sublink:hover,
 .sidebar-sublink:focus {
-  background: rgba(97, 154, 144, 0.2);
+  background: rgba(144, 64, 62, 0.2);
   transform: translateX(3px);
 }
 
-/* Ocultar sidebar en móvil */
 @media (max-width: 1200px) {
   .sidebar-index {
     transform: translateX(-100%);
@@ -252,7 +147,78 @@ h2.major {
 }
 
 /* ==============================
-   ABOUT PAGE STYLES
+   LANGUAGE TOGGLE
+============================== */
+.language-toggle {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: var(--spacing-sm);
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(234, 232, 216, 0.1);
+  border: 2px solid transparent;
+  border-radius: 25px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.lang-btn:hover,
+.lang-btn:focus {
+  background: rgba(234, 232, 216, 0.2);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.lang-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--text-light);
+}
+
+.lang-btn .flag {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.lang-btn .lang-text {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .language-toggle {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .lang-btn {
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .lang-btn .lang-text {
+    display: none;
+  }
+  
+  .lang-btn .flag {
+    font-size: 1.5rem;
+  }
+}
+
+/* ==============================
+   ABOUT PAGE - COMPONENTES ÚNICOS
 ============================== */
 .about-detailed {
   display: flex;
@@ -270,19 +236,10 @@ h2.major {
   flex-wrap: wrap;
   gap: var(--spacing-lg);
   align-items: center;
-  background: var(--primary-color);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-medium);
-}
-
-.about-profile-pic {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--accent-color);
-  box-shadow: var(--shadow-medium);
+  background: var(--dark-bg);
 }
 
 .profile-quick-info {
@@ -291,16 +248,16 @@ h2.major {
 }
 
 .profile-quick-info h2 {
-  color: var(--text-color);
   margin-bottom: 0.5rem;
   font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--text-light);
 }
 
 .profile-quick-info .role {
-  color: var(--accent-color);
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: var(--spacing-sm);
+  color: var(--accent-color);
 }
 
 .profile-quick-info .location,
@@ -308,20 +265,20 @@ h2.major {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--text-color);
   margin-bottom: 0.5rem;
+  color: var(--text-light);
 }
 
 .profile-quick-info i {
-  color: var(--accent-color);
   width: 20px;
+  color: var(--accent-color);
 }
 
 .about-content,
 .about-philosophy,
 .about-stats,
 .about-interests {
-  background: var(--bg-white);
+  background: var(--light-bg);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-light);
@@ -331,11 +288,11 @@ h2.major {
 .about-philosophy h3,
 .about-stats h3,
 .about-interests h3 {
-  color: var(--heading-color);
-  margin-bottom: var(--spacing-md);
+  color: var(--accent-color);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
 }
 
 .about-content h3 i,
@@ -346,9 +303,9 @@ h2.major {
 }
 
 .about-content p {
-  margin-bottom: var(--spacing-sm);
-  line-height: 1.8;
   color: var(--text-dark);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-sm);
 }
 
 /* Philosophy Grid */
@@ -359,7 +316,7 @@ h2.major {
 }
 
 .philosophy-item {
-  background: var(--bg-light);
+  background: var(--dark-bg);
   padding: var(--spacing-md);
   border-radius: 0.75rem;
   border-left: 4px solid var(--accent-color);
@@ -373,18 +330,21 @@ h2.major {
 
 .philosophy-item i {
   font-size: 2rem;
-  color: var(--accent-color);
   margin-bottom: var(--spacing-sm);
+  color: var(--accent-color);
+}
+
+.philosophy-item h4,
+.philosophy-item p {
+  color: var(--text-light);
 }
 
 .philosophy-item h4 {
-  color: var(--heading-color);
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
 }
 
 .philosophy-item p {
-  color: var(--text-dark);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -399,8 +359,8 @@ h2.major {
 .stat-detailed {
   display: flex;
   gap: var(--spacing-sm);
-  background: var(--bg-light);
   padding: var(--spacing-md);
+  background: var(--dark-bg);
   border-radius: 0.75rem;
   transition: all var(--transition);
 }
@@ -417,8 +377,8 @@ h2.major {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
   border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
   color: var(--text-light);
   font-size: 1.5rem;
 }
@@ -430,22 +390,22 @@ h2.major {
 
 .stat-info strong {
   font-size: 2rem;
-  color: var(--accent-color);
   font-weight: 800;
   line-height: 1;
+  color: var(--accent-color);
 }
 
 .stat-info > span {
   font-weight: 600;
-  color: var(--heading-color);
   margin-top: 0.25rem;
+  color: var(--text-light);
 }
 
 .stat-info p {
   font-size: 0.85rem;
-  color: var(--text-dark);
   opacity: 0.8;
   margin: 0;
+  color: var(--text-light);
 }
 
 /* Interests Grid */
@@ -458,7 +418,7 @@ h2.major {
 .interest-item {
   text-align: center;
   padding: var(--spacing-md);
-  background: var(--bg-light);
+  background: var(--dark-bg);
   border-radius: 0.75rem;
   transition: all var(--transition);
 }
@@ -469,395 +429,99 @@ h2.major {
   background: var(--primary-color);
 }
 
-.interest-item:hover h4,
-.interest-item:hover p {
-  color: var(--text-color);
-}
-
 .interest-item i {
   font-size: 2.5rem;
-  color: var(--accent-color);
   margin-bottom: var(--spacing-sm);
+  color: var(--accent-color);
+}
+
+.interest-item h4,
+.interest-item p {
+  color: var(--text-light);
 }
 
 .interest-item h4 {
-  color: var(--heading-color);
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
 
 .interest-item p {
-  color: var(--text-dark);
   font-size: 0.9rem;
   line-height: 1.5;
   margin: 0;
 }
 
 /* ==============================
-   CONTACT INFO ENHANCEMENTS
-============================== */
-.contact-detail {
-  display: flex;
-  flex-direction: column;
-}
-
-.contact-detail strong {
-  color: var(--accent-color);
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
-}
-
-.contact-detail a {
-  color: var(--text-light);
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-.contact-detail a:hover {
-  color: var(--accent-color);
-}
-
-.social-links {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.social-links h4 {
-  color: var(--text-light);
-  margin-bottom: var(--spacing-sm);
-  font-size: 1rem;
-}
-
-.social-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.social-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0.5rem;
-  color: var(--text-light);
-  text-decoration: none;
-  transition: all var(--transition);
-  font-weight: 600;
-}
-
-.social-btn:hover,
-.social-btn:focus {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  transform: translateX(5px);
-  outline: none;
-}
-
-.social-btn i {
-  font-size: 1.2rem;
-  width: 25px;
-  text-align: center;
-}
-
-/* ==============================
-   PROJECT DETAILED CARDS
-============================== */
-.project-card-detailed {
-  background: var(--primary-color);
-  color: var(--text-color);
-  border-radius: var(--border-radius);
-  margin-bottom: var(--spacing-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-medium);
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.project-card-detailed:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-heavy);
-}
-
-.project-status {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.3rem 0.8rem;
-  background: var(--warning-color);
-  color: var(--text-light);
-  border-radius: 15px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.project-status.completed {
-  background: var(--success-color);
-}
-
-/* Project Highlights */
-.project-highlights {
-  margin-top: var(--spacing-md);
-}
-
-.project-highlights h4 {
-  color: var(--text-color);
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.highlight-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-md);
-}
-
-.highlight-item {
-  text-align: center;
-  padding: var(--spacing-md);
-  background: var(--secondary-color);
-  border-radius: 0.75rem;
-  border: 2px solid var(--accent-color);
-  transition: all var(--transition);
-}
-
-.highlight-item:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-medium);
-}
-
-.highlight-item strong {
-  display: block;
-  font-size: 2rem;
-  color: var(--accent-color);
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.highlight-item span {
-  display: block;
-  color: var(--text-color);
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-/* ==============================
-   PERSONAL PROJECTS NOTE
-============================== */
-.personal-projects-note {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  background: var(--bg-light);
-  border-left: 4px solid var(--accent-color);
-  border-radius: 0.5rem;
-  margin-top: var(--spacing-md);
-}
-
-.personal-projects-note i {
-  font-size: 1.5rem;
-  color: var(--accent-color);
-  flex-shrink: 0;
-}
-
-.personal-projects-note p {
-  margin: 0;
-  color: var(--text-dark);
-  line-height: 1.6;
-}
-
-/* ==============================
-   HOME PAGE ENHANCEMENTS
+   HOME PAGE - COMPONENTES ÚNICOS
 ============================== */
 .about-preview {
   max-width: 900px;
   margin: 0 auto;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-md);
-  margin: var(--spacing-lg) 0;
+/* ==============================
+   PROJECTS PAGE - COMPONENTES ÚNICOS
+============================== */
+.project-card-detailed {
+  margin-bottom: var(--spacing-xl);
 }
 
-.stat-item {
-  text-align: center;
-  padding: var(--spacing-md);
-  background: var(--bg-light);
-  border-radius: 0.75rem;
-  transition: all var(--transition);
+.toggle-process {
+  background: transparent;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
-.stat-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-medium);
+.toggle-process:hover,
+.toggle-process:focus {
+  background: var(--secondary-color);
+  color: var(--text-light);
 }
 
-.stat-item i {
-  font-size: 2rem;
-  color: var(--accent-color);
-  margin-bottom: var(--spacing-xs);
+.toggle-process.active {
+  background: var(--secondary-color);
+  color: var(--text-light);
 }
 
-.stat-item strong {
-  display: block;
-  font-size: 2rem;
-  color: var(--heading-color);
-  font-weight: 800;
-  margin-bottom: 0.25rem;
-}
-
-.stat-item span {
-  display: block;
-  color: var(--text-dark);
-  font-size: 0.9rem;
-}
-
-.skills-preview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-}
-
-.skill-highlight {
-  background: var(--bg-white);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-light);
-  text-align: center;
-  transition: all var(--transition);
-}
-
-.skill-highlight:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-medium);
-}
-
-.skill-highlight i {
-  font-size: 3rem;
-  color: var(--accent-color);
-  margin-bottom: var(--spacing-sm);
-}
-
-.skill-highlight h3 {
-  color: var(--heading-color);
-  margin-bottom: var(--spacing-xs);
-  font-size: 1.3rem;
-}
-
-.skill-highlight p {
-  color: var(--text-dark);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.center-actions {
-  text-align: center;
-  margin-top: var(--spacing-lg);
-}
-
-.button.large {
-  padding: 1em 2.5em;
-  font-size: 1.1em;
+.toggle-process.active i {
+  transform: rotate(180deg);
 }
 
 /* ==============================
-   CTA SECTION
+   HEADER CENTRADO (proyectos.html)
 ============================== */
-.cta-content {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.cta-content h2 {
-  color: var(--text-light);
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  margin-bottom: var(--spacing-sm);
-}
-
-.cta-content p {
-  color: var(--text-light);
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  margin-bottom: var(--spacing-lg);
-  opacity: 0.95;
-}
-
-.cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
+#header.centered {
   justify-content: center;
 }
 
-/* ==============================
-   PROJECT OVERLAY ENHANCEMENT
-============================== */
-.project-overlay {
-  pointer-events: none;
-}
-
-.project-overlay .overlay-text {
-  background: var(--accent-color);
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-light);
+#header.centered h1 {
+  position: absolute;
+  left: 2rem;
 }
 
 /* ==============================
-   RESPONSIVE ADJUSTMENTS
+   RESPONSIVE ESPECÍFICO
 ============================== */
 @media (max-width: 900px) {
   .page-hero {
     min-height: 30vh;
     margin-top: 70px;
   }
-  
+
   .profile-section {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .about-profile-pic {
     width: 150px;
     height: 150px;
   }
-  
+
   .philosophy-grid,
   .stats-detailed-grid,
   .interests-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .contact-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .skills-preview {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-actions {
-    flex-direction: column;
-  }
-  
-  .cta-actions .button {
-    width: 100%;
   }
 }
 
@@ -865,29 +529,25 @@ h2.major {
   .page-hero h1 {
     font-size: clamp(2rem, 8vw, 2.5rem);
   }
-  
+
   .profile-quick-info h2 {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
-  
+
   .stat-icon {
     width: 50px;
     height: 50px;
     font-size: 1.2rem;
   }
-  
+
   .stat-info strong {
     font-size: 1.5rem;
   }
-  
-  .highlight-item strong {
-    font-size: 1.5rem;
-  }
-  
+
   .social-buttons {
     gap: 0.5rem;
   }
-  
+
   .social-btn {
     padding: 0.6rem 0.8rem;
     font-size: 0.9rem;
@@ -895,25 +555,17 @@ h2.major {
 }
 
 /* ==============================
-   PRINT STYLES
+   PRINT ESPECÍFICO
 ============================== */
 @media print {
   .sidebar-index,
   .page-hero,
-  .mobile-menu-toggle,
-  .mobile-menu {
-    display: none !important;
+  .language-toggle {
+    display: none;
   }
-  
+
   .about-profile-pic {
     width: 120px;
     height: 120px;
-  }
-  
-  .project-card-detailed,
-  .skill-category,
-  .testimonial {
-    break-inside: avoid;
-    page-break-inside: avoid;
   }
 }
