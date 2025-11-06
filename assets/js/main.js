@@ -3,7 +3,7 @@ const CONFIG = {
   ANIMATION_DURATION: 300,
   SCROLL_OFFSET: 80,
   NOTIFICATION_DURATION: 4000,
-  THROTTLE_DELAY: 16, // ~60fps
+  THROTTLE_DELAY: 16,
   INTERSECTION_THRESHOLD: 0.1,
   INTERSECTION_MARGIN: '50px'
 };
@@ -13,7 +13,6 @@ const AppState = {
   isPreloaded: false,
   isMobileMenuOpen: false,
   currentSection: null,
-  currentLanguage: null,
   scrollY: 0,
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   observers: new Map(),
@@ -22,7 +21,6 @@ const AppState = {
 
 // Utilidades optimizadas
 const Utils = {
-  // Throttle mejorado con requestAnimationFrame
   throttle(func, limit = CONFIG.THROTTLE_DELAY) {
     let waiting = false;
     let lastArgs = null;
@@ -44,7 +42,6 @@ const Utils = {
     };
   },
 
-  // Debounce optimizado
   debounce(func, wait) {
     let timeout;
     return function debounced(...args) {
@@ -57,7 +54,6 @@ const Utils = {
     };
   },
 
-  // Smooth scroll con fallback
   smoothScrollTo(target, offset = CONFIG.SCROLL_OFFSET) {
     const element = typeof target === 'string' ? document.querySelector(target) : target;
     if (!element) return;
@@ -74,10 +70,8 @@ const Utils = {
     }
   },
 
-  // Validación de email optimizada
   isValidEmail: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email?.trim()),
 
-  // Escape HTML para prevenir XSS
   escapeHtml(text) {
     const map = {
       '&': '&amp;',
@@ -89,7 +83,6 @@ const Utils = {
     return text.replace(/[&<>"']/g, m => map[m]);
   },
 
-  // Detección de móvil con caché
   isMobile() {
     if (!AppState.cache.has('isMobile')) {
       AppState.cache.set('isMobile', window.innerWidth <= 900);
@@ -97,7 +90,6 @@ const Utils = {
     return AppState.cache.get('isMobile');
   },
 
-  // Prefetch de imágenes
   preloadImage(src) {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -108,74 +100,6 @@ const Utils = {
   }
 };
 
-// Language Manager optimizado
-class LanguageManager {
-  constructor() {
-    this.pageMapping = {
-      'index.html': 'en/index.html',
-      'proyectos.html': 'en/projects.html',
-      'about.html': 'en/about.html',
-      'en/index.html': 'index.html',
-      'en/projects.html': 'proyectos.html',
-      'en/about.html': 'about.html'
-    };
-    this.init();
-  }
-
-  init() {
-    this.detectLanguage();
-    this.setupButtons();
-  }
-
-  detectLanguage() {
-    const path = window.location.pathname;
-    AppState.currentLanguage = path.includes('/en/') ? 'en' : 'es';
-    
-    const savedLang = localStorage.getItem('preferredLanguage');
-    if (savedLang && savedLang !== AppState.currentLanguage) {
-      AppState.currentLanguage = savedLang;
-    }
-  }
-
-  setupButtons() {
-    const buttons = document.querySelectorAll('.lang-btn');
-    if (!buttons.length) return;
-
-    buttons.forEach(btn => {
-      const lang = btn.dataset.lang;
-      
-      if (lang === AppState.currentLanguage) {
-        btn.classList.add('active');
-        btn.setAttribute('aria-pressed', 'true');
-      }
-
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.changeLanguage(lang);
-      }, { passive: false });
-    });
-  }
-
-  changeLanguage(targetLang) {
-    if (targetLang === AppState.currentLanguage) return;
-
-    try {
-      localStorage.setItem('preferredLanguage', targetLang);
-    } catch (e) {
-      console.warn('No se pudo guardar preferencia de idioma');
-    }
-
-    const currentPath = window.location.pathname;
-    const currentPage = currentPath.split('/').pop() || 'index.html';
-    const fullCurrentPage = currentPath.includes('/en/') ? 'en/' + currentPage : currentPage;
-    
-    const targetPage = this.pageMapping[fullCurrentPage] || 'index.html';
-    const hash = window.location.hash;
-
-    window.location.href = targetPage + hash;
-  }
-}
-
 // Intersection Manager optimizado
 class IntersectionManager {
   constructor() {
@@ -183,7 +107,6 @@ class IntersectionManager {
   }
 
   init() {
-    // Observer único para todas las animaciones
     const animationObserver = new IntersectionObserver(
       (entries) => this.handleIntersection(entries),
       {
@@ -196,14 +119,12 @@ class IntersectionManager {
   }
 
   handleIntersection(entries) {
-    // Procesar en batch para mejor rendimiento
     requestAnimationFrame(() => {
       entries.forEach((entry, index) => {
         if (!entry.isIntersecting) return;
         
         const target = entry.target;
         
-        // Animaciones de entrada
         if (target.classList.contains('fade-in') || 
             target.classList.contains('slide-up') || 
             target.classList.contains('slide-left') || 
@@ -211,18 +132,14 @@ class IntersectionManager {
           
           const delay = AppState.reducedMotion ? 0 : index * 50;
           setTimeout(() => target.classList.add('in-view'), delay);
-          
-          // Dejar de observar después de animar
           AppState.observers.get('animations').unobserve(target);
         }
         
-        // Animación de skill bars
         if (target.classList.contains('skill-category')) {
           this.animateSkillBars(target);
           AppState.observers.get('animations').unobserve(target);
         }
         
-        // Actualizar sección activa
         if (target.hasAttribute('id')) {
           AppState.currentSection = target.id;
           this.updateActiveLinks(target.id);
@@ -234,8 +151,6 @@ class IntersectionManager {
   observe(elements) {
     const observer = AppState.observers.get('animations');
     if (!observer) return;
-
-    // Usar DocumentFragment para mejor rendimiento
     elements.forEach(el => observer.observe(el));
   }
 
@@ -259,7 +174,6 @@ class IntersectionManager {
   }
 
   updateActiveLinks(sectionId) {
-    // Caché de selectores
     if (!AppState.cache.has('navLinks')) {
       AppState.cache.set('navLinks', 
         document.querySelectorAll('#header nav a, .mobile-menu a, .sidebar-link, .sidebar-sublink')
@@ -289,7 +203,6 @@ class HeaderManager {
   init() {
     if (!this.header) return;
 
-    // Usar passive: true para mejor scroll performance
     window.addEventListener('scroll', () => {
       if (!this.ticking) {
         requestAnimationFrame(() => this.handleScroll());
@@ -301,10 +214,8 @@ class HeaderManager {
   handleScroll() {
     const currentScrollY = window.pageYOffset;
     
-    // Añadir clase scrolled
     this.header.classList.toggle('scrolled', currentScrollY > 100);
 
-    // Auto-hide en móvil
     if (Utils.isMobile() && currentScrollY > 200) {
       const direction = currentScrollY > this.lastScrollY ? '-100%' : '0';
       this.header.style.transform = `translateY(${direction})`;
@@ -327,20 +238,17 @@ class MobileMenuManager {
   init() {
     if (!this.toggle || !this.menu) return;
 
-    // Event delegation para mejor rendimiento
     this.toggle.addEventListener('click', (e) => {
       e.stopPropagation();
       this.toggleMenu();
     });
 
-    // Cerrar al hacer click en links
     this.menu.addEventListener('click', (e) => {
       if (e.target.matches('a')) {
         this.closeMenu();
       }
     });
 
-    // Cerrar al hacer click fuera
     document.addEventListener('click', (e) => {
       if (AppState.isMobileMenuOpen && 
           !this.menu.contains(e.target) && 
@@ -349,7 +257,6 @@ class MobileMenuManager {
       }
     });
 
-    // Cerrar con Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && AppState.isMobileMenuOpen) {
         this.closeMenu();
@@ -357,12 +264,11 @@ class MobileMenuManager {
       }
     });
 
-    // Cerrar en resize a desktop
     window.addEventListener('resize', Utils.debounce(() => {
       if (!Utils.isMobile() && AppState.isMobileMenuOpen) {
         this.closeMenu();
       }
-      AppState.cache.delete('isMobile'); // Invalidar caché
+      AppState.cache.delete('isMobile');
     }, 250));
   }
 
@@ -377,7 +283,6 @@ class MobileMenuManager {
     this.toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     
-    // Mover focus al primer link
     const firstLink = this.menu.querySelector('a');
     if (firstLink) firstLink.focus();
   }
@@ -398,7 +303,6 @@ class NavigationManager {
   }
 
   init() {
-    // Event delegation en documento
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href^="#"]');
       if (!link) return;
@@ -409,13 +313,11 @@ class NavigationManager {
       e.preventDefault();
       Utils.smoothScrollTo(href);
       
-      // Actualizar URL sin recargar
       if (history.pushState) {
         history.pushState(null, null, href);
       }
     });
 
-    // Scroll indicator
     const indicator = document.querySelector('.scroll-indicator');
     if (indicator) {
       indicator.addEventListener('click', () => {
@@ -441,7 +343,6 @@ class ProjectManager {
   }
 
   init() {
-    // Event delegation
     document.addEventListener('click', (e) => {
       const toggle = e.target.closest('.toggle-process');
       if (!toggle) return;
@@ -470,14 +371,12 @@ class ProjectManager {
       toggle.classList.add('active');
       process.style.display = 'block';
       
-      // Usar requestAnimationFrame para animación suave
       requestAnimationFrame(() => {
         process.classList.add('show');
         process.setAttribute('aria-hidden', 'false');
         toggle.setAttribute('aria-expanded', 'true');
       });
 
-      // Scroll suave al contenido expandido
       if (!AppState.reducedMotion) {
         setTimeout(() => {
           const rect = process.getBoundingClientRect();
@@ -488,7 +387,6 @@ class ProjectManager {
       }
     }
 
-    // Actualizar icono
     const icon = toggle.querySelector('i');
     if (icon) {
       icon.style.transform = isActive ? 'rotate(0deg)' : 'rotate(180deg)';
@@ -521,8 +419,6 @@ class NotificationManager {
     const { message, type } = this.queue.shift();
     
     await this.displayNotification(message, type);
-    
-    // Procesar siguiente en la cola
     this.processQueue();
   }
 
@@ -561,7 +457,6 @@ class ContactFormManager {
   constructor() {
     this.form = document.getElementById('contact-form');
     this.notification = new NotificationManager();
-    this.validators = new Map();
     this.init();
   }
 
@@ -570,7 +465,6 @@ class ContactFormManager {
 
     const inputs = this.form.querySelectorAll('input, textarea');
     
-    // Event delegation con debounce
     inputs.forEach(input => {
       const debouncedUpdate = Utils.debounce(() => {
         this.updateSubmitButton();
@@ -647,7 +541,6 @@ class ContactFormManager {
     buttonText.textContent = 'Enviando...';
     
     try {
-      // Simular envío (reemplazar con fetch real)
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       this.notification.show('¡Mensaje enviado correctamente! Te responderé pronto.');
@@ -702,22 +595,18 @@ class PortfolioApp {
   }
 
   async init() {
-    // Esperar a que el DOM esté listo
     if (document.readyState === 'loading') {
       await new Promise(resolve => {
         document.addEventListener('DOMContentLoaded', resolve);
       });
     }
 
-    // Remover preload
     setTimeout(() => {
       document.body.classList.remove('is-preload');
       AppState.isPreloaded = true;
     }, 100);
     
-    // Inicializar componentes
     this.components = {
-      language: new LanguageManager(),
       intersection: new IntersectionManager(),
       header: new HeaderManager(),
       mobileMenu: new MobileMenuManager(),
@@ -727,7 +616,6 @@ class PortfolioApp {
       interactivity: new InteractivityManager()
     };
 
-    // Setup
     this.setupObservers();
     this.setupGlobalListeners();
     this.applyInitialAnimations();
@@ -747,13 +635,11 @@ class PortfolioApp {
   }
 
   setupGlobalListeners() {
-    // Resize con debounce
     window.addEventListener('resize', Utils.debounce(() => {
       document.body.classList.toggle('mobile-device', Utils.isMobile());
       AppState.cache.delete('isMobile');
     }, 250));
 
-    // Cambios en reduced motion
     window.matchMedia('(prefers-reduced-motion: reduce)')
       .addEventListener('change', (e) => {
         AppState.reducedMotion = e.matches;
@@ -774,7 +660,6 @@ class PortfolioApp {
   }
 
   prefetchCriticalImages() {
-    // Prefetch de imágenes importantes
     const criticalImages = document.querySelectorAll('img[loading="eager"]');
     criticalImages.forEach(img => {
       if (!img.complete) {

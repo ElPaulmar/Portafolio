@@ -1818,3 +1818,95 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
     page-break-after: avoid;
   }
 }
+
+/* ==============================
+   FIXES PARA TARJETAS DE PROYECTOS
+   Agregar al final de main.css
+============================== */
+
+/* FIX 1: Imágenes cortadas - Ajustar altura de la imagen */
+.project-media {
+  flex: 0 0 300px;
+  position: relative;
+  overflow: hidden;
+  min-height: 250px; /* Altura mínima para mostrar más imagen */
+}
+
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Cambiado de 'cover' a 'contain' para mostrar imagen completa */
+  object-position: center;
+  background: var(--dark-bg); /* Fondo para espacios vacíos */
+  transition: transform var(--transition-slow);
+}
+
+/* Alternativa si prefieres mantener 'cover' pero con mejor posición */
+.project-media img.cover-mode {
+  object-fit: cover;
+  object-position: center top; /* Prioriza la parte superior */
+}
+
+/* FIX 2: Botón centrado en la parte inferior */
+.project-actions {
+  margin-top: var(--spacing-md);
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;
+  width: 100%;
+}
+
+.project-actions .button {
+  /* Asegurar que el botón se vea bien centrado */
+  margin: 0 auto;
+}
+
+/* FIX 3: Más espacio arriba de "Contribuciones Clave" */
+.project-content {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.project-description {
+  margin-top: var(--spacing-lg); /* Más espacio arriba (antes era spacing-md o menos) */
+}
+
+.project-description h4 {
+  color: var(--text-light);
+  margin-top: var(--spacing-md); /* Espacio adicional arriba del título */
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* Asegurar espaciado consistente en todas las secciones */
+.project-tools {
+  margin-top: var(--spacing-lg); /* Espacio consistente */
+}
+
+/* ==============================
+   RESPONSIVE - Ajustes para móvil
+============================== */
+@media (max-width: 900px) {
+  .project-media {
+    flex: none;
+    height: 250px; /* Altura fija en móvil */
+    min-height: 250px;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+  }
+  
+  .project-actions .button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-media {
+    height: 200px;
+    min-height: 200px;
+  }
+}
