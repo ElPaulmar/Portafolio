@@ -1818,3 +1818,437 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
     page-break-after: avoid;
   }
 }
+
+/* ==============================
+   FIXES PARA TARJETAS DE PROYECTOS
+   Agregar al final de main.css
+============================== */
+
+/* FIX 1: Imágenes cortadas - Ajustar altura de la imagen */
+.project-media {
+  flex: 0 0 300px;
+  position: relative;
+  overflow: hidden;
+  min-height: 250px; /* Altura mínima para mostrar más imagen */
+}
+
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Cambiado de 'cover' a 'contain' para mostrar imagen completa */
+  object-position: center;
+  background: var(--dark-bg); /* Fondo para espacios vacíos */
+  transition: transform var(--transition-slow);
+}
+
+/* Alternativa si prefieres mantener 'cover' pero con mejor posición */
+.project-media img.cover-mode {
+  object-fit: cover;
+  object-position: center top; /* Prioriza la parte superior */
+}
+
+/* FIX 2: Botón centrado en la parte inferior */
+.project-actions {
+  margin-top: var(--spacing-md);
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;
+  width: 100%;
+}
+
+.project-actions .button {
+  /* Asegurar que el botón se vea bien centrado */
+  margin: 0 auto;
+}
+
+/* FIX 3: Más espacio arriba de "Contribuciones Clave" */
+.project-content {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.project-description {
+  margin-top: var(--spacing-lg); /* Más espacio arriba (antes era spacing-md o menos) */
+}
+
+.project-description h4 {
+  color: var(--text-light);
+  margin-top: var(--spacing-md); /* Espacio adicional arriba del título */
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* Asegurar espaciado consistente en todas las secciones */
+.project-tools {
+  margin-top: var(--spacing-lg); /* Espacio consistente */
+}
+
+/* ==============================
+   RESPONSIVE - Ajustes para móvil
+============================== */
+@media (max-width: 900px) {
+  .project-media {
+    flex: none;
+    height: 250px; /* Altura fija en móvil */
+    min-height: 250px;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+  }
+  
+  .project-actions .button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-media {
+    height: 200px;
+    min-height: 200px;
+  }
+}
+
+/* ==============================
+   FIXES GENERALES - Agregar al final de main.css
+============================== */
+
+/* ====== HEADER CENTRADO ====== */
+.header-centered {
+  justify-content: center !important;
+  flex-direction: column;
+  padding: 1.5rem 2rem !important;
+  gap: 1rem;
+}
+
+.header-centered h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.nav-centered {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .header-centered {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .nav-centered {
+    display: none;
+  }
+}
+
+/* ====== BANNER SIN TARJETA ====== */
+#banner {
+  background: linear-gradient(135deg, #21585A, #2c6169); /* Colores más similares */
+}
+
+.page-hero {
+  background: linear-gradient(135deg, #21585A, #2c6169); /* Colores más similares */
+}
+
+/* Eliminar glassmorphism card */
+.hero-glass-card {
+  background: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.hero-content-clean {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero-content-clean .profile-container {
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-content-clean .profile-pic {
+  width: 250px;
+  height: 250px;
+  border: 6px solid var(--accent-color);
+  box-shadow: 0 15px 40px rgba(144, 64, 62, 0.4);
+}
+
+.hero-content-clean h2 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+  color: var(--text-light);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content-clean .subtitle {
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content-clean .description {
+  margin-bottom: 2.5rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  opacity: 0.95;
+  line-height: 1.8;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content-clean .hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ====== SCROLL INDICATOR ARREGLADO ====== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-light);
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  background: rgba(144, 64, 62, 0.3);
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  transition: all var(--transition);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.scroll-indicator:hover,
+.scroll-indicator:focus {
+  background: var(--accent-color);
+  transform: translateX(-50%) scale(1.1);
+  outline: none;
+}
+
+/* ====== FIXES TARJETAS PROYECTOS ====== */
+
+/* Imágenes no cortadas */
+.project-media {
+  flex: 0 0 300px;
+  position: relative;
+  overflow: hidden;
+  min-height: 250px;
+}
+
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--dark-bg);
+  transition: transform var(--transition-slow);
+}
+
+/* Botón centrado */
+.project-actions {
+  margin-top: var(--spacing-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.project-actions .button {
+  margin: 0 auto;
+}
+
+/* Más espacio arriba de "Contribuciones Clave" */
+.project-content {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.project-description {
+  margin-top: var(--spacing-lg);
+}
+
+.project-description h4 {
+  color: var(--text-light);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.project-tools {
+  margin-top: var(--spacing-lg);
+}
+
+/* ====== BOTÓN "PROCESO DE DESARROLLO" VISIBLE ====== */
+.toggle-process {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: var(--text-light) !important;
+}
+
+.toggle-process:hover,
+.toggle-process:focus {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  transform: translateY(-2px);
+}
+
+.toggle-process.active {
+  background: var(--primary-color) !important;
+}
+
+/* ====== ABOUT PAGE - IMAGEN CUADRADA ====== */
+.about-profile-pic {
+  width: 200px;
+  height: 200px;
+  border-radius: 0.75rem !important; /* Cuadrada con bordes redondeados */
+  object-fit: cover;
+  border: 4px solid var(--accent-color);
+  box-shadow: var(--shadow-medium);
+}
+
+.profile-pic {
+  border-radius: 50%; /* La del hero sigue circular */
+}
+
+/* ====== HABILIDADES SIN BARRAS - OPCIÓN 1: BADGES ====== */
+.skill-category-clean {
+  background: var(--dark-bg);
+  color: var(--text-light);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.skill-category-clean:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+.skill-category-clean h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-light);
+}
+
+.skill-category-clean h3 i {
+  color: var(--accent-color);
+}
+
+.skill-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-badge {
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+  color: var(--text-light);
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.skill-badge:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(144, 64, 62, 0.3);
+}
+
+.skill-badge i {
+  font-size: 1.1rem;
+}
+
+.skill-level {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 900px) {
+  .hero-content-clean .profile-pic {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .project-media {
+    flex: none;
+    height: 250px;
+    min-height: 250px;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+  }
+  
+  .project-actions .button {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .hero-content-clean .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-content-clean .hero-actions .button {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-content-clean .profile-pic {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .project-media {
+    height: 200px;
+    min-height: 200px;
+  }
+  
+  .scroll-indicator {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .about-profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+}

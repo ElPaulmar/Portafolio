@@ -59,10 +59,10 @@
 
 <body class="is-preload">
   <div id="page-wrapper">
-    <!-- Header -->
-    <header id="header" class="alt" role="banner">
+    <!-- Header centrado -->
+    <header id="header" class="alt header-centered" role="banner">
       <h1><a href="index.html">PAULO MARQUES</a></h1>
-      <nav aria-label="Navegación principal">
+      <nav aria-label="Navegación principal" class="nav-centered">
         <a href="index.html" class="active">Inicio</a>
         <a href="proyectos.html">Proyectos</a>
         <a href="about.html">Sobre Mí</a>
@@ -83,7 +83,7 @@
       <a href="about.html#contacto">Contacto</a>
     </nav>
 
-    <!-- Hero Banner -->
+    <!-- Hero Banner sin tarjeta -->
     <section id="banner" role="main">
       <!-- Imagen de fondo -->
       <div class="banner-background">
@@ -94,84 +94,41 @@
              onerror="this.style.display='none'">
       </div>
       
-      <!-- Contenido con efecto glassmorphism -->
+      <!-- Contenido limpio sin glassmorphism -->
       <div class="inner">
-        <div class="hero-content">
-          <div class="hero-glass-card">
-            <div class="profile-container">
-              <img src="images/tu-foto.jpg" 
-                   class="profile-pic" 
-                   alt="Foto de Paulo Marques" 
-                   loading="eager"
-                   width="220" 
-                   height="220"
-                   onerror="this.src='https://via.placeholder.com/220x220/1F4D5B/DBE9D1?text=PM'">
-            </div>
-            <div class="hero-text">
-              <h2 class="fade-in">Diseñador de Juegos</h2>
-              <p class="subtitle fade-in">Narrativas Interactivas & Mecánicas Innovadoras</p>
-              <p class="description fade-in">Estudiante de Diseño de Juegos Digitales en UNAB, especializándome en integrar mecánicas
-                innovadoras con historias memorables que conecten emocionalmente con los jugadores.</p>
-
-              <div class="hero-actions fade-in">
-                <a href="#proyectos-destacados" class="button primary">Ver Proyectos</a>
-                <a href="about.html#contacto" class="button primary with-icon">
-                  <i class="fas fa-paper-plane" aria-hidden="true"></i> 
-                  Colaboremos
-                </a>
-              </div>
-            </div>
+        <div class="hero-content-clean">
+          <div class="profile-container">
+            <img src="images/tu-foto.jpg" 
+                 class="profile-pic" 
+                 alt="Foto de Paulo Marques" 
+                 loading="eager"
+                 width="250" 
+                 height="250"
+                 onerror="this.src='https://via.placeholder.com/250x250/1F4D5B/DBE9D1?text=PM'">
           </div>
-        </div>
-      </div>
+          
+          <h2 class="fade-in">Diseñador de Juegos</h2>
+          <p class="subtitle fade-in">Narrativas Interactivas & Mecánicas Innovadoras</p>
+          <p class="description fade-in">Estudiante de Diseño de Juegos Digitales en UNAB, especializándome en integrar mecánicas
+            innovadoras con historias memorables que conecten emocionalmente con los jugadores.</p>
 
-      <!-- Botón flecha -->
-      <button class="scroll-indicator" aria-label="Ir a Proyectos Destacados">
-        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-      </button>
-    </section>
-
-    <!-- Sobre Mí (Resumen) -->
-    <section id="sobre-mi" class="wrapper style1">
-      <div class="inner">
-        <h2 class="major slide-up">Sobre Mí</h2>
-        <div class="about-preview">
-          <div class="about-content slide-left">
-            <p>
-              Soy un estudiante apasionado por el diseño de videojuegos, actualmente cursando mi carrera en la Universidad Andrés Bello. 
-              Mi enfoque principal está en crear experiencias que combinen narrativas profundas con mecánicas innovadoras.
-            </p>
-            <p>
-              A lo largo de mi formación, he trabajado en diversos proyectos que van desde hack & slash hasta novelas visuales, 
-              siempre buscando formas de hacer que cada juego sea una experiencia memorable para los jugadores.
-            </p>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <i class="fas fa-gamepad"></i>
-                <strong>+10</strong>
-                <span>Proyectos Completados</span>
-              </div>
-              <div class="stat-item">
-                <i class="fas fa-code"></i>
-                <strong>3+</strong>
-                <span>Años con Unity</span>
-              </div>
-              <div class="stat-item">
-                <i class="fas fa-users"></i>
-                <strong>490h</strong>
-                <span>Práctica Profesional</span>
-              </div>
-            </div>
-            <a href="about.html" class="button with-icon">
-              <i class="fas fa-user"></i>
-              Conocer más sobre mí
+          <div class="hero-actions fade-in">
+            <a href="#proyectos-destacados" class="button primary large">Ver Proyectos</a>
+            <a href="about.html#contacto" class="button primary large with-icon">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i> 
+              Colaboremos
             </a>
           </div>
         </div>
       </div>
+
+      <!-- Botón flecha que va a proyectos -->
+      <a href="#proyectos-destacados" class="scroll-indicator" aria-label="Ir a Proyectos Destacados">
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </a>
     </section>
 
-    <!-- Proyectos Destacados (Preview) -->
+    <!-- Proyectos Destacados (ahora es la primera sección) -->
     <section id="proyectos-destacados" class="wrapper style2">
       <div class="inner">
         <h2 class="major slide-up">Proyectos Destacados</h2>
