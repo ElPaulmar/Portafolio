@@ -320,7 +320,8 @@ class NavigationManager {
 
     const indicator = document.querySelector('.scroll-indicator');
     if (indicator) {
-      indicator.addEventListener('click', () => {
+      indicator.addEventListener('click', (e) => {
+        e.preventDefault();
         const featured = document.querySelector('#proyectos-destacados');
         if (featured) {
           Utils.smoothScrollTo('#proyectos-destacados');

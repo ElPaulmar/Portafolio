@@ -630,6 +630,26 @@ section {
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
+/* Permitir que las imágenes apiladas se vean detrás de la tarjeta */
+.postmortalis-card {
+  overflow: visible;
+  position: relative;
+  background: transparent;
+}
+
+.postmortalis-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--dark-bg);
+  border-radius: var(--border-radius);
+  z-index: 0;
+}
+
+
 .project-card:hover,
 .project-card-detailed:hover,
 .improved-project:hover {
@@ -648,6 +668,63 @@ section {
   position: relative;
   overflow: hidden;
 }
+
+/* Estilos para imágenes apiladas en Postmortalis */
+.postmortalis-card {
+  position: relative;
+  overflow: visible;
+}
+
+.stacked-image {
+  position: absolute;
+  width: 200px;
+  height: 280px;
+  object-fit: contain;
+  z-index: -1;
+  transition: transform var(--transition-slow);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(219, 233, 209, 0.3);
+  border-radius: 8px;
+  background-color: rgba(31, 77, 91, 0.5);
+}
+
+.stacked-left {
+  top: 10px;
+  left: -60px;
+  transform: rotate(-12deg);
+}
+
+.stacked-right {
+  bottom: 10px;
+  right: -60px;
+  transform: rotate(10deg);
+}
+
+.postmortalis-card .project-header,
+.postmortalis-card .project-content {
+  position: relative;
+  z-index: 1;
+}
+
+.postmortalis-card:hover .stacked-left {
+  transform: rotate(-15deg) translateX(-10px) translateY(-8px);
+}
+
+.postmortalis-card:hover .stacked-right {
+  transform: rotate(13deg) translateX(10px) translateY(8px);
+}
+
+/* Estilos para hacer la imagen de PlayMe más pequeña */
+.playme-media {
+  flex: 0 0 250px;
+}
+
+.playme-media img {
+  object-fit: contain;
+  background-color: rgba(31, 77, 91, 0.3);
+}
+
+
 
 .project-media img,
 .project-image-container img {
@@ -1933,6 +2010,9 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
   justify-content: center;
   gap: var(--spacing-md);
   width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 @media (max-width: 900px) {
@@ -1943,6 +2023,8 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
   
   .nav-centered {
     display: none;
+    position: static;
+    transform: none;
   }
 }
 
