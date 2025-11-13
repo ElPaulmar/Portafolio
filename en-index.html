@@ -56,7 +56,7 @@
     <!-- Header -->
     <header id="header" class="alt" role="banner">
       <h1><a href="en-index.html">PAULO MARQUES</a></h1>
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation" class="nav-centered">
         <a href="en-index.html" class="active">Home</a>
         <a href="en-proyectos.html">Projects</a>
         <a href="en-about.html">About</a>
@@ -94,40 +94,35 @@
              onerror="this.style.display='none'">
       </div>
       
-      <!-- Content with glassmorphism effect -->
       <div class="inner">
-        <div class="hero-content">
-          <div class="hero-glass-card">
-            <div class="profile-container">
-              <img src="images/tu-foto.jpg" 
-                   class="profile-pic" 
-                   alt="Paulo Marques photo" 
-                   loading="eager"
-                   width="220" 
-                   height="220"
-                   onerror="this.src='https://via.placeholder.com/220x220/1F4D5B/DBE9D1?text=PM'">
-            </div>
-            <div class="hero-text">
-              <h2 class="fade-in">Game Designer</h2>
-              <p class="subtitle fade-in">Interactive Narratives & Innovative Mechanics</p>
-              <p class="description fade-in">Game Design student at UNAB, specializing in integrating innovative mechanics with memorable stories that emotionally connect with players.</p>
+        <div class="hero-content-clean">
+          <div class="profile-container">
+            <img src="images/tu-foto.jpg" 
+                 class="profile-pic" 
+                 alt="Paulo Marques photo" 
+                 loading="eager"
+                 width="250" 
+                 height="250"
+                 onerror="this.src='https://via.placeholder.com/250x250/1F4D5B/DBE9D1?text=PM'">
+          </div>
+          
+          <h2 class="fade-in">Game Designer</h2>
+          <p class="subtitle fade-in">Interactive Narratives & Innovative Mechanics</p>
+          <p class="description fade-in">Game Design student at UNAB, specializing in integrating innovative mechanics with memorable stories that emotionally connect with players.</p>
 
-              <div class="hero-actions fade-in">
-                <a href="#featured-projects" class="button primary">View Projects</a>
-                <a href="en-about.html#contact" class="button primary with-icon">
-                  <i class="fas fa-paper-plane" aria-hidden="true"></i> 
-                  Let's Collaborate
-                </a>
-              </div>
-            </div>
+          <div class="hero-actions fade-in">
+            <a href="#featured-projects" class="button primary large">View Projects</a>
+            <a href="en-about.html#contact" class="button primary large with-icon">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i> 
+              Let's Collaborate
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Scroll indicator -->
-      <button class="scroll-indicator" aria-label="Go to Featured Projects">
+      <a href="#featured-projects" class="scroll-indicator" aria-label="Go to Featured Projects">
         <i class="fas fa-chevron-down" aria-hidden="true"></i>
-      </button>
+      </a>
     </section>
 
     <!-- About Me (Preview) -->
