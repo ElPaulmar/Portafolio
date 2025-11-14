@@ -59,7 +59,7 @@
       <nav aria-label="Main navigation" class="nav-centered">
         <a href="en-index.html" class="active">Home</a>
         <a href="en-proyectos.html">Projects</a>
-        <a href="en-about.html">About</a>
+        <a href="en-about.html">About Me</a>
         <a href="en-about.html#contact">Contact</a>
       </nav>
       
@@ -79,7 +79,7 @@
     <nav class="mobile-menu" aria-label="Mobile menu">
       <a href="en-index.html" class="active">Home</a>
       <a href="en-proyectos.html">Projects</a>
-      <a href="en-about.html">About</a>
+      <a href="en-about.html">About Me</a>
       <a href="en-about.html#contact">Contact</a>
     </nav>
 
@@ -125,46 +125,6 @@
       </a>
     </section>
 
-    <!-- About Me (Preview) -->
-    <section id="about-me" class="wrapper style1">
-      <div class="inner">
-        <h2 class="major slide-up">About Me</h2>
-        <div class="about-preview">
-          <div class="about-content slide-left">
-            <p>
-              I'm a passionate video game design student, currently studying at Universidad Andrés Bello. 
-              My main focus is creating experiences that combine deep narratives with innovative mechanics.
-            </p>
-            <p>
-              Throughout my education, I've worked on diverse projects ranging from hack & slash to visual novels, 
-              always looking for ways to make each game a memorable experience for players.
-            </p>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <i class="fas fa-gamepad"></i>
-                <strong>+10</strong>
-                <span>Completed Projects</span>
-              </div>
-              <div class="stat-item">
-                <i class="fas fa-code"></i>
-                <strong>3+</strong>
-                <span>Years with Unity</span>
-              </div>
-              <div class="stat-item">
-                <i class="fas fa-users"></i>
-                <strong>490h</strong>
-                <span>Professional Internship</span>
-              </div>
-            </div>
-            <a href="en-about.html" class="button with-icon">
-              <i class="fas fa-user"></i>
-              Learn more about me
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Featured Projects (Preview) -->
     <section id="featured-projects" class="wrapper style2">
       <div class="inner">
@@ -172,22 +132,30 @@
         <p class="section-subtitle slide-up">My most recognized projects</p>
 
         <!-- Postmortalis -->
-        <article class="project-card slide-up">
+        <article class="project-card slide-up postmortalis-card">
+          <!-- Stacked images behind entire card -->
+          <img src="images/ilian.png"
+               alt="" 
+               class="stacked-image stacked-left" 
+               loading="lazy">
+          <img src="images/pita.png"
+               alt="" 
+               class="stacked-image stacked-right" 
+               loading="lazy">
+          
           <div class="project-header">
             <div class="project-media">
               <img src="images/título-postmortalis.PNG"
                    alt="Postmortalis - Visual Novel Game" 
                    class="project-thumb" 
                    loading="lazy"
-                   width="300"
-                   height="200"
                    onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Postmortalis'">
             </div>
             <div class="project-basic-info">
               <div class="project-meta">
                 <span class="project-date">
                   <i class="fas fa-calendar" aria-hidden="true"></i> 
-                  <time datetime="2025-02">Feb-Dec 2025</time>
+                  <time datetime="2025-02">11 Months (2025)</time>
                 </span>
                 <span class="project-genre">
                   <i class="fas fa-gamepad" aria-hidden="true"></i> 
@@ -199,7 +167,7 @@
                 <span class="role-tag">Game Designer</span>
                 <span class="role-tag">Writer</span>
               </div>
-              <p class="project-summary">An innovative Visual Novel about the value that can be given to life during the end of the world.</p>
+              <p class="project-summary">"An innovative and experimental Visual Novel about the value that can be given to life during the end of the world."</p>
             </div>
           </div>
 
@@ -207,9 +175,10 @@
             <div class="project-description">
               <h4><i class="fas fa-star" aria-hidden="true"></i> Key Contributions</h4>
               <ul>
-                <li>Systems Design: Iterative planning of multiple core game systems</li>
+                <li>Systems Design: Iterative planning of the game's core systems</li>
+                <li>Content Design: Planning the placement of interactive elements and relevant information</li>
                 <li>Documentation: Creation of essential documentation to facilitate mechanics production</li>
-                <li>Narrative: Character writing and storyline development</li>
+                <li>Narrative: Character dialogue writing and storyline development</li>
               </ul>
             </div>
 
@@ -217,6 +186,7 @@
               <h4><i class="fas fa-tools" aria-hidden="true"></i> Tools Used</h4>
               <div class="tool-tags">
                 <span class="tool-tag">Unity</span>
+                <span class="tool-tag">YarnSpinner</span>
                 <span class="tool-tag">Google Docs</span>
                 <span class="tool-tag">C#</span>
               </div>
@@ -224,6 +194,130 @@
 
             <div class="project-actions">
               <a href="en-proyectos.html#postmortalis" class="button primary with-icon">
+                <i class="fas fa-info-circle" aria-hidden="true"></i> 
+                View Full Details
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PlayMe Studio -->
+        <article class="project-card slide-up playme-card">
+          <div class="project-header">
+            <div class="project-media playme-media">
+              <img src="images/playme.jpeg"
+                   alt="PlayMe Studio - Professional Internship" 
+                   class="project-thumb" 
+                   loading="lazy"
+                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=PlayMe+Studio'">
+            </div>
+            <div class="project-basic-info">
+              <div class="project-meta">
+                <span class="project-date">
+                  <i class="fas fa-calendar" aria-hidden="true"></i> 
+                  <time datetime="2025">3 Months (2025)</time>
+                </span>
+                <span class="project-genre">
+                  <i class="fas fa-briefcase" aria-hidden="true"></i> 
+                  Professional Internship
+                </span>
+              </div>
+              <h3>PlayMe Studio</h3>
+              <div class="project-roles">
+                <span class="role-tag">Game Designer</span>
+                <span class="role-tag">QA Tester</span>
+              </div>
+              <p class="project-summary">490-hour professional internship where I fulfilled the role of Designer and Quality Assurance.</p>
+            </div>
+          </div>
+
+          <div class="project-content">
+            <div class="project-description">
+              <h4><i class="fas fa-star" aria-hidden="true"></i> Key Contributions</h4>
+              <ul>
+                <li>Search and documentation of over 100 bugs</li>
+                <li>Creation of over 10 mechanics and game section documents to facilitate production</li>
+                <li>Producer assistance</li>
+              </ul>
+            </div>
+
+            <div class="project-actions">
+              <a href="en-proyectos.html#playme-studio" class="button primary with-icon">
+                <i class="fas fa-info-circle" aria-hidden="true"></i> 
+                View Full Details
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Overhaul -->
+        <article class="project-card slide-up overhaul-card">
+          <!-- Elf image stacked behind (similar style to pita/ilian) -->
+          <img src="images/elfo.png"
+               alt="" 
+               class="stacked-image overhaul-elfo" 
+               loading="lazy">
+          
+          <!-- Three downgrade images stacked like cards -->
+          <img src="images/downgrade.png"
+               alt="" 
+               class="stacked-image overhaul-downgrade downgrade-1" 
+               loading="lazy">
+          <img src="images/downgrade.png"
+               alt="" 
+               class="stacked-image overhaul-downgrade downgrade-2" 
+               loading="lazy">
+          <img src="images/downgrade.png"
+               alt="" 
+               class="stacked-image overhaul-downgrade downgrade-3" 
+               loading="lazy">
+          
+          <!-- Chile-diseño badge in top right corner of project -->
+          <img src="images/chile-diseño.png"
+               alt="Chile Diseña" 
+               class="corner-badge-overhaul"
+               loading="lazy">
+          
+          <div class="project-header">
+            <div class="project-media">
+              <img src="images/título-overhaul.jpg"
+                   alt="Overhaul - Hack and slash game" 
+                   class="project-thumb" 
+                   loading="lazy"
+                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Overhaul'">
+            </div>
+            <div class="project-basic-info">
+              <div class="project-meta">
+                <span class="project-date">
+                  <i class="fas fa-calendar" aria-hidden="true"></i> 
+                  <time datetime="2024-02">3 Months (2024)</time>
+                </span>
+                <span class="project-genre">
+                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
+                  Hack & Slash | PC
+                </span>
+              </div>
+              <h3>Overhaul</h3>
+              <div class="project-roles">
+                <span class="role-tag">Game Designer</span>
+                <span class="role-tag">Writer</span>
+              </div>
+              <p class="project-summary">A hack & slash with innovative mechanics that gives a twist to the Rogue-like genre. Winner of Chile Diseño awards.</p>
+            </div>
+          </div>
+
+          <div class="project-content">
+            <div class="project-description">
+              <h4><i class="fas fa-star" aria-hidden="true"></i> Key Contributions</h4>
+              <ul>
+                <li>Narrative Design: Main story and character arcs</li>
+                <li>Dialogue creation and narrative exposition system</li>
+                <li>Design of key Downgrades mechanic</li>
+              </ul>
+            </div>
+
+            <div class="project-actions">
+              <a href="en-proyectos.html#overhaul" class="button primary with-icon">
                 <i class="fas fa-info-circle" aria-hidden="true"></i> 
                 View Full Details
               </a>

@@ -149,11 +149,20 @@ section {
   color: var(--text-light);
 }
 
+.wrapper.style1 h2.major,
+.wrapper.style1 h3,
+.wrapper.style1 h4 {
+  color: var(--text-light);
+}
+
 .wrapper.style2 {
   background: var(--primary-color);
   color: var(--text-light);
 }
 
+.wrapper.style2 h2.major,
+.wrapper.style2 h3,
+.wrapper.style2 h4,
 .wrapper.style2 h2, 
 .wrapper.style2 p, 
 .wrapper.style2 .section-subtitle {
@@ -165,6 +174,9 @@ section {
   color: var(--text-light);
 }
 
+.wrapper.style3 h2.major,
+.wrapper.style3 h3,
+.wrapper.style3 h4,
 .wrapper.style3 h2,
 .wrapper.style3 p,
 .wrapper.style3 .section-subtitle {
@@ -176,6 +188,9 @@ section {
   color: var(--text-light);
 }
 
+.wrapper.style4 h2.major,
+.wrapper.style4 h3,
+.wrapper.style4 h4,
 .wrapper.style4 h2, 
 .wrapper.style4 p {
   color: var(--text-light);
@@ -773,14 +788,16 @@ section {
 }
 
 .overhaul-card .project-media {
-  overflow: visible;
+  overflow: hidden;
   position: relative;
 }
 
 .overhaul-card .project-thumb {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--dark-bg);
 }
 
 .overhaul-card .project-header,
@@ -807,17 +824,20 @@ section {
 }
 
 .downgrade-1 {
-  transform: rotate(28deg) translateY(-30px) translateX(16px);  /* Ahora tiene la rotación que tenía carta 3 - más rotación */
+  transform: rotate(10deg) translateY(-30px) translateX(-20px);  /* Rotación 10deg, movida a la izquierda */
+  transform-origin: 50% 90%;  /* Ancla de rotación casi en la base */
   z-index: -1;
 }
 
 .downgrade-2 {
-  transform: rotate(24deg) translateY(-15px) translateX(8px);  /* Mantiene su rotación intermedia */
+  transform: rotate(5deg) translateY(-15px) translateX(-30px);  /* Rotación 5deg, movida a la izquierda */
+  transform-origin: 50% 90%;  /* Ancla de rotación casi en la base */
   z-index: -2;
 }
 
 .downgrade-3 {
-  transform: rotate(18deg);  /* Ahora tiene la rotación que tenía carta 1 - menos rotación */
+  transform: rotate(0deg) translateX(-40px);  /* Rotación 0deg (recta), movida a la izquierda */
+  transform-origin: 50% 90%;  /* Ancla de rotación casi en la base */
   z-index: -3;
 }
 
@@ -827,15 +847,15 @@ section {
 }
 
 .overhaul-card:hover .downgrade-1 {
-  transform: rotate(32deg) translateY(-28px) translateX(20px);  /* Carta 1 rota MÁS que todas */
+  transform: rotate(15deg) translateY(-28px) translateX(20px);  /* Carta 1 rota a 15 grados */
 }
 
 .overhaul-card:hover .downgrade-2 {
-  transform: rotate(26deg) translateY(-13px) translateX(12px);  /* Carta 2 rota más que carta 3 */
+  transform: rotate(25deg) translateY(-13px) translateX(12px);  /* Carta 2 rota a 25 grados */
 }
 
 .overhaul-card:hover .downgrade-3 {
-  transform: rotate(20deg) translateX(5px);  /* Carta 3 rota menos */
+  transform: rotate(35deg) translateX(5px);  /* Carta 3 rota a 35 grados */
 }
 
 /* Badge de Chile Diseña en esquina superior derecha de la tarjeta completa */
@@ -955,6 +975,7 @@ section {
 .project-highlights h4 {
   color: var(--text-light);
   margin-bottom: var(--spacing-sm);
+  margin-top: var(--spacing-md);
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -1162,7 +1183,7 @@ section {
   font-weight: 800;
   line-height: 1;
   margin-bottom: 0.5rem;
-  color: var(--accent-color);
+  color: var(--text-light);
 }
 
 .highlight-item span {
@@ -2612,10 +2633,12 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
 .philosophy-section h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: var(--accent-color);
+  color: var(--text-light);
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-align: center;
+  justify-content: center;
 }
 
 .philosophy-section h3 i {
