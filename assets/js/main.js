@@ -14,6 +14,7 @@ const AppState = {
   isMobileMenuOpen: false,
   currentSection: null,
   scrollY: 0,
+  currentTheme: 'light',
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   observers: new Map(),
   cache: new Map()
@@ -129,8 +130,10 @@ class IntersectionManager {
             target.classList.contains('slide-up') || 
             target.classList.contains('slide-left') || 
             target.classList.contains('slide-right')) {
-          
-          const delay = AppState.reducedMotion ? 0 : index * 50;
+
+          const isProjectCard = target.matches('.project-card, .project-card-detailed, .improved-project');
+          const delayStep = isProjectCard ? 120 : 50;
+          const delay = AppState.reducedMotion ? 0 : index * delayStep;
           setTimeout(() => target.classList.add('in-view'), delay);
           AppState.observers.get('animations').unobserve(target);
         }
@@ -395,6 +398,70 @@ class ProjectManager {
   }
 }
 
+// Theme Manager
+class ThemeManager {
+  constructor() {
+    this.storageKey = 'portfolio-theme';
+    this.toggles = Array.from(document.querySelectorAll('.theme-toggle'));
+    this.prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    this.hasUserPreference = false;
+    this.init();
+  }
+
+  init() {
+    if (!this.toggles.length) return;
+
+    const savedTheme = localStorage.getItem(this.storageKey);
+    this.hasUserPreference = !!savedTheme;
+
+    const initialTheme = savedTheme || (this.prefersDark.matches ? 'dark' : 'light');
+    this.applyTheme(initialTheme, false);
+
+    this.toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const nextTheme = AppState.currentTheme === 'dark' ? 'light' : 'dark';
+        this.applyTheme(nextTheme, true);
+      });
+    });
+
+    this.prefersDark.addEventListener('change', (event) => {
+      if (!this.hasUserPreference) {
+        this.applyTheme(event.matches ? 'dark' : 'light', false);
+      }
+    });
+  }
+
+  applyTheme(theme, persist) {
+    const normalizedTheme = theme === 'dark' ? 'dark' : 'light';
+    document.body.setAttribute('data-theme', normalizedTheme);
+    AppState.currentTheme = normalizedTheme;
+    this.updateToggleUI();
+
+    if (persist) {
+      localStorage.setItem(this.storageKey, normalizedTheme);
+      this.hasUserPreference = true;
+    }
+  }
+
+  updateToggleUI() {
+    const isDark = AppState.currentTheme === 'dark';
+
+    this.toggles.forEach(toggle => {
+      const icon = toggle.querySelector('i');
+      if (icon) {
+        icon.className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+      }
+
+      const nextThemeLabel = isDark
+        ? (toggle.dataset.labelDark || 'Switch to light mode')
+        : (toggle.dataset.labelLight || 'Switch to dark mode');
+
+      toggle.setAttribute('aria-label', nextThemeLabel);
+      toggle.setAttribute('title', nextThemeLabel);
+    });
+  }
+}
+
 // Notification Manager optimizado
 class NotificationManager {
   constructor() {
@@ -427,10 +494,10 @@ class NotificationManager {
     if (!this.notification) return Promise.resolve();
 
     const config = {
-      success: { icon: 'fa-check-circle', color: '#21585A' },
-      error: { icon: 'fa-exclamation-circle', color: '#90403E' },
-      warning: { icon: 'fa-exclamation-triangle', color: '#56475D' },
-      info: { icon: 'fa-info-circle', color: '#21585A' }
+      success: { icon: 'fa-check-circle', color: 'var(--success-color)' },
+      error: { icon: 'fa-exclamation-circle', color: 'var(--error-color)' },
+      warning: { icon: 'fa-exclamation-triangle', color: 'var(--warning-color)' },
+      info: { icon: 'fa-info-circle', color: 'var(--primary-color)' }
     };
 
     const { icon, color } = config[type] || config.info;
@@ -515,7 +582,7 @@ class ContactFormManager {
 
   showFieldError(field, message) {
     this.clearFieldError(field);
-    field.style.borderColor = '#90403E';
+    field.style.borderColor = 'var(--error-color)';
     field.setAttribute('aria-invalid', 'true');
     
     const errorDiv = document.createElement('div');
@@ -608,6 +675,7 @@ class PortfolioApp {
     }, 100);
     
     this.components = {
+      theme: new ThemeManager(),
       intersection: new IntersectionManager(),
       header: new HeaderManager(),
       mobileMenu: new MobileMenuManager(),
@@ -674,3 +742,43 @@ class PortfolioApp {
 
 // Inicialización
 const app = new PortfolioApp();
+
+// ── Tilt 3D en imágenes de proyectos destacados ──────────────────────────────
+(function initProjectTilt() {
+  const MAX_TILT   = 8;    // grados máximos de rotación
+  const MAX_LIFT   = 6;    // píxeles de elevación (translateZ)
+  const SCALE      = 1.02;
+  const SHADOW_CLR = 'rgba(0,0,0,0.45)';
+
+  // Solo en dispositivos con puntero preciso (no táctil)
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (AppState.reducedMotion) return;
+
+  document.querySelectorAll('#proyectos-destacados .project-featured-image').forEach(container => {
+    const img = container.querySelector('.project-thumb');
+    if (!img) return;
+
+    function onMove(e) {
+      const rect = container.getBoundingClientRect();
+      // Posición relativa al centro del contenedor (-1 … +1)
+      const rx = ((e.clientX - rect.left)  / rect.width  - 0.5) * 2;
+      const ry = ((e.clientY - rect.top)   / rect.height - 0.5) * 2;
+
+      const rotY =  rx * MAX_TILT;   // eje Y → ladea izquierda/derecha
+      const rotX = -ry * MAX_TILT;   // eje X → ladea arriba/abajo
+
+      img.style.transform =
+        `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${SCALE}) translateZ(${MAX_LIFT}px)`;
+      img.style.boxShadow =
+        `${-rotY * 1.5}px ${rotX * 1.5}px 30px ${SHADOW_CLR}`;
+    }
+
+    function onLeave() {
+      img.style.transform = '';
+      img.style.boxShadow = '';
+    }
+
+    container.addEventListener('mousemove', onMove);
+    container.addEventListener('mouseleave', onLeave);
+  });
+}());

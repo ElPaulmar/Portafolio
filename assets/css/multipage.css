@@ -162,7 +162,7 @@
   align-items: center;
   gap: 0.3rem;
   padding: 0.5rem 0.8rem;
-  background: rgba(234, 232, 216, 0.1);
+  background: var(--lang-bg);
   border: 2px solid transparent;
   border-radius: 25px;
   color: var(--text-light);
@@ -175,7 +175,7 @@
 
 .lang-btn:hover,
 .lang-btn:focus {
-  background: rgba(234, 232, 216, 0.2);
+  background: var(--lang-bg-hover);
   border-color: var(--accent-color);
   transform: translateY(-2px);
   outline: none;
