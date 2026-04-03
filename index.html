@@ -64,7 +64,7 @@
       <h1><a href="index.html">PAULO MARQUES</a></h1>
       <nav aria-label="Navegación principal" class="nav-centered">
         <a href="index.html" class="active">Inicio</a>
-        <a href="proyectos.html">Proyectos</a>
+        <a href="#proyectos-destacados">Proyectos Destacados</a>
         <a href="about.html">Sobre Mí</a>
         <a href="about.html#contacto">Contacto</a>
       </nav>
@@ -90,10 +90,35 @@
     <!-- Menú móvil -->
     <nav class="mobile-menu" aria-label="Menú móvil">
       <a href="index.html" class="active">Inicio</a>
-      <a href="proyectos.html">Proyectos</a>
+      <a href="#proyectos-destacados">Proyectos Destacados</a>
       <a href="about.html">Sobre Mí</a>
       <a href="about.html#contacto">Contacto</a>
     </nav>
+
+    <!-- Índice lateral -->
+    <aside class="sidebar-index" aria-label="Índice de sección">
+      <div class="sidebar-content">
+        <h3>Índice</h3>
+        <nav class="sidebar-nav">
+          <a href="#banner" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            Inicio
+          </a>
+          <a href="#proyectos-destacados" class="sidebar-link">
+            <i class="fas fa-star"></i>
+            Proyectos Destacados
+          </a>
+          <a href="#otros-proyectos" class="sidebar-link">
+            <i class="fas fa-folder"></i>
+            Otros Proyectos
+          </a>
+          <a href="about.html#contacto" class="sidebar-link">
+            <i class="fas fa-handshake"></i>
+            Colaborar
+          </a>
+        </nav>
+      </div>
+    </aside>
 
     <section id="banner" role="main">
       <div class="banner-background">
@@ -154,7 +179,7 @@
               <li><strong>Género:</strong> Novela Visual | PC</li>
             </ul>
             <div class="project-actions">
-              <a href="proyectos.html#postmortalis" class="button primary with-icon">
+              <a href="postmortalis.html" class="button primary with-icon">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 Ver proyecto
               </a>
@@ -180,7 +205,7 @@
               <li><strong>Género:</strong> Práctica Profesional</li>
             </ul>
             <div class="project-actions">
-              <a href="proyectos.html#playme-studio" class="button primary with-icon">
+              <a href="playme-studio.html" class="button primary with-icon">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 Ver proyecto
               </a>
@@ -206,20 +231,132 @@
               <li><strong>Género:</strong> Hack & Slash | PC</li>
             </ul>
             <div class="project-actions">
-              <a href="proyectos.html#overhaul" class="button primary with-icon">
+              <a href="overhaul.html" class="button primary with-icon">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 Ver proyecto
               </a>
             </div>
           </div>
           <div class="project-featured-image">
-            <img src="images/título-overhaul.jpg"
+              <img src="images/título-overhaul.png"
                  alt="Imagen de título de Overhaul"
                  class="project-thumb"
                  loading="lazy"
                  onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=Overhaul'">
           </div>
         </article>
+      </div>
+    </section>
+
+    <!-- Otros Proyectos -->
+    <section id="otros-proyectos" class="wrapper style3">
+      <div class="inner">
+        <h2 class="major slide-up">Otros Proyectos</h2>
+        <p class="section-subtitle slide-up">Proyectos académicos y colaborativos</p>
+        <div class="improved-project-grid">
+          <!-- Espiritus de Hartshorn -->
+          <article class="improved-project slide-left">
+            <div class="project-image-container">
+              <img src="images/título-espíritus.jpg"
+                   alt="Espíritus de Hartshorn"
+                   loading="lazy"
+                   width="300"
+                   height="200"
+                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Espiritus'">
+              <div class="project-overlay">
+                <span class="overlay-text">Hack & Slash 2.5D</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Espíritus de Hartshorn</h3>
+              <div class="project-meta">
+                <span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i>
+                  <time datetime="2023-08">Ago-Dic 2023</time>
+                </span>
+                <span>
+                  <i class="fas fa-gamepad" aria-hidden="true"></i>
+                  Hack & Slash | 2.5D
+                </span>
+              </div>
+              <p>Diseñe mecánicas de toma de decisiones integradas en el sistema de combate, creando una experiencia donde las elecciones en batalla afectan la narrativa y progresión del juego.</p>
+              <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">Game Design</span>
+                <span class="tag">Combat Systems</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Sponji y la Calamidad Cibernetica -->
+          <article class="improved-project slide-up">
+            <div class="project-image-container">
+              <img src="images/título-sponji.jpg"
+                   alt="Sponji y la Calamidad Cibernética"
+                   loading="lazy"
+                   width="300"
+                   height="200"
+                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Sponji'">
+              <div class="project-overlay">
+                <span class="overlay-text">Plataformero 2D</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Sponji y la Calamidad Cibernética</h3>
+              <div class="project-meta">
+                <span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i>
+                  <time datetime="2022-03">Mar-Jun 2022</time>
+                </span>
+                <span>
+                  <i class="fas fa-gamepad" aria-hidden="true"></i>
+                  Plataformero | 2D
+                </span>
+              </div>
+              <p>Desarrollé rompecabezas narrativos, integrando historia y mecánicas de manera orgánica. El juego combina plataformeo tradicional con puzzles que avanzan la narrativa.</p>
+              <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">Puzzle Design</span>
+                <span class="tag">Narrative Design</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Las Huellas de Napi -->
+          <article class="improved-project slide-right">
+            <div class="project-image-container">
+              <img src="images/título-napi.jpg"
+                   alt="Las Huellas de Napi"
+                   loading="lazy"
+                   width="300"
+                   height="200"
+                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Napi'">
+              <div class="project-overlay">
+                <span class="overlay-text">Plataformero Narrativo</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Las Huellas de Napi</h3>
+              <div class="project-meta">
+                <span>
+                  <i class="fas fa-calendar" aria-hidden="true"></i>
+                  <time datetime="2023-03">Mar-Jun 2023</time>
+                </span>
+                <span>
+                  <i class="fas fa-gamepad" aria-hidden="true"></i>
+                  Plataformero | Narrativo
+                </span>
+              </div>
+              <p>Desarrollo completo del juego, desde programación hasta diseño de mecánicas. Creé un plataformero con fuerte énfasis narrativo donde la historia se cuenta a través del gameplay.</p>
+              <div class="project-tags">
+                <span class="tag">Unity</span>
+                <span class="tag">C#</span>
+                <span class="tag">Narrativa</span>
+                <span class="tag">Level Design</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -233,7 +370,7 @@
             <i class="fas fa-envelope"></i>
             Contáctame
           </a>
-          <a href="proyectos.html" class="button large primary with-icon">
+          <a href="#proyectos-destacados" class="button large primary with-icon">
             <i class="fas fa-folder-open"></i>
             Explorar Proyectos
           </a>

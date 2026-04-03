@@ -4,30 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Paulo Marques | Game Designer & Narratives</title>
+  <title>Paulo Marques | Game Designer</title>
   <meta name="description"
     content="Professional portfolio of Paulo Marques, game designer specialized in interactive narratives and innovative mechanics">
   <meta name="keywords"
     content="game designer, Unity, Unreal Engine, portfolio, Chile, video game development, interactive narrative">
   <meta name="author" content="Paulo Marques">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://tu-usuario.github.io/tu-repositorio/en/">
-  <meta property="og:title" content="Paulo Marques | Game Designer & Narratives">
+  <meta property="og:url" content="https://tu-usuario.github.io/tu-repositorio">
+  <meta property="og:title" content="Paulo Marques | Game Designer">
   <meta property="og:description"
-    content="Professional portfolio of Paulo Marques, game designer specialized in interactive narratives">
+    content="Professional portfolio of Paulo Marques, game designer specialized in interactive narratives and innovative mechanics">
   <meta property="og:image" content="https://tu-usuario.github.io/tu-repositorio/images/preview.jpg">
 
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tu-usuario.github.io/tu-repositorio">
+  <meta property="twitter:title" content="Paulo Marques | Game Designer & Narrative Designer">
+  <meta property="twitter:description"
+    content="Professional portfolio of Paulo Marques, game designer specialized in interactive narratives">
+  <meta property="twitter:image" content="https://tu-usuario.github.io/tu-repositorio/images/preview.jpg">
+
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://tu-usuario.github.io/tu-repositorio/en/">
-  <link rel="alternate" hreflang="es" href="https://tu-usuario.github.io/tu-repositorio/">
-  <link rel="alternate" hreflang="en" href="https://tu-usuario.github.io/tu-repositorio/en/">
-  
+  <link rel="canonical" href="https://tu-usuario.github.io/tu-repositorio">
+
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/multipage.css">
@@ -45,7 +51,7 @@
     "jobTitle": "Game Designer",
     "description": "Game designer specialized in interactive narratives and innovative mechanics",
     "url": "https://tu-usuario.github.io/tu-repositorio",
-    "alumniOf": "Universidad Andrés Bello",
+    "alumniOf": "Universidad Andres Bello",
     "knowsAbout": ["Game Design", "Unity", "Narrative Design", "C#"]
   }
   </script>
@@ -53,16 +59,16 @@
 
 <body class="is-preload">
   <div id="page-wrapper">
-    <!-- Header -->
+    <!-- Centered header -->
     <header id="header" class="alt" role="banner">
       <h1><a href="en-index.html">PAULO MARQUES</a></h1>
       <nav aria-label="Main navigation" class="nav-centered">
         <a href="en-index.html" class="active">Home</a>
         <a href="en-proyectos.html">Projects</a>
         <a href="en-about.html">About Me</a>
-        <a href="en-about.html#contact">Contact</a>
+        <a href="en-about.html#contacto">Contact</a>
       </nav>
-      
+
       <!-- Header Controls -->
       <div class="header-controls">
         <div class="language-switcher">
@@ -74,8 +80,8 @@
           <i class="fas fa-moon" aria-hidden="true"></i>
         </button>
       </div>
-      
-      <!-- Mobile menu toggle -->
+
+      <!-- Mobile menu button -->
       <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Open navigation menu">
         <i class="fas fa-bars" aria-hidden="true"></i>
       </button>
@@ -86,287 +92,133 @@
       <a href="en-index.html" class="active">Home</a>
       <a href="en-proyectos.html">Projects</a>
       <a href="en-about.html">About Me</a>
-      <a href="en-about.html#contact">Contact</a>
+      <a href="en-about.html#contacto">Contact</a>
     </nav>
 
-    <!-- Hero Banner -->
     <section id="banner" role="main">
-      <!-- Background image -->
       <div class="banner-background">
-        <img src="images/hero-background.jpg" 
-             alt="" 
+        <img src="images/hero-background.jpg"
+             alt=""
              class="hero-bg-image"
              loading="eager"
              onerror="this.style.display='none'">
       </div>
-      
+
       <div class="inner">
         <div class="hero-content-clean">
           <div class="profile-container">
-            <img src="images/tu-foto.jpg" 
-                 class="profile-pic" 
-                 alt="Paulo Marques photo" 
+            <img src="images/tu-foto.jpg"
+                 class="profile-pic"
+                 alt="Photo of Paulo Marques"
                  loading="eager"
-                 width="250" 
+                 width="250"
                  height="250"
                  onerror="this.src='https://via.placeholder.com/250x250/1F4D5B/DBE9D1?text=PM'">
           </div>
-          
-          <h2 class="fade-in">Game Designer</h2>
-          <p class="subtitle fade-in">Interactive Narratives & Innovative Mechanics</p>
-          <p class="description fade-in">Game Design student at UNAB, specializing in integrating innovative mechanics with memorable stories that emotionally connect with players.</p>
+
+          <h2 class="fade-in">Paulo Marques</h2>
+          <p class="subtitle fade-in">Game Designer</p>
+          <p class="description fade-in">Designer of innovative gameplay mechanics with memorable stories that emotionally connect with players.</p>
 
           <div class="hero-actions fade-in">
-            <a href="#featured-projects" class="button primary large">View Projects</a>
-            <a href="en-about.html#contact" class="button primary large with-icon">
-              <i class="fas fa-paper-plane" aria-hidden="true"></i> 
+            <a href="#proyectos-destacados" class="button primary large">View Projects</a>
+            <a href="en-about.html#contacto" class="button primary large with-icon">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
               Let's Collaborate
             </a>
           </div>
         </div>
       </div>
 
-      <a href="#featured-projects" class="scroll-indicator" aria-label="Go to Featured Projects">
+      <!-- Arrow button to featured projects -->
+      <a href="#proyectos-destacados" class="scroll-indicator" aria-label="Go to Featured Projects">
         <i class="fas fa-chevron-down" aria-hidden="true"></i>
       </a>
     </section>
 
-    <!-- Featured Projects (Preview) -->
-    <section id="featured-projects" class="wrapper style2">
+    <!-- Featured Projects -->
+    <section id="proyectos-destacados" class="wrapper style2">
       <div class="inner">
         <h2 class="major slide-up">Featured Projects</h2>
         <p class="section-subtitle slide-up">My most recognized projects</p>
 
         <!-- Postmortalis -->
-        <article class="project-card slide-up postmortalis-card">
-          <!-- Stacked images behind entire card -->
-          <img src="images/ilian.png"
-               alt="" 
-               class="stacked-image stacked-left" 
-               loading="lazy">
-          <img src="images/pita.png"
-               alt="" 
-               class="stacked-image stacked-right" 
-               loading="lazy">
-          
-          <div class="project-header">
-            <div class="project-media">
-              <img src="images/título-postmortalis.PNG"
-                   alt="Postmortalis - Visual Novel Game" 
-                   class="project-thumb" 
-                   loading="lazy"
-                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Postmortalis'">
-            </div>
-            <div class="project-basic-info">
-              <div class="project-meta">
-                <span class="project-date">
-                  <i class="fas fa-calendar" aria-hidden="true"></i> 
-                  <time datetime="2025-02">11 Months (2025)</time>
-                </span>
-                <span class="project-genre">
-                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
-                  Visual Novel | PC
-                </span>
-              </div>
-              <h3>Postmortalis</h3>
-              <div class="project-roles">
-                <span class="role-tag">Game Designer</span>
-                <span class="role-tag">Writer</span>
-              </div>
-              <p class="project-summary">"An innovative and experimental Visual Novel about the value that can be given to life during the end of the world."</p>
-            </div>
-          </div>
-
-          <div class="project-content">
-            <div class="project-description">
-              <h4><i class="fas fa-star" aria-hidden="true"></i> Key Contributions</h4>
-              <ul>
-                <li>Systems Design: Iterative planning of the game's core systems</li>
-                <li>Content Design: Planning the placement of interactive elements and relevant information</li>
-                <li>Documentation: Creation of essential documentation to facilitate mechanics production</li>
-                <li>Narrative: Character dialogue writing and storyline development</li>
-              </ul>
-            </div>
-
-            <div class="project-tools">
-              <h4><i class="fas fa-tools" aria-hidden="true"></i> Tools Used</h4>
-              <div class="tool-tags">
-                <span class="tool-tag">Unity</span>
-                <span class="tool-tag">YarnSpinner</span>
-                <span class="tool-tag">Google Docs</span>
-                <span class="tool-tag">C#</span>
-              </div>
-            </div>
-
+        <article class="project-card slide-up project-featured">
+          <div class="project-featured-info">
+            <h3>Postmortalis</h3>
+            <p class="project-summary">An experimental visual novel about the value of life during the end of the world.</p>
+            <ul class="project-featured-meta">
+              <li><strong>Roles:</strong> Game Designer, Writer</li>
+              <li><strong>Duration:</strong> 11 months (2025)</li>
+              <li><strong>Genre:</strong> Visual Novel | PC</li>
+            </ul>
             <div class="project-actions">
               <a href="en-proyectos.html#postmortalis" class="button primary with-icon">
-                <i class="fas fa-info-circle" aria-hidden="true"></i> 
-                View Full Details
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                View project
               </a>
             </div>
+          </div>
+          <div class="project-featured-image">
+            <img src="images/portada-postmortalis.jpg"
+                 alt="Postmortalis title image"
+                 class="project-thumb"
+                 loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=Postmortalis'">
           </div>
         </article>
 
         <!-- PlayMe Studio -->
-        <article class="project-card slide-up playme-card">
-          <div class="project-header">
-            <div class="project-media playme-media">
-              <img src="images/playme.jpeg"
-                   alt="PlayMe Studio - Professional Internship" 
-                   class="project-thumb" 
-                   loading="lazy"
-                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=PlayMe+Studio'">
-            </div>
-            <div class="project-basic-info">
-              <div class="project-meta">
-                <span class="project-date">
-                  <i class="fas fa-calendar" aria-hidden="true"></i> 
-                  <time datetime="2025">3 Months (2025)</time>
-                </span>
-                <span class="project-genre">
-                  <i class="fas fa-briefcase" aria-hidden="true"></i> 
-                  Professional Internship
-                </span>
-              </div>
-              <h3>PlayMe Studio</h3>
-              <div class="project-roles">
-                <span class="role-tag">Game Designer</span>
-                <span class="role-tag">QA Tester</span>
-              </div>
-              <p class="project-summary">490-hour professional internship where I fulfilled the role of Designer and Quality Assurance.</p>
-            </div>
-          </div>
-
-          <div class="project-content">
-            <div class="project-description">
-              <h4><i class="fas fa-star" aria-hidden="true"></i> Key Contributions</h4>
-              <ul>
-                <li>Search and documentation of over 100 bugs</li>
-                <li>Creation of over 10 mechanics and game section documents to facilitate production</li>
-                <li>Producer assistance</li>
-              </ul>
-            </div>
-
+        <article class="project-card slide-up project-featured">
+          <div class="project-featured-info">
+            <h3>PlayMe Studio</h3>
+            <p class="project-summary">A 490-hour professional internship focused on game design and QA.</p>
+            <ul class="project-featured-meta">
+              <li><strong>Roles:</strong> Game Designer, QA Tester</li>
+              <li><strong>Duration:</strong> 3 months (2025)</li>
+              <li><strong>Genre:</strong> Professional Internship</li>
+            </ul>
             <div class="project-actions">
               <a href="en-proyectos.html#playme-studio" class="button primary with-icon">
-                <i class="fas fa-info-circle" aria-hidden="true"></i> 
-                View Full Details
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                View project
               </a>
             </div>
+          </div>
+          <div class="project-featured-image">
+            <img src="images/playme.jpeg"
+                 alt="PlayMe Studio title image"
+                 class="project-thumb"
+                 loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=PlayMe+Studio'">
           </div>
         </article>
 
         <!-- Overhaul -->
-        <article class="project-card slide-up overhaul-card">
-          <!-- Elf image stacked behind (similar style to pita/ilian) -->
-          <img src="images/elfo.png"
-               alt="" 
-               class="stacked-image overhaul-elfo" 
-               loading="lazy">
-          
-          <!-- Three downgrade images stacked like cards -->
-          <img src="images/downgrade.png"
-               alt="" 
-               class="stacked-image overhaul-downgrade downgrade-1" 
-               loading="lazy">
-          <img src="images/downgrade.png"
-               alt="" 
-               class="stacked-image overhaul-downgrade downgrade-2" 
-               loading="lazy">
-          <img src="images/downgrade.png"
-               alt="" 
-               class="stacked-image overhaul-downgrade downgrade-3" 
-               loading="lazy">
-          
-          <!-- Chile-diseño badge in top right corner of project -->
-          <img src="images/chile-diseño.png"
-               alt="Chile Diseña" 
-               class="corner-badge-overhaul"
-               loading="lazy">
-          
-          <div class="project-header">
-            <div class="project-media">
-              <img src="images/título-overhaul.jpg"
-                   alt="Overhaul - Hack and slash game" 
-                   class="project-thumb" 
-                   loading="lazy"
-                   onerror="this.src='https://via.placeholder.com/300x200/1F4D5B/DBE9D1?text=Overhaul'">
-            </div>
-            <div class="project-basic-info">
-              <div class="project-meta">
-                <span class="project-date">
-                  <i class="fas fa-calendar" aria-hidden="true"></i> 
-                  <time datetime="2024-02">3 Months (2024)</time>
-                </span>
-                <span class="project-genre">
-                  <i class="fas fa-gamepad" aria-hidden="true"></i> 
-                  Hack & Slash | PC
-                </span>
-              </div>
-              <h3>Overhaul</h3>
-              <div class="project-roles">
-                <span class="role-tag">Game Designer</span>
-                <span class="role-tag">Writer</span>
-              </div>
-              <p class="project-summary">A hack & slash with innovative mechanics that gives a twist to the Rogue-like genre. Winner of Chile Diseño awards.</p>
-            </div>
-          </div>
-
-          <div class="project-content">
-            <div class="project-description">
-              <h4><i class="fas fa-star" aria-hidden="true"></i> Key Contributions</h4>
-              <ul>
-                <li>Narrative Design: Main story and character arcs</li>
-                <li>Dialogue creation and narrative exposition system</li>
-                <li>Design of key Downgrades mechanic</li>
-              </ul>
-            </div>
-
+        <article class="project-card slide-up project-featured">
+          <div class="project-featured-info">
+            <h3>Overhaul</h3>
+            <p class="project-summary">A hack & slash with a roguelike approach and original narrative, recognized at Chile Diseno.</p>
+            <ul class="project-featured-meta">
+              <li><strong>Roles:</strong> Game Designer, Writer</li>
+              <li><strong>Duration:</strong> 3 months (2024)</li>
+              <li><strong>Genre:</strong> Hack & Slash | PC</li>
+            </ul>
             <div class="project-actions">
               <a href="en-proyectos.html#overhaul" class="button primary with-icon">
-                <i class="fas fa-info-circle" aria-hidden="true"></i> 
-                View Full Details
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                View project
               </a>
             </div>
           </div>
+          <div class="project-featured-image">
+              <img src="images/título-overhaul.png"
+                 alt="Overhaul title image"
+                 class="project-thumb"
+                 loading="lazy"
+                 onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=Overhaul'">
+          </div>
         </article>
-
-        <div class="center-actions slide-up">
-          <a href="en-proyectos.html" class="button large primary with-icon">
-            <i class="fas fa-th-large"></i>
-            View All Projects
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills (Preview) -->
-    <section id="skills" class="wrapper style1">
-      <div class="inner">
-        <h2 class="major slide-up">Main Skills</h2>
-        <div class="skills-preview">
-          <div class="skill-highlight slide-left">
-            <i class="fas fa-gamepad"></i>
-            <h3>Game Design</h3>
-            <p>Unity, Unreal Engine, Game Design Document, Gameplay Balancing</p>
-          </div>
-          <div class="skill-highlight slide-up">
-            <i class="fas fa-book"></i>
-            <h3>Narrative</h3>
-            <p>Twine, Dialogue Writing, Character Arcs, Non-linear Narrative</p>
-          </div>
-          <div class="skill-highlight slide-right">
-            <i class="fas fa-tools"></i>
-            <h3>Tools</h3>
-            <p>Adobe Creative Suite, Git & GitHub, Figma, C#</p>
-          </div>
-        </div>
-        <div class="center-actions slide-up">
-          <a href="en-about.html#skills" class="button with-icon">
-            <i class="fas fa-chart-bar"></i>
-            View Detailed Skills
-          </a>
-        </div>
       </div>
     </section>
 
@@ -376,7 +228,7 @@
         <h2 class="slide-up">Ready to collaborate?</h2>
         <p class="slide-up">I'm available for freelance projects, collaborations, and job opportunities.</p>
         <div class="cta-actions slide-up">
-          <a href="en-about.html#contact" class="button large primary with-icon">
+          <a href="en-about.html#contacto" class="button large primary with-icon">
             <i class="fas fa-envelope"></i>
             Contact Me
           </a>
@@ -393,30 +245,30 @@
       <ul class="icons">
         <li>
           <a href="https://github.com/ElPaulmar"
-             class="icon brands fa-github" 
-             target="_blank" 
+             class="icon brands fa-github"
+             target="_blank"
              rel="noopener noreferrer"
              aria-label="Visit my GitHub profile">
           </a>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/paulo-marques-594a63347/" 
-             class="icon brands fa-linkedin" 
-             target="_blank" 
+          <a href="https://www.linkedin.com/in/paulo-marques-594a63347/"
+             class="icon brands fa-linkedin"
+             target="_blank"
              rel="noopener noreferrer"
              aria-label="Connect on LinkedIn">
           </a>
         </li>
         <li>
-          <a href="mailto:alonso.p.marques@gmail.com" 
+          <a href="mailto:alonso.p.marques@gmail.com"
              class="icon fa-envelope"
              aria-label="Send email">
           </a>
         </li>
         <li>
-          <a href="https://paulmar.itch.io/" 
-             class="icon brands fa-itch-io" 
-             target="_blank" 
+          <a href="https://paulmar.itch.io/"
+             class="icon brands fa-itch-io"
+             target="_blank"
              rel="noopener noreferrer"
              aria-label="View my games on Itch.io">
           </a>

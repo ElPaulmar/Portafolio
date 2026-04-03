@@ -14,7 +14,7 @@
   position: relative;
   overflow: hidden;
   margin-top: 70px;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--spacing-xl) clamp(1.5rem, 4vw, 4rem);
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: var(--text-light);
 }
@@ -29,7 +29,7 @@
   font-size: clamp(2.5rem, 6vw, 4rem);
   margin-bottom: 1rem;
   color: var(--text-light);
-  text-shadow: 2px 2px 4px rgba(10, 36, 26, 0.5);
+  text-shadow: 2px 2px 4px rgba(32, 8, 1, 0.5);
 }
 
 .page-hero p {
@@ -47,7 +47,7 @@
   position: fixed;
   left: 0;
   top: 150px;
-  width: 250px;
+  width: 270px;
   background: var(--primary-color);
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   padding: var(--spacing-md);
@@ -113,7 +113,7 @@
 
 .sidebar-sublink:hover,
 .sidebar-sublink:focus {
-  background: rgba(144, 64, 62, 0.2);
+  background: rgba(145, 199, 109, 0.2);
   transform: translateX(3px);
 }
 
@@ -144,6 +144,13 @@
 @media (max-width: 900px) {
   .sidebar-index {
     display: none;
+  }
+}
+
+@media (min-width: 901px) {
+  #page-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
