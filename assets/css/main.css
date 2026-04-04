@@ -81,12 +81,12 @@ body[data-theme="dark"] {
   --success-color: #91C76D;
   --warning-color: #016A70;
 
-  --surface-bg: #FFFFDD;
-  --surface-text: #200801;
-  --surface-border: rgba(32, 8, 1, 0.18);
-  --surface-border-strong: rgba(32, 8, 1, 0.3);
-  --surface-tag-bg: rgba(1, 106, 112, 0.12);
-  --surface-tag-bg-hover: rgba(1, 106, 112, 0.2);
+  --surface-bg: #016A70;
+  --surface-text: #FFFFDD;
+  --surface-border: rgba(255, 255, 221, 0.28);
+  --surface-border-strong: rgba(255, 255, 221, 0.42);
+  --surface-tag-bg: rgba(255, 255, 221, 0.14);
+  --surface-tag-bg-hover: rgba(255, 255, 221, 0.22);
 
   --header-bg: rgba(1, 106, 112, 0.95);
   --header-bg-scrolled: rgba(1, 106, 112, 0.98);
@@ -95,6 +95,16 @@ body[data-theme="dark"] {
   --lang-bg-hover: rgba(255, 255, 221, 0.2);
   --lang-border: rgba(145, 199, 109, 0.45);
   --menu-divider: rgba(255, 255, 221, 0.25);
+}
+
+body[data-theme="dark"] .skill-category,
+body[data-theme="dark"] .skill-highlight,
+body[data-theme="dark"] .testimonial,
+body[data-theme="dark"] .stat-item,
+body[data-theme="dark"] .personal-projects-note,
+body[data-theme="dark"] .skill-category-clean {
+  background: #016A70;
+  color: #FFFFDD;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -863,6 +873,19 @@ body:not([data-theme="dark"]) .lang-btn.active {
   transform: rotate(25deg) translateX(10px) translateY(8px);
 }
 
+/* Estilos para imagen de Postmortalis (similar a Overhaul) */
+.postmortalis-card .project-media {
+  overflow: hidden;
+}
+
+.postmortalis-card .project-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--surface-bg);
+}
+
 /* Estilos para Overhaul */
 .overhaul-card {
   overflow: visible;
@@ -1116,7 +1139,7 @@ body:not([data-theme="dark"]) .lang-btn.active {
 }
 
 .tool-tag {
-  background: var(--secondary-color);
+  background: var(--primary-color);
   color: var(--text-light);
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
@@ -1191,7 +1214,7 @@ body:not([data-theme="dark"]) .lang-btn.active {
 .process-step {
   margin-bottom: var(--spacing-md);
   padding: var(--spacing-sm);
-  background: var(--secondary-color);
+  background: var(--primary-color);
   border-radius: 0.5rem;
   border-left: 4px solid var(--accent-color);
 }
@@ -1264,7 +1287,7 @@ body:not([data-theme="dark"]) .lang-btn.active {
   padding: var(--spacing-md);
   border-radius: 0.75rem;
   border: 2px solid var(--accent-color);
-  background: var(--secondary-color);
+  background: var(--primary-color);
   transition: all var(--transition);
 }
 
@@ -1330,6 +1353,55 @@ body:not([data-theme="dark"]) .lang-btn.active {
 
 .project-info {
   padding: var(--spacing-md);
+}
+
+#otros-proyectos .improved-project {
+  background: var(--surface-bg);
+  border: 2px solid var(--surface-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-light);
+  overflow: hidden;
+}
+
+#otros-proyectos .improved-project:hover {
+  border-color: var(--surface-border-strong);
+  box-shadow: var(--shadow-medium);
+}
+
+#otros-proyectos .project-info {
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+#otros-proyectos .project-info h3 {
+  color: var(--accent-color);
+  margin: 0;
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid var(--surface-border);
+}
+
+#otros-proyectos .project-meta {
+  margin-top: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+#otros-proyectos .project-info p {
+  color: var(--surface-text);
+  font-style: normal;
+  opacity: 0.95;
+  margin-bottom: 1.1rem;
+}
+
+#otros-proyectos .project-tags {
+  gap: 0.55rem;
+}
+
+#otros-proyectos .tag {
+  background: var(--surface-tag-bg);
+  color: var(--surface-text);
+  border: 1px solid var(--surface-border);
+  border-radius: 0.55rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
 }
 
 /* ==============================
@@ -2369,7 +2441,13 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
 }
 
 .page-hero {
-  background: var(--light-bg);
+  background: var(--primary-color);
+  text-align: center;
+}
+
+.page-hero h1,
+.page-hero p {
+  color: #FFFFDD;
 }
 
 /* Eliminar glassmorphism card */
@@ -2924,6 +3002,85 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
   gap: 2rem;
 }
 
+#sobre-mi .major,
+#testimonios .major,
+#sobre-mi .philosophy-section h3,
+#sobre-mi .philosophy-card h4,
+#sobre-mi .profile-info-main h2,
+#sobre-mi .profile-role {
+  color: #FFFFDD !important;
+  text-align: center;
+}
+
+/* Postmortalis page refinements */
+body.postmortalis-page .postmortalis-card .project-basic-info h3 {
+  color: #FFFFDD !important;
+}
+
+body.postmortalis-page .postmortalis-card .project-summary {
+  font-style: normal;
+  color: var(--surface-text);
+  opacity: 0.95;
+}
+
+.page-hero + .wrapper.style2 {
+  padding-top: 0.5rem;
+}
+
+.project-card-detailed .project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project-card-detailed .project-content > .project-description,
+.project-card-detailed .project-content > .project-highlights,
+.project-card-detailed .project-content > .project-tools {
+  background: var(--surface-bg);
+  color: var(--surface-text);
+  border: 1px solid var(--primary-color);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-light);
+}
+
+.project-card-detailed .project-content > .project-description h4,
+.project-card-detailed .project-content > .project-highlights h4,
+.project-card-detailed .project-content > .project-tools h4 {
+  margin-top: 0;
+  color: var(--text-light);
+}
+
+.project-card-detailed .project-content > .project-description h4 i,
+.project-card-detailed .project-content > .project-highlights h4 i,
+.project-card-detailed .project-content > .project-tools h4 i {
+  color: var(--accent-color);
+}
+
+.project-card-detailed .project-content > .project-description p,
+.project-card-detailed .project-content > .project-highlights p,
+.project-card-detailed .project-content > .project-tools p,
+.project-card-detailed .project-content > .project-description li,
+.project-card-detailed .project-content > .project-highlights li,
+.project-card-detailed .project-content > .project-tools li,
+.project-card-detailed .project-content > .project-description span,
+.project-card-detailed .project-content > .project-highlights span,
+.project-card-detailed .project-content > .project-tools span {
+  color: var(--surface-text);
+}
+
+.project-card-detailed .project-content > .project-description ul,
+.project-card-detailed .project-content > .project-highlights ul,
+.project-card-detailed .project-content > .project-tools ul {
+  margin-bottom: 0;
+}
+
+.project-card-detailed .project-content > .project-description .project-summary {
+  margin: 0;
+  opacity: 0.95;
+}
+
 .testimonial-modern {
   background: var(--surface-bg);
   border: 2px solid var(--surface-border);
@@ -3053,6 +3210,9 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
   color: var(--text-light);
   box-shadow: var(--shadow-medium);
   border-radius: var(--border-radius);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 #proyectos-destacados .project-featured-info {
@@ -3064,6 +3224,8 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
 #proyectos-destacados .project-featured-info h3 {
   margin: 0;
   color: var(--text-light);
+  font-size: 2.2rem;
+  font-weight: 800;
 }
 
 #proyectos-destacados .project-featured-meta {
@@ -3086,12 +3248,34 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
 #proyectos-destacados .project-featured-image {
   min-height: 260px;
   border-radius: calc(var(--border-radius) - 4px);
-  overflow: visible;
+  overflow: hidden;
   perspective: 900px;
   perspective-origin: center center;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+#proyectos-destacados .project-featured-image::after {
+  content: 'Ver Proyecto';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 #proyectos-destacados .project-featured-image .project-thumb {
@@ -3103,11 +3287,21 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
   border-radius: calc(var(--border-radius) - 4px);
   will-change: transform;
   transform-style: preserve-3d;
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+  transition: filter 0.3s ease, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+  filter: brightness(1);
+}
+
+#proyectos-destacados .project-featured:hover .project-featured-image .project-thumb {
+  filter: brightness(0.4) blur(4px);
+}
+
+#proyectos-destacados .project-featured:hover .project-featured-image::after {
+  opacity: 1;
 }
 
 #proyectos-destacados .project-featured .project-actions {
   justify-content: flex-start;
+  display: none;
 }
 
 @media (max-width: 900px) {
@@ -3123,4 +3317,77 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
     justify-content: center;
   }
 
+}
+
+/* ==============================
+   ESTILO UNIFICADO DE TARJETAS
+============================== */
+.project-card,
+.project-card-detailed,
+.improved-project,
+.skill-category,
+.skill-highlight,
+.testimonial,
+.stat-item,
+.personal-projects-note,
+.skill-category-clean,
+.profile-card-main,
+.profile-description,
+.philosophy-card,
+.skill-category-modern,
+.testimonial-modern,
+#proyectos-destacados .project-featured {
+  background: var(--surface-bg) !important;
+  color: var(--surface-text);
+  border: 2px solid var(--surface-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-light);
+}
+
+.project-card:hover,
+.project-card-detailed:hover,
+.improved-project:hover,
+.skill-category:hover,
+.skill-highlight:hover,
+.testimonial:hover,
+.stat-item:hover,
+.skill-category-clean:hover,
+.philosophy-card:hover,
+.skill-category-modern:hover,
+.testimonial-modern:hover,
+#proyectos-destacados .project-featured:hover {
+  border-color: var(--surface-border-strong);
+  box-shadow: var(--shadow-medium);
+}
+
+.project-basic-info h3,
+.project-info h3,
+.skill-category h3,
+.skill-category-clean h3,
+#proyectos-destacados .project-featured-info h3 {
+  color: var(--accent-color) !important;
+  margin: 0;
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid var(--surface-border);
+  margin-bottom: 0.95rem;
+}
+
+.project-info p,
+.project-summary,
+.testimonial-content blockquote,
+.philosophy-card p,
+.skill-highlight p,
+.personal-projects-note p {
+  color: var(--surface-text) !important;
+  font-style: normal;
+  opacity: 0.95;
+}
+
+.tag,
+.role-tag,
+.tool-tag {
+  background: var(--surface-tag-bg) !important;
+  color: var(--surface-text) !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: 0.55rem;
 }

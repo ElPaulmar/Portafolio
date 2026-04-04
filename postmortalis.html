@@ -21,13 +21,12 @@
     rel="stylesheet">
 </head>
 
-<body class="is-preload">
+<body class="is-preload postmortalis-page" data-theme="dark">
   <div id="page-wrapper">
     <header id="header" role="banner">
       <h1><a href="index.html">PAULO MARQUES</a></h1>
       <nav aria-label="Navegación principal" class="nav-centered">
         <a href="index.html">Inicio</a>
-        <a href="index.html#proyectos-destacados" class="active">Proyectos Destacados</a>
         <a href="about.html">Sobre Mí</a>
         <a href="about.html#contacto">Contacto</a>
       </nav>
@@ -35,12 +34,8 @@
       <div class="header-controls">
         <div class="language-switcher">
           <a href="postmortalis.html" class="lang-btn active" aria-label="Español">ES</a>
-          <a href="en-proyectos.html#postmortalis" class="lang-btn" aria-label="English">EN</a>
+          <a href="en-postmortalis.html" class="lang-btn" aria-label="English">EN</a>
         </div>
-        <button class="theme-toggle" type="button" data-label-light="Cambiar a modo oscuro"
-          data-label-dark="Cambiar a modo claro" aria-label="Cambiar tema" title="Cambiar tema">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
       </div>
 
       <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Abrir menú de navegación">
@@ -50,7 +45,6 @@
 
     <nav class="mobile-menu" aria-label="Menú móvil">
       <a href="index.html">Inicio</a>
-      <a href="index.html#proyectos-destacados" class="active">Proyectos Destacados</a>
       <a href="about.html">Sobre Mí</a>
       <a href="about.html#contacto">Contacto</a>
     </nav>
@@ -62,23 +56,31 @@
         <nav class="sidebar-nav">
           <a href="#postmortalis" class="sidebar-link">
             <i class="fas fa-gamepad"></i>
-            Proyecto
+            Desglose
           </a>
-          <a href="#postmortalis-contribuciones" class="sidebar-link">
-            <i class="fas fa-star"></i>
-            Contribuciones Clave
+          <a href="#postmortalis-resumen" class="sidebar-link">
+            <i class="fas fa-align-left"></i>
+            Resumen
           </a>
-          <a href="#postmortalis-herramientas" class="sidebar-link">
-            <i class="fas fa-tools"></i>
-            Herramientas
+          <a href="#postmortalis-equipo" class="sidebar-link">
+            <i class="fas fa-users"></i>
+            Equipo
+          </a>
+          <a href="#postmortalis-mi-rol" class="sidebar-link">
+            <i class="fas fa-user-check"></i>
+            Mi Rol
+          </a>
+          <a href="#postmortalis-objetivo" class="sidebar-link">
+            <i class="fas fa-bullseye"></i>
+            Objetivo del Proyecto
+          </a>
+          <a href="#postmortalis-diseno" class="sidebar-link">
+            <i class="fas fa-pencil-ruler"></i>
+            Diseño
           </a>
           <a href="#postmortalis-logros" class="sidebar-link">
             <i class="fas fa-trophy"></i>
             Logros Destacados
-          </a>
-          <a href="#postmortalis-process" class="sidebar-link">
-            <i class="fas fa-cogs"></i>
-            Proceso de Desarrollo
           </a>
         </nav>
       </div>
@@ -87,7 +89,7 @@
     <section class="page-hero">
       <div class="inner">
         <h1 class="fade-in">Postmortalis</h1>
-        <p class="fade-in">Novela visual experimental sobre el valor de la vida en el fin del mundo</p>
+        <p class="fade-in">Un juego experimental sobre el valor de la vida en el fin del mundo</p>
       </div>
     </section>
 
@@ -105,7 +107,7 @@
 
           <div class="project-header">
             <div class="project-media">
-              <img src="images/título-postmortalis.PNG"
+                  <img src="images/portada-postmortalis.jpg"
                    alt="Postmortalis - Juego Novela Visual"
                    class="project-thumb"
                    loading="lazy"
@@ -125,10 +127,10 @@
                 </span>
                 <span class="project-status">
                   <i class="fas fa-tasks" aria-hidden="true"></i>
-                  En Desarrollo
+                  Finalizado
                 </span>
               </div>
-              <h3>Postmortalis</h3>
+              <h3>Postmortalis - Desglose del Proyecto</h3>
               <div class="project-roles">
                 <span class="role-tag">Diseñador de Juego</span>
                 <span class="role-tag">Escritor</span>
@@ -139,25 +141,35 @@
           </div>
 
           <div class="project-content">
-            <div class="project-description" id="postmortalis-contribuciones">
-              <h4><i class="fas fa-star" aria-hidden="true"></i> Contribuciones Clave</h4>
-              <ul>
-                <li><strong>Diseño de Sistemas:</strong> Planeación iterativa de múltiples sistemas núcleo del juego, incluyendo el sistema de autopsia, diálogos con jefes y mecánicas de investigación</li>
-                <li><strong>Documentación Técnica:</strong> Creación de documentación esencial (GDD, tablas de balanceo, diagramas de flujo) para facilitar la producción de las mecánicas del juego</li>
-                <li><strong>Narrativa y Worldbuilding:</strong> Escritura de personajes complejos, desarrollo de arcos narrativos y construcción del mundo post-apocalíptico</li>
-                <li><strong>Integración Narrativa-Mecánica:</strong> Diseño de cómo las mecánicas de juego refuerzan los temas narrativos del valor de la vida</li>
-              </ul>
+            <div class="project-description" id="postmortalis-resumen">
+              <h4><i class="fas fa-align-left" aria-hidden="true"></i> Resumen</h4>
+              <p class="project-summary">Postmortalis se desarrolló entre febrero y diciembre de 2025 como una novela visual experimental centrada en decisiones y consecuencias emocionales. La narrativa aborda el valor de la vida en un mundo colapsado, combinando investigación, autopsias y diálogos con jefes narrativos. Se trabajó con iteraciones narrativas y de sistema para mantener coherencia entre tono, mecánicas y progresión dramática.</p>
             </div>
 
-            <div class="project-tools" id="postmortalis-herramientas">
-              <h4><i class="fas fa-tools" aria-hidden="true"></i> Herramientas Utilizadas</h4>
-              <div class="tool-tags">
-                <span class="tool-tag">Unity</span>
-                <span class="tool-tag">Google Docs</span>
-                <span class="tool-tag">C#</span>
-                <span class="tool-tag">Miro</span>
-                <span class="tool-tag">Git</span>
-              </div>
+            <div class="project-description" id="postmortalis-equipo">
+              <h4><i class="fas fa-users" aria-hidden="true"></i> Equipo</h4>
+              <p class="project-summary">6 personas en el núcleo de desarrollo. Game Design, Programación, Arte, Narrativa, Audio y QA. Reuniones periódicas para revisar avances de narrativa interactiva, diseño de sistemas y entregables técnicos.</p>
+            </div>
+
+            <div class="project-description" id="postmortalis-mi-rol">
+              <h4><i class="fas fa-user-check" aria-hidden="true"></i> Mi Rol</h4>
+              <p class="project-summary">Diseñé sistemas clave como investigación, autopsias y estructura de decisiones narrativas. Redacté personajes, escenas y rutas narrativas con múltiples variantes según elección del jugador. Elaboré documentos de diseño, tablas de balance y diagramas de flujo para alinear al equipo.</p>
+            </div>
+
+            <div class="project-description" id="postmortalis-objetivo">
+              <h4><i class="fas fa-bullseye" aria-hidden="true"></i> Objetivo del Proyecto</h4>
+              <p class="project-summary">Construir una experiencia emocional donde cada decisión tuviera peso real en la historia. Integrar mecánicas de investigación con diálogos para reforzar inmersión y agencia del jugador. Entregar un prototipo narrativo sólido con sistemas documentados y escalables.</p>
+            </div>
+
+            <div class="project-description" id="postmortalis-diseno">
+              <h4><i class="fas fa-pencil-ruler" aria-hidden="true"></i> Diseño</h4>
+              <ul>
+                <li><strong>Sistemas Núcleo:</strong> Definición del sistema de autopsias, investigación y rutas de diálogo por estado narrativo.</li>
+                <li><strong>Estructura de Decisiones:</strong> Diseño de ramas narrativas con consecuencias mecánicas y cambios de tono.</li>
+                <li><strong>Worldbuilding:</strong> Creación del contexto post-apocalíptico y de personajes con motivaciones complejas.</li>
+                <li><strong>Balance Narrativo:</strong> Ajustes de ritmo entre exposición, tensión y resolución en cada capítulo.</li>
+                <li><strong>Documentación Técnica:</strong> GDD, diagramas y matrices de decisiones para facilitar implementación.</li>
+              </ul>
             </div>
 
             <div class="project-highlights" id="postmortalis-logros">
@@ -168,55 +180,16 @@
                   <span>Sistemas Principales</span>
                 </div>
                 <div class="highlight-item">
-                  <strong>5+</strong>
-                  <span>Documentos Técnicos</span>
+                  <strong>6</strong>
+                  <span>Integrantes Coordinados</span>
                 </div>
                 <div class="highlight-item">
                   <strong>11</strong>
                   <span>Meses en Desarrollo</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="development-process show" id="postmortalis-process" aria-hidden="false">
-              <div class="process-step">
-                <h4><i class="fas fa-bullseye" aria-hidden="true"></i> Diseño de Sistemas</h4>
-                <p>Trabajé en la conceptualización y diseño iterativo de los sistemas principales del juego. El sistema de autopsia permite a los jugadores investigar cuerpos para descubrir pistas sobre la narrativa, mientras que los diálogos con jefes crean momentos de tensión narrativa donde las decisiones del jugador tienen consecuencias reales.</p>
-                <p>Cada sistema fue diseñado para reforzar el tema central del juego: el valor de la vida humana en un mundo al borde del colapso.</p>
-              </div>
-
-              <div class="process-step">
-                <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> Documentación</h4>
-                <p>Creé documentación exhaustiva que incluye el Game Design Document principal, documentos específicos de sistemas, tablas de balanceo para las mecánicas de investigación y diagramas de flujo para los árboles de decisión narrativos.</p>
-                <p>Esta documentación fue crucial para mantener la coherencia del proyecto y facilitar la comunicación entre el equipo de desarrollo.</p>
-              </div>
-
-              <div class="process-step">
-                <h4><i class="fas fa-project-diagram" aria-hidden="true"></i> Narrativa y Worldbuilding</h4>
-                <p>Desarrollé el worldbuilding del universo post-apocalíptico, incluyendo la historia del colapso, las facciones supervivientes y los personajes principales. Cada personaje fue diseñado con motivaciones complejas y arcos de desarrollo que se entrelazan con las mecánicas del juego.</p>
-                <p>La narrativa se estructura de forma no lineal, permitiendo múltiples rutas y finales según las decisiones del jugador.</p>
-              </div>
-
-              <div class="project-gallery">
-                <div class="gif-container">
-                  <img src="images/Diálogos-Jefes.gif"
-                       alt="Sistema de diálogos con jefes de Postmortalis"
-                       class="project-gif"
-                       loading="lazy"
-                       width="400"
-                       height="225"
-                       onerror="this.src='https://via.placeholder.com/400x225/1F4D5B/DBE9D1?text=Dialogos+Jefes'">
-                  <p>Sistema de diálogos con jefes</p>
-                </div>
-                <div class="gif-container">
-                  <img src="images/Debilidades.gif"
-                       alt="Sistema de investigación de Postmortalis"
-                       class="project-gif"
-                       loading="lazy"
-                       width="400"
-                       height="225"
-                       onerror="this.src='https://via.placeholder.com/400x225/1F4D5B/DBE9D1?text=Sistema+Investigacion'">
-                  <p>Mecánica de investigación y pistas</p>
+                <div class="highlight-item">
+                  <strong>1</strong>
+                  <span>Vertical Slice Narrativo</span>
                 </div>
               </div>
             </div>

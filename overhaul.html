@@ -21,13 +21,12 @@
     rel="stylesheet">
 </head>
 
-<body class="is-preload">
+<body class="is-preload" data-theme="dark">
   <div id="page-wrapper">
     <header id="header" role="banner">
       <h1><a href="index.html">PAULO MARQUES</a></h1>
       <nav aria-label="Navegación principal" class="nav-centered">
         <a href="index.html">Inicio</a>
-        <a href="index.html#proyectos-destacados" class="active">Proyectos Destacados</a>
         <a href="about.html">Sobre Mí</a>
         <a href="about.html#contacto">Contacto</a>
       </nav>
@@ -35,12 +34,8 @@
       <div class="header-controls">
         <div class="language-switcher">
           <a href="overhaul.html" class="lang-btn active" aria-label="Español">ES</a>
-          <a href="en-proyectos.html#overhaul" class="lang-btn" aria-label="English">EN</a>
+          <a href="en-overhaul.html" class="lang-btn" aria-label="English">EN</a>
         </div>
-        <button class="theme-toggle" type="button" data-label-light="Cambiar a modo oscuro"
-          data-label-dark="Cambiar a modo claro" aria-label="Cambiar tema" title="Cambiar tema">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
       </div>
 
       <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Abrir menú de navegación">
@@ -50,7 +45,6 @@
 
     <nav class="mobile-menu" aria-label="Menú móvil">
       <a href="index.html">Inicio</a>
-      <a href="index.html#proyectos-destacados" class="active">Proyectos Destacados</a>
       <a href="about.html">Sobre Mí</a>
       <a href="about.html#contacto">Contacto</a>
     </nav>
@@ -62,23 +56,31 @@
         <nav class="sidebar-nav">
           <a href="#overhaul" class="sidebar-link">
             <i class="fas fa-gamepad"></i>
-            Proyecto
+            Desglose
           </a>
-          <a href="#overhaul-contribuciones" class="sidebar-link">
-            <i class="fas fa-star"></i>
-            Contribuciones Clave
+          <a href="#overhaul-resumen" class="sidebar-link">
+            <i class="fas fa-align-left"></i>
+            Resumen
           </a>
-          <a href="#overhaul-herramientas" class="sidebar-link">
-            <i class="fas fa-tools"></i>
-            Herramientas
+          <a href="#overhaul-equipo" class="sidebar-link">
+            <i class="fas fa-users"></i>
+            Equipo
+          </a>
+          <a href="#overhaul-mi-rol" class="sidebar-link">
+            <i class="fas fa-user-check"></i>
+            Mi Rol
+          </a>
+          <a href="#overhaul-objetivo" class="sidebar-link">
+            <i class="fas fa-bullseye"></i>
+            Objetivo del Proyecto
+          </a>
+          <a href="#overhaul-diseno" class="sidebar-link">
+            <i class="fas fa-pencil-ruler"></i>
+            Diseño
           </a>
           <a href="#overhaul-logros" class="sidebar-link">
             <i class="fas fa-trophy"></i>
             Logros Destacados
-          </a>
-          <a href="#overhaul-process" class="sidebar-link">
-            <i class="fas fa-cogs"></i>
-            Proceso de Desarrollo
           </a>
         </nav>
       </div>
@@ -142,7 +144,7 @@
                   Completado
                 </span>
               </div>
-              <h3>Overhaul</h3>
+              <h3>Overhaul - Desglose del Proyecto</h3>
               <div class="project-roles">
                 <span class="role-tag">Diseñador de Juego</span>
                 <span class="role-tag">Escritor</span>
@@ -153,26 +155,51 @@
           </div>
 
           <div class="project-content">
-            <div class="project-description" id="overhaul-contribuciones">
-              <h4><i class="fas fa-star" aria-hidden="true"></i> Contribuciones Clave</h4>
+            <div class="project-description" id="overhaul-resumen">
+              <h4><i class="fas fa-align-left" aria-hidden="true"></i> Resumen</h4>
               <ul>
-                <li><strong>Diseño Narrativo:</strong> Creación de la historia principal, arcos de personajes y sistema de exposición narrativa integrado con el gameplay</li>
-                <li><strong>Sistema de Diálogos:</strong> Diseño e implementación del sistema de diálogos con ramificaciones y consecuencias en la narrativa</li>
-                <li><strong>Mecánica de Downgrades:</strong> Diseño de la mecánica principal donde el jugador pierde habilidades progresivamente, vinculando narrativa con gameplay</li>
-                <li><strong>Integración Narrativa-Mecánica:</strong> Aseguré que cada elemento mecánico reforzara los temas narrativos del juego</li>
-                <li><strong>Documentación de Diseño:</strong> Creación del Game Design Document completo con especificaciones de sistemas, balanceo y progresión</li>
+                <li><strong>Contexto:</strong> Overhaul fue desarrollado entre febrero y junio de 2024 como un proyecto de diseño enfocado en unir combate hack & slash con progresión narrativa.</li>
+                <li><strong>Concepto Central:</strong> El juego propone una progresión inversa mediante el sistema de Downgrades, donde perder poder también tiene un impacto narrativo.</li>
+                <li><strong>Marco de Producción:</strong> Se trabajó con ciclos cortos de iteración para validar combate, ritmo narrativo y claridad de objetivos en cada build.</li>
               </ul>
             </div>
 
-            <div class="project-tools" id="overhaul-herramientas">
-              <h4><i class="fas fa-tools" aria-hidden="true"></i> Herramientas Utilizadas</h4>
-              <div class="tool-tags">
-                <span class="tool-tag">Unity</span>
-                <span class="tool-tag">Google Docs</span>
-                <span class="tool-tag">C#</span>
-                <span class="tool-tag">Trello</span>
-                <span class="tool-tag">Git</span>
-              </div>
+            <div class="project-description" id="overhaul-equipo">
+              <h4><i class="fas fa-users" aria-hidden="true"></i> Equipo</h4>
+              <ul>
+                <li><strong>Tamaño del equipo:</strong> 5 personas en núcleo de producción.</li>
+                <li><strong>Roles involucrados:</strong> Game Design, Programación, Arte 2D/3D, Animación y QA interno.</li>
+                <li><strong>Coordinación:</strong> Se realizaron revisiones semanales para alinear narrativa, sistemas de combate y prioridad de tareas.</li>
+              </ul>
+            </div>
+
+            <div class="project-description" id="overhaul-mi-rol">
+              <h4><i class="fas fa-user-check" aria-hidden="true"></i> Mi Rol</h4>
+              <ul>
+                <li><strong>Diseñador de Juego:</strong> Definí los sistemas de combate, reglas de progresión y la lógica principal del sistema de Downgrades.</li>
+                <li><strong>Diseñador Narrativo:</strong> Escribí la historia principal, arcos de personajes y diálogos con impacto en gameplay.</li>
+                <li><strong>Documentación:</strong> Consolidé la documentación de diseño (GDD, tablas y flujo de decisiones) para mantener consistencia entre áreas.</li>
+              </ul>
+            </div>
+
+            <div class="project-description" id="overhaul-objetivo">
+              <h4><i class="fas fa-bullseye" aria-hidden="true"></i> Objetivo del Proyecto</h4>
+              <ul>
+                <li><strong>Diseño de Experiencia:</strong> Crear un sistema de combate modular que fuera profundo, legible y adaptable a distintos estilos de jugador.</li>
+                <li><strong>Objetivo Narrativo:</strong> Lograr que la historia justificara cada cambio mecánico, especialmente la pérdida progresiva de habilidades.</li>
+                <li><strong>Objetivo de Producción:</strong> Entregar un vertical slice sólido con identidad mecánica y narrativa clara para evaluación académica y muestra pública.</li>
+              </ul>
+            </div>
+
+            <div class="project-description" id="overhaul-diseno">
+              <h4><i class="fas fa-pencil-ruler" aria-hidden="true"></i> Diseño</h4>
+              <ul>
+                <li><strong>Sistema de Combate:</strong> Diseño de estilos de arma con diferencias de ritmo, alcance y consumo de recursos.</li>
+                <li><strong>Downgrades:</strong> Implementación conceptual de progresión inversa como eje mecánico y emocional del jugador.</li>
+                <li><strong>Diálogos y Consecuencia:</strong> Estructura de conversaciones con decisiones que modifican percepción de personajes y contexto de misión.</li>
+                <li><strong>Balanceo:</strong> Definición de tablas de daño y tiempos de recuperación para mantener reto justo durante la pérdida de poder.</li>
+                <li><strong>UX de Combate:</strong> Ajuste de feedback visual y lectura de estados para mejorar claridad durante enfrentamientos intensos.</li>
+              </ul>
             </div>
 
             <div class="project-highlights" id="overhaul-logros">
@@ -183,66 +210,16 @@
                   <span>Premio Chile Diseña</span>
                 </div>
                 <div class="highlight-item">
-                  <strong>3</strong>
-                  <span>Meses de Desarrollo</span>
+                  <strong>5</strong>
+                  <span>Integrantes Coordinados</span>
                 </div>
                 <div class="highlight-item">
                   <strong>100%</strong>
                   <span>Completado</span>
                 </div>
-              </div>
-            </div>
-
-            <div class="development-process show" id="overhaul-process" aria-hidden="false">
-              <div class="process-step">
-                <h4><i class="fas fa-bullseye" aria-hidden="true"></i> Objetivo del Proyecto</h4>
-                <p>Crear un sistema de combate que permitiera personalización profunda sin abrumar al jugador, donde cada estilo de arma modificara sustancialmente la experiencia. Al mismo tiempo, la narrativa debía justificar y reforzar las mecánicas de juego.</p>
-                <p>El concepto de "Downgrades" surgió como una forma de subvertir las expectativas del género hack & slash, donde normalmente el jugador se vuelve más poderoso.</p>
-              </div>
-
-              <div class="process-step">
-                <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> Concepto Inicial</h4>
-                <p>Inspirado en juegos clásicos de acción como Devil May Cry, pero con énfasis en combos fluidos entre estilos y una narrativa que se degradaba junto con las habilidades del jugador. El prototipo inicial usaba placeholders en Unity para probar la viabilidad técnica del sistema de combate modular.</p>
-              </div>
-
-              <div class="process-step">
-                <h4><i class="fas fa-project-diagram" aria-hidden="true"></i> Diseño de Sistemas</h4>
-                <p>Documenté las mecánicas clave en un GDD modular, incluyendo:</p>
-                <ul>
-                  <li>Tablas de daño y escalado para cada arma y habilidad</li>
-                  <li>Requisitos de recursos para habilidades especiales</li>
-                  <li>Sistema de interacción entre diferentes estilos de combate</li>
-                  <li>Curva de progresión inversa (Downgrades)</li>
-                  <li>Integración de mecánicas con beats narrativos</li>
-                </ul>
-              </div>
-
-              <div class="process-step">
-                <h4><i class="fas fa-book" aria-hidden="true"></i> Integración Narrativa</h4>
-                <p>Las armas modulares se vincularon a la historia como fragmentos de una reliquia ancestral, justificando mecánicamente su poder y personalización. A medida que la narrativa avanza, el jugador pierde acceso a estas habilidades, reflejando la degradación del protagonista tanto física como emocionalmente.</p>
-                <p>Los diálogos y cinemáticas fueron diseñados para activarse en momentos específicos del gameplay, creando una experiencia narrativa cohesiva.</p>
-              </div>
-
-              <div class="project-gallery">
-                <div class="gif-container">
-                  <img src="images/Diálogos-Jefes.gif"
-                       alt="Sistema de combate de Overhaul"
-                       class="project-gif"
-                       loading="lazy"
-                       width="400"
-                       height="225"
-                       onerror="this.src='https://via.placeholder.com/400x225/1F4D5B/DBE9D1?text=Combate'">
-                  <p>Transición fluida entre estilos de combate</p>
-                </div>
-                <div class="gif-container">
-                  <img src="images/Debilidades.gif"
-                       alt="Sistema de Downgrades de Overhaul"
-                       class="project-gif"
-                       loading="lazy"
-                       width="400"
-                       height="225"
-                       onerror="this.src='https://via.placeholder.com/400x225/1F4D5B/DBE9D1?text=Downgrades'">
-                  <p>Sistema de Downgrades en acción</p>
+                <div class="highlight-item">
+                  <strong>1</strong>
+                  <span>Vertical Slice Funcional</span>
                 </div>
               </div>
             </div>

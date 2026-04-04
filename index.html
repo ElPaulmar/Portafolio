@@ -57,14 +57,13 @@
   </script>
 </head>
 
-<body class="is-preload">
+<body class="is-preload" data-theme="dark">
   <div id="page-wrapper">
     <!-- Header centrado -->
     <header id="header" class="alt" role="banner">
       <h1><a href="index.html">PAULO MARQUES</a></h1>
       <nav aria-label="Navegación principal" class="nav-centered">
         <a href="index.html" class="active">Inicio</a>
-        <a href="#proyectos-destacados">Proyectos Destacados</a>
         <a href="about.html">Sobre Mí</a>
         <a href="about.html#contacto">Contacto</a>
       </nav>
@@ -75,10 +74,6 @@
           <a href="index.html" class="lang-btn active" aria-label="Español">ES</a>
           <a href="en-index.html" class="lang-btn" aria-label="English">EN</a>
         </div>
-        <button class="theme-toggle" type="button" data-label-light="Cambiar a modo oscuro"
-          data-label-dark="Cambiar a modo claro" aria-label="Cambiar tema" title="Cambiar tema">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </button>
       </div>
       
       <!-- Botón hamburguesa para móvil -->
@@ -90,7 +85,6 @@
     <!-- Menú móvil -->
     <nav class="mobile-menu" aria-label="Menú móvil">
       <a href="index.html" class="active">Inicio</a>
-      <a href="#proyectos-destacados">Proyectos Destacados</a>
       <a href="about.html">Sobre Mí</a>
       <a href="about.html#contacto">Contacto</a>
     </nav>
@@ -169,7 +163,7 @@
         <p class="section-subtitle slide-up">Mis proyectos de mayor reconocimiento</p>
 
         <!-- Postmortalis -->
-        <article class="project-card slide-up project-featured">
+        <a href="postmortalis.html" class="project-card slide-up project-featured" style="text-decoration: none; color: inherit;">
           <div class="project-featured-info">
             <h3>Postmortalis</h3>
             <p class="project-summary">Una novela visual experimental acerca del valor de la vida durante el fin del mundo.</p>
@@ -178,12 +172,6 @@
               <li><strong>Duración:</strong> 11 meses (2025)</li>
               <li><strong>Género:</strong> Novela Visual | PC</li>
             </ul>
-            <div class="project-actions">
-              <a href="postmortalis.html" class="button primary with-icon">
-                <i class="fas fa-info-circle" aria-hidden="true"></i>
-                Ver proyecto
-              </a>
-            </div>
           </div>
           <div class="project-featured-image">
             <img src="images/portada-postmortalis.jpg"
@@ -192,10 +180,10 @@
                  loading="lazy"
                  onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=Postmortalis'">
           </div>
-        </article>
+        </a>
 
         <!-- PlayMe Studio -->
-        <article class="project-card slide-up project-featured">
+        <a href="playme-studio.html" class="project-card slide-up project-featured" style="text-decoration: none; color: inherit;">
           <div class="project-featured-info">
             <h3>PlayMe Studio</h3>
             <p class="project-summary">Práctica profesional de 490 horas trabajando en diseño y QA de videojuegos.</p>
@@ -204,12 +192,6 @@
               <li><strong>Duración:</strong> 3 meses (2025)</li>
               <li><strong>Género:</strong> Práctica Profesional</li>
             </ul>
-            <div class="project-actions">
-              <a href="playme-studio.html" class="button primary with-icon">
-                <i class="fas fa-info-circle" aria-hidden="true"></i>
-                Ver proyecto
-              </a>
-            </div>
           </div>
           <div class="project-featured-image">
             <img src="images/playme.jpeg"
@@ -218,10 +200,10 @@
                  loading="lazy"
                  onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=PlayMe+Studio'">
           </div>
-        </article>
+        </a>
 
         <!-- Overhaul -->
-        <article class="project-card slide-up project-featured">
+        <a href="overhaul.html" class="project-card slide-up project-featured" style="text-decoration: none; color: inherit;">
           <div class="project-featured-info">
             <h3>Overhaul</h3>
             <p class="project-summary">Un hack & slash con enfoque roguelike y narrativa original, ganador en Chile Diseño.</p>
@@ -230,12 +212,6 @@
               <li><strong>Duración:</strong> 3 meses (2024)</li>
               <li><strong>Género:</strong> Hack & Slash | PC</li>
             </ul>
-            <div class="project-actions">
-              <a href="overhaul.html" class="button primary with-icon">
-                <i class="fas fa-info-circle" aria-hidden="true"></i>
-                Ver proyecto
-              </a>
-            </div>
           </div>
           <div class="project-featured-image">
               <img src="images/título-overhaul.png"
@@ -244,7 +220,7 @@
                  loading="lazy"
                  onerror="this.src='https://via.placeholder.com/600x340/1F4D5B/DBE9D1?text=Overhaul'">
           </div>
-        </article>
+        </a>
       </div>
     </section>
 
