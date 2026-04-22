@@ -4,6 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      var path = window.location.pathname;
+      var isRootRequest = path.endsWith('/');
+      if (isRootRequest) {
+        window.location.replace('en-index.html');
+      }
+    })();
+  </script>
   <title>Paulo Marques | Diseñador de Juegos</title>
   <meta name="description"
     content="Portafolio profesional de Paulo Marques, diseñador de juegos especializado en narrativas interactivas y mecánicas innovadoras">
