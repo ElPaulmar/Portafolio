@@ -2486,6 +2486,12 @@ textarea:valid:not(:focus):not(:placeholder-shown) {
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
 }
 
+.hero-content-clean .hero-name-large {
+  font-size: clamp(3.5rem, 10vw, 6.5rem);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+
 .hero-content-clean .subtitle {
   color: var(--accent-color);
   font-weight: 700;
